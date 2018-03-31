@@ -1,1 +1,3 @@
-Mandelbrot1
+# Mandelbrot1
+
+Creates zoomable mandelbrot set.

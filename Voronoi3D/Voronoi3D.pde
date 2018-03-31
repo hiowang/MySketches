@@ -1,7 +1,7 @@
 
 void setup() {
-  //size(500,500);
-  fullScreen();
+  size(500,500);
+  //fullScreen();
   for(int x=0;x<1000;x++){
     points.add(new PVector(random(width),random(height),random(5000)));
   }
@@ -9,7 +9,7 @@ void setup() {
 
 float z=0;
 float shortestDist,d;
-float s=10;
+float s=4;
 void draw() {
   background(0);
   z+=10;

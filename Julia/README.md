@@ -1,1 +1,3 @@
-Julia
+# Julia
+
+Creates zoomable julia set.

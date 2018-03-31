@@ -33,8 +33,8 @@ class Circle{
     lineAlpha=1;
     fill(100,100,255,alpha);
     noStroke();
-    rect(center.x,center.y,rad,rad);
-    //ellipse(center.x,center.y,rad,rad);
+    //rect(center.x,center.y,rad,rad);
+    ellipse(center.x,center.y,rad,rad);
   }
 }
 ArrayList<Circle> circs=new ArrayList<Circle>();
