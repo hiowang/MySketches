@@ -130,6 +130,7 @@ void setup(){
   //img.loadPixels();
   img=loadImage("ZoeBackgroundMin1.jpg");
   doInit();
+  frameRate(1000);
 }
 void mousePressed(){
   doInit();
@@ -151,11 +152,11 @@ void draw(){
     t.display();
     t.update();
   }
-  for(int i=0;i<1;i++){
+  for(int i=0;i<10;i++){
     //if(random(100)<0.1)
-    addThing(new ThingRect());
+    //addThing(new ThingRect());
     //else
-      //addThing(new ThingCircle());
+      addThing(new ThingCircle());
   }
 }
 ArrayList<Thing>things;
