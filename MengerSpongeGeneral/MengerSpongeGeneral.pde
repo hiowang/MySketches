@@ -6,12 +6,12 @@ void setup() {
   float ss=125;
   boxes.add(new Box(-ss/2, -ss/2, -ss/2, ss));
   initGrids();
-  //grid=gridMengerSponge;
+  grid=gridMengerSponge;
   //grid=gridMengerSpiky;
   //grid=gridMengerSnowflake;
   //grid=gridRemEdges;
   //grid=gridRemCorners;
-  grid=gridLeaveEdges;
+  //grid=gridLeaveEdges;
 }
 void mousePressed() {
   iterate();
@@ -127,7 +127,10 @@ class Box {
     //color col=color(val,20,75);
     color col=color(val, 100, 100);
     colorMode(RGB, 255);
+    //col=color(200,100);
     fill(col);
+    //fill(200,20);
+    stroke(col);
     //fill(0);
     pushMatrix();
     rotateX(rotX);
@@ -136,6 +139,7 @@ class Box {
     translate(pos.x+size/2, pos.y+size/2, pos.z+size/2);
     //sphereDetail(5);
     //sphere(size);
+    scale(0.9);
     box(size);
     popMatrix();
   }
