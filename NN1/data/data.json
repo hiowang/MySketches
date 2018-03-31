@@ -1,0 +1,25 @@
+{
+  "numLayers": 1,
+  "numInputs": 2,
+  "layers": [{
+    "neurons": [{
+      "offset": 0,
+      "weights": [
+        -1.0030252933502197,
+        1.0031760931015015
+      ]
+    }],
+    "n": 1,
+    "pn": 2
+  }],
+  "outputLayer": {
+    "neurons": [{
+      "offset": 0,
+      "weights": [-0.9973021149635315]
+    }],
+    "n": 1,
+    "pn": 1
+  },
+  "numOutput": 1,
+  "numHidden": 1
+}
