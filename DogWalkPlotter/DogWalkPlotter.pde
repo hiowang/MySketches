@@ -7,7 +7,7 @@ float max;
 String[]strs;
 void setup(){
   size(600,255);
-  strs=loadStrings("../../../MyLogs/DogWalking.txt");
+  strs=loadStrings("../../../../MyLogs/DogWalking.txt");
   //String[]strs=loadStrings("~/Documents/MyLogs/DogWalking.txt");
   pixelDensity(2);
   days=new Day[strs.length];
