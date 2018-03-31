@@ -54,8 +54,10 @@ void doUpdate(){
   }
   oldLines=lines;
   lines=newLines;
-  variance*=0.5;
+  variance*=dv;
+  dv*=0.8;
 }
+float dv=0.8;
 void doInit(){
   lines=new ArrayList<Line>();
   oldLines=new ArrayList<Line>();
