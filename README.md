@@ -2,9 +2,13 @@
 
 All my processing sketches.
 
+I try to have `README.md` files in all repositories.
+Email me at `mackycheese21@gmail.com` if you want a more detailed `README.md`
+for any repository.
+
 Having all of them in 1 repository is easier than having 65 different repositories.
 
-Most of them use this syntax:
+Most of them use this structure:
 
 ```processing
 
