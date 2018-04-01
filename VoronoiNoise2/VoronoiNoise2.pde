@@ -22,7 +22,7 @@ void initPoints(){
   points=new ArrayList<PVector>();
   cols=new ArrayList<Integer>();
   for(int i=0;i<numPoints;i++){
-    addPoint(random(width),random(height));
+    //addPoint(random(width),random(height));
     //float b=map(i,0,numPoints,0,TWO_PI);
     //addPoint(new PVector(width/2,height/2).add(new PVector(cos(b)*a,sin(b)*a)));
   }
