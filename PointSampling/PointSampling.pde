@@ -21,7 +21,7 @@ void doInit(){
   drawn=false;
   points.clear();
   cols.clear();
-  for(int i=0;i<200;i++){//40
+  for(int i=0;i<250;i++){//40
     addPoint(new PVector(random(width),random(height)));
   }
   //while(iterate()>10){

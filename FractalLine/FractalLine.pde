@@ -11,13 +11,18 @@ class Line{
     if(old)stroke(100);
     else stroke(255);
     line(sx,sy,ex,ey);
+    stroke(255);
+    if(abs(sx-ex)<10)return;
+    line(sx,sy-5,sx,sy+5);
+    line(ex,ey-5,ex,ey+5);
   }
 }
 ArrayList<Line>lines;
 ArrayList<Line>oldLines;
 void setup(){
-  size(1700,700);
+  size(1700,800);
   doInit();
+  textFont(loadFont("Monospaced-20.vlw"));
 }
 void draw(){
   background(50);
@@ -27,20 +32,31 @@ void draw(){
   for(Line l:lines){
     l.display(false);
   }
+  textAlign(LEFT,TOP);
+  fill(255);
+  stroke(255);
+  text("Total difference: "+nfs(totalDiff,3,1),2,2);
 }
 void mousePressed(){
   doUpdate();
 }
 float variance=300;
 float getRand(){
-  return random(-variance,variance);
+  float val=random(-variance,variance);
+  val*=10;
+  val=int(val);
+  val/=10.0;
+  return val;
 }
+float totalDiff=0;
 void doUpdate(){
+  totalDiff=0;
   oldLines.clear();
   ArrayList<Line>newLines=new ArrayList<Line>();
   for(int i=0;i<lines.size();i++){
     Line l=lines.get(i);
     float rand=getRand();
+    totalDiff+=rand;
     //(sx,sy)-(ex,ey)
     //(sx,sy)-(sx/2+ex/2,ey+rand)
     //(sx/2+ex/2,sy+rand)-(ex,ey)
