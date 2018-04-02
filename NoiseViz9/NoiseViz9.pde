@@ -1,16 +1,17 @@
 void setup() {
-  size(1000,1000);
+  size(150,150);
   //fullScreen();
   //pixelDensity(2);
+  textFont(loadFont("Monospaced-20.vlw"));
 }
 boolean drawn=false;
 float a=0;
 void draw(){
   //if(!drawn)drawn=true;
   //else return;
-  float d=10;
+  float d=4;
   float zoom=0.001;
-  a+=0.01;
+  a+=0.001;
   for (int x=0; x<width; x+=d) {
     for (int y=0; y<height; y+=d) {
       float r=ridgeO(zoom*x+100,zoom*y+100,a)*255;
@@ -28,6 +29,10 @@ void draw(){
       rect(x,y,d,d);
     }
   }
+  fill(255);
+  stroke(255);
+  textAlign(LEFT,TOP);
+  text(""+frameRate,2,2);
 }
 boolean hsb=false;
 void keyPressed(){

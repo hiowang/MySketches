@@ -59,7 +59,7 @@ void draw() {
   background(100);
   rot+=0.01;
   //eye is where the camera is
-  float eyex=400*zoom;
+  float eyex=800*zoom;
   float eyey=-500*zoom;
   float eyez=0;
   //center is where the camera is looking
@@ -73,7 +73,7 @@ void draw() {
   camera(eyex, eyey, eyez, centerx, centery, centerz, upx, upy, upz);
   //ortho(-width/2, width/2, -height/2, height/2);
   float cameraZ=((height/2.0) / tan(PI*60.0/360.0));
-  perspective(PI/3.0, width/height, cameraZ/10.0, 100000);
+  perspective(PI/3.0, width/height, cameraZ/10.0, 10000000);
   rotateY(rot);
   ambientLight(50, 50, 50);
   float lum=100;
@@ -100,13 +100,14 @@ void doPointLight(float x, float y, float z, float l) {
   //popMatrix();
   pointLight(l, l, l, x, y, z);
 }
-float worldSize=5000;
+float worldSize=40000;
 void doInit() {
   rects=new ArrayList<Rect>();
   dv=0.7;
-  variance=10000;
+  variance=30000;
   float r=worldSize;
   float a=10000;
+  //float a=0;
   float rand1=getRand(a);
   float rand2=getRand(a);
   float rand3=getRand(a);

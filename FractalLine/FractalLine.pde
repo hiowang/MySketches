@@ -20,7 +20,7 @@ class Line{
 ArrayList<Line>lines;
 ArrayList<Line>oldLines;
 void setup(){
-  size(1700,800);
+  size(300,100);
   doInit();
   textFont(loadFont("Monospaced-20.vlw"));
 }
@@ -32,15 +32,18 @@ void draw(){
   for(Line l:lines){
     l.display(false);
   }
-  textAlign(LEFT,TOP);
-  fill(255);
-  stroke(255);
-  text("Total difference: "+nfs(totalDiff,3,1),2,2);
+  //textAlign(LEFT,TOP);
+  //fill(255);
+  //stroke(255);
+  //text("Total difference: "+nfs(totalDiff,3,1),2,2);
 }
 void mousePressed(){
   doUpdate();
 }
-float variance=300;
+void keyPressed(){
+  if(key==' ')doInit();
+}
+float variance;
 float getRand(){
   float val=random(-variance,variance);
   val*=10;
@@ -73,10 +76,15 @@ void doUpdate(){
   variance*=dv;
   dv*=0.8;
 }
-float dv=0.8;
+float dv;
 void doInit(){
   lines=new ArrayList<Line>();
   oldLines=new ArrayList<Line>();
-  lines.add(new Line(0,height/2,width/2,height/2));
-  lines.add(new Line(width/2,height/2,width,height/2));
+  dv=0.8;
+  variance=30;
+  float r1=getRand();
+  float r2=getRand();
+  float r3=getRand();
+  lines.add(new Line(0,r1+height/2,width/2,r2+height/2));
+  lines.add(new Line(width/2,r2+height/2,width,r3+height/2));
 }
