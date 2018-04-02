@@ -44,6 +44,9 @@ class Predator{
     if(this.npos.y<0)this.npos.y=height-10;
     if(this.npos.x>width)this.npos.x=10;
     if(this.npos.y>height)this.npos.y=10;
+    float rand=predRandom;
+    if(num>3)rand=0;
+    this.nacc=this.acc.add(getRandom().mult(rand));
   }
   void applyUpdate(){
     pos=npos.copy();
@@ -170,6 +173,7 @@ PFont font;
 float predSeeDist=50;
 float predAttack=1;
 float predMaxVel=10;
+float predRandom=1;
 
 float boidSeePredDist=50;
 float boidRunFromPred=0.25;
