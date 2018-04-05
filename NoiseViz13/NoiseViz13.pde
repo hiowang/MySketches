@@ -1,17 +1,24 @@
 void setup() {
   size(1000, 1000);
-  background(255);
+  doInit();
+}
+void doInit(){
+  background(0);
   osn=new OpenSimplexNoise((long)(Math.random()*Long.MAX_VALUE));
-  for (int i=0; i<200; i++) {
+  things=new ArrayList<Thing>();
+  for (int i=0; i<1000; i++) {
     things.add(new Thing());
   }
+}
+void mousePressed(){
+  doInit();
 }
 PVector mouse;
 void draw() {
   mouse=new PVector(mouseX, mouseY);
   //ellipse(mouse.x,mouse.y,10,10);
   for (Thing t : things) {
-    for (int i=0; i<1000; i++) {
+    for (int i=0; i<5; i++) {
       t.update();
       t.display();
     }
@@ -37,8 +44,9 @@ class Thing {
     pos.x+=vel.x;
     pos.y+=vel.y;
     //if(pos.mag()>100){
-    //vel.x/=0.5;
-    //vel.y/=0.5;
+      //scale=lerp(scale,-1,1);
+      //vel.x/=0.5;
+      //vel.y/=0.5;
     //}
     //acc=acc.add(mouse.mult(1));
     //vel=vel.add(acc);
@@ -46,9 +54,10 @@ class Thing {
   }
   void display() {
     color col=color(noise(pos.x, pos.y)*255/2+255/2);
+    //col=color(255);
     fill(col);
     noStroke();
-    //ellipse(pos.x,pos.y,10,10);
+    //ellipse(pos.x+width/2,pos.y+height/2,10,10);
     set(int(pos.x)+width/2, int(pos.y)+height/2, col);
   }
 }
