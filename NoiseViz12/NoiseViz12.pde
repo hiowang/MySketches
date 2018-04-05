@@ -16,8 +16,6 @@ void draw(){
       color col=color(n*50+50,100,100);
       if(abs(xmi-n)+abs(xpl-n)+abs(ymi-n)+abs(ypl-n)<0.25)doit(d,x,y,col);
       else doit(d,x,y,0);
-      int i=int(n*100);
-      //float xmi=ca
     }
   }
 }
