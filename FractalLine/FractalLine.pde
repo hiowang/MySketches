@@ -20,7 +20,8 @@ class Line{
 ArrayList<Line>lines;
 ArrayList<Line>oldLines;
 void setup(){
-  size(300,100);
+  //size(300,100);
+  fullScreen();
   doInit();
   textFont(loadFont("Monospaced-20.vlw"));
 }
@@ -81,7 +82,7 @@ void doInit(){
   lines=new ArrayList<Line>();
   oldLines=new ArrayList<Line>();
   dv=0.8;
-  variance=30;
+  variance=300;
   float r1=getRand();
   float r2=getRand();
   float r3=getRand();

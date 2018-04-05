@@ -1,6 +1,6 @@
 float predFunc(float numBoids){
   //\frac{e^{\left(x-10\right)}}{20000}+1
-  return exp(numBoids)/20000;
+  return exp(numBoids-3);
 }
 int totalID=0;
 class Predator{
@@ -180,7 +180,7 @@ float boidRunFromPred=0.25;
 float boidAlignDist=50;
 float boidAttractDist=50;
 float boidRepelDist=10;
-float boidRepel=0.1;
+float boidRepel=0.25;
 float boidCenterOfMass=0.01;//position
 float boidPVel=0.05;
 float boidRandom=0.01;
@@ -196,11 +196,11 @@ void setup(){
 void doInit(){
   boids=new ArrayList<Boid>();
   preds=new ArrayList<Predator>();
-  for(int i=0;i<750;i++){
+  for(int i=0;i<1250;i++){
     boids.add(new Boid());
   }
 }
-void mousePressed(){
+void keyPressed(){
   for(int i=0;i<1;i++){
     preds.add(new Predator());
   }

@@ -17,7 +17,7 @@ void setup() {
 Network newNet() {
   int numInputs=2;
   int numLayers=1;
-  int numHidden=1;
+  int numHidden=3;
   int numOutputs=1;
   return new Network(numInputs, numLayers, numHidden, numOutputs);
 }
@@ -30,7 +30,7 @@ float checkNetwork(Network nn, boolean printResults) {
   int num=0;
   for (int x=0; x<20; x++) {
     for (int y=0; y<20; y++) {
-      Result result=two2one(x,y,x-y);
+      Result result=two2one(x,y,x*y);
       error+=nn.checkResult(result);
       num++;
     }

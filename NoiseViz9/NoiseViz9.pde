@@ -1,64 +1,28 @@
 void setup() {
-  size(150,150);
-  //fullScreen();
-  //pixelDensity(2);
-  textFont(loadFont("Monospaced-20.vlw"));
+  size(1000, 1000);
+  background(21, 8, 50);
+  doInit();
 }
-boolean drawn=false;
-float a=0;
-void draw(){
-  //if(!drawn)drawn=true;
-  //else return;
-  float d=4;
-  float zoom=0.001;
-  a+=0.001;
-  for (int x=0; x<width; x+=d) {
-    for (int y=0; y<height; y+=d) {
-      float r=ridgeO(zoom*x+100,zoom*y+100,a)*255;
-      float g=ridgeO(zoom*x+0,zoom*y+200,a)*255;
-      float b=ridgeO(zoom*x-100,zoom*y+300,a)*255;
-      color col=color(r,g,b);
-      if(hsb){
-        colorMode(HSB,255);
-        col=color(r,g,b);
-        colorMode(RGB,255);
-      }
-      //set(x,y,col);
-      fill(col);
-      stroke(col);
-      rect(x,y,d,d);
-    }
-  }
-  fill(255);
-  stroke(255);
-  textAlign(LEFT,TOP);
-  text(""+frameRate,2,2);
+void doInit() {
+  osn=new OpenSimplexNoise();
 }
-boolean hsb=false;
-void keyPressed(){
-  if(key=='h'){
-    hsb=!hsb;
-    drawn=false;
+void mousePressed() {
+  doInit();
+}
+void draw() {
+  smooth();
+  colorMode(HSB,100);
+  for(int i=0;i<100;i++){
+  PVector a=rand();
+  PVector b=PVector.add(a,PVector.random2D().mult(10));
+  stroke(noise(a.x*0.01,a.y*0.01)*100,100,100);
+  line(a.x,a.y,b.x,b.y);
   }
 }
-float ridgeO(float x,float y,float z){
-  return ridge(x,y,z)*0.75+ridge(x*20,y*20,z*5)*0.25;
-  //float amp=4;
-  //float zoom=1;
-  //float tot=0;
-  //for(int o=1;o<2;o++){
-    //tot+=ridge(x*zoom,y*zoom,z)*amp;
-    //amp*=0.5;
-    //zoom*=0.1;
-  //}
-  //return tot/12;
+PVector rand(){
+  return new PVector(random(width),random(height));
 }
-float ridge(float x, float y,float z) {
-  float n=noise(x,y,z);
-  //return 1-2*abs(n-0.5);
-  return n;
-  //n-=0.5;
-  //n=abs(n);
-  //n*=2;
-  //return n;
+OpenSimplexNoise osn;
+float noise(float x, float y) {
+  return (float)osn.eval(x, y);
 }

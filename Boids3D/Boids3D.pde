@@ -1,7 +1,8 @@
 
 float predFunc(float numBoids) {
   //\frac{e^{\left(x-10\right)}}{20000}+1
-  return exp(numBoids+4)/20000;
+  //return exp(numBoids+4)/20000;
+  return 10;
   //return numBoids;
 }
 int totalID=0;
@@ -66,6 +67,7 @@ class Predator {
     fill(200, 0, 0);
     stroke(50);
     pushMatrix();
+    rotateY(rot);
     //translate(xoff,yoff,zoff);
     translate(pos.x, pos.y, pos.z);
     box(10);
@@ -164,6 +166,7 @@ class Boid {
     stroke(50);
     pushMatrix();
     //translate(xoff,yoff,zoff);
+    rotateY(rot);
     translate(pos.x, pos.y, pos.z);
     box(5);
     popMatrix();
@@ -180,14 +183,14 @@ PFont font;
 float predSeeDist=100;
 float predAttack=1;
 float predMaxVel=4;
-float predRandom=0.1;//1
+float predRandom=0;//1
 float predStayInBorders=0.01;
 
 float boidStayInBorders=0.01;
 float boidSeePredDist=80;
 float boidRunFromPred=0.25;
-float boidAlignDist=50;
-float boidAttractDist=50;
+float boidAlignDist=30;
+float boidAttractDist=40;
 float boidRepelDist=20;
 float boidRepel=0.1;
 float boidCenterOfMass=0.01;//position
@@ -209,9 +212,9 @@ void keyPressed() {
   if (key==' ')camType=CamNormal;
   if (key=='p')camType=CamPred;
   if (key=='b')camType=CamPrey;
-  if(key=='d'){
-    if(camType==CamPred){
-      if(preds.size()>0)preds.remove(0);
+  if (key=='d') {
+    if (camType==CamPred) {
+      if (preds.size()>0)preds.remove(0);
     }
   }
 }
@@ -236,26 +239,38 @@ void doInit() {
   }
 }
 //void mousePressed() {
-  //for (int i=0; i<10; i++) {
-    //if(mouseButton==LEFT)preds.add(new Predator());
-    //else boids.add(new Boid());
-  //}
+//for (int i=0; i<10; i++) {
+//if(mouseButton==LEFT)preds.add(new Predator());
+//else boids.add(new Boid());
+//}
 //}
 PVector lerpVec(PVector a, PVector b, float t) {
   return new PVector(lerp(a.x, b.x, t), lerp(a.y, b.y, t), lerp(a.z, b.z, t));
 }
+float rot=0;
 void draw() {
-  if(frameCount%10==0&&mousePressed){
-    if(mouseButton==LEFT)boids.add(new Boid());
-    if(mouseButton==RIGHT)preds.add(new Predator());
+  if (frameCount%10==0&&mousePressed) {
+    if (mouseButton==LEFT)boids.add(new Boid());
+    if (mouseButton==RIGHT)preds.add(new Predator());
   }
   println(camType);
   background(255);
+  float lerpVal=0.01;
   //perspective(PI/3.0,width/height,1,1000);
-  if(camType==CamNormal){
-    targetCamEye=new PVector(-500,-400,-300);
-    targetCamCenter=new PVector(0,0,0);
+  if (camType==CamNormal) {
+    targetCamEye=new PVector(-500, -400, -300);
+    targetCamCenter=new PVector(0, 0, 0);
+    rot+=0.01;
+    rotateY(rot);
+    lerpVal=0.1;
   }
+
+  noFill();
+  stroke(200);
+  pushMatrix();
+  //translate(-xdepth,-ydepth,-zdepth);
+  sphere(xdepth);
+  popMatrix();
   if (camType==CamPrey&&boids.size()>0) {
     //background(100);
     Boid obj=boids.get(0);
@@ -265,7 +280,7 @@ void draw() {
     targetCamEye=PVector.sub(pos, vel.mult(10));
     targetCamCenter=PVector.add(pos, vel.mult(10));
   } else if (camType==CamPred&&preds.size()>0) {
-    background(255,240,240);
+    background(255, 240, 240);
     //background(0);
     Predator obj=preds.get(0);
     PVector pos=obj.pos.copy();
@@ -273,17 +288,18 @@ void draw() {
     if (vel.magSq()<0.1)vel=new PVector(0, 1, 0);
     targetCamEye=PVector.sub(pos, vel.mult(10));
     targetCamCenter=PVector.add(pos, vel.mult(10));
+    lerpVal=0.1;
   }
-  float lerpVal=0.1;
+  lerpVal=1;
   camEye=lerpVec(camEye, targetCamEye, lerpVal);
   camCenter=lerpVec(camCenter, targetCamCenter, lerpVal);
   camera(camEye.x, camEye.y, camEye.z, camCenter.x, camCenter.y, camCenter.z, 0, 1, 0);
-  line(0, 0, 0, xdepth, 0, 0);
-  line(0, 0, 0, 0, ydepth, 0);
-  line(0, 0, 0, 0, 0, zdepth);
-  line(xdepth, ydepth, zdepth, 0, ydepth, zdepth);
-  line(xdepth, ydepth, zdepth, xdepth, 0, zdepth);
-  line(xdepth, ydepth, zdepth, xdepth, ydepth, 0);
+  //line(0, 0, 0, xdepth, 0, 0);
+  //line(0, 0, 0, 0, ydepth, 0);
+  //line(0, 0, 0, 0, 0, zdepth);
+  //line(xdepth, ydepth, zdepth, 0, ydepth, zdepth);
+  //line(xdepth, ydepth, zdepth, xdepth, 0, zdepth);
+  //line(xdepth, ydepth, zdepth, xdepth, ydepth, 0);
   doUpdate();
   for (Boid b : boids) {
     b.display();

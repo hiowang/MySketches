@@ -18,22 +18,49 @@ class Rect {
     else noStroke();
     //strokeWeight(0);
     fill(255);
+    PVector ab=avg(a,b);
+    PVector bc=avg(b,c);
+    PVector cd=avg(c,d);
+    PVector ad=avg(a,d);
+    PVector bd=avg(b,d);
+    PVector center=avg(avg(a,b),avg(c,d));
+    //rect(a,ab,center,ad);
+    //rect(ab,b,bd,center);
+    //rect(a,b,c,d);
+    beginShape();
+    vertex(a,c,d,b);
+    endShape(CLOSE);
     //stroke(0,10);
     //fill(a.y/3-b.y/3-c.y/3-d.y/3);
-    beginShape();
-    vertex(a.x, a.y, a.z);
-    vertex(c.x, c.y, c.z);
-    vertex(d.x, d.y, d.z);
-    endShape(CLOSE);
-    beginShape();
-    vertex(a.x, a.y, a.z);
-    vertex(b.x, b.y, b.z);
-    vertex(d.x, d.y, d.z);
-    endShape(CLOSE);
+    //beginShape();
+    //vertex(a.x, a.y, a.z);
+    //vertex(c.x, c.y, c.z);
+    //vertex(d.x, d.y, d.z);
+    //endShape(CLOSE);
+    //beginShape();
+    //vertex(a.x, a.y, a.z);
+    //vertex(b.x, b.y, b.z);
+    //vertex(d.x, d.y, d.z);
+    //endShape(CLOSE);
   }
   float area() {
     return abs(a.z-b.z)*abs(a.x-c.x);
   }
+}
+void vertex(PVector...p){
+  for(PVector v:p)vertex(v);
+}
+void vertex(PVector p){
+  vertex(p.x,p.y,p.z);
+}
+void rect(PVector c,PVector b,PVector a,PVector d){
+  //a=new PVector(0,0,0);
+  beginShape();
+  vertex(a.x,a.y,a.z);
+  vertex(b.x,b.y,b.z);
+  vertex(c.x,c.y,c.z);
+  vertex(d.x,d.y,d.z);
+  endShape(CLOSE);
 }
 void setup() {
   size(1000, 1000, P3D);
@@ -154,7 +181,7 @@ void doUpdate() {
   }
   rects=newRects;
   variance*=dv;
-  dv*=0.8;
+  dv*=0.5;
   first=false;
 }
 int squareSize=2;

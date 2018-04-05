@@ -12,9 +12,12 @@ Neuron neuronFromJSON(JSONObject obj){
   for(int i=0;i<arr.size();i++){
     n.weights[i]=arr.getFloat(i);
   }
+  n.oper=obj.getInt("oper");
   return n;
 }
 class Neuron {
+  int oper=0;
+  int OP_ADD=0,OP_MULT=1;
   //TODO: is this neseccary?
   JSONObject toJSON(){
     JSONObject obj=new JSONObject();
@@ -22,6 +25,7 @@ class Neuron {
     for(float w:weights)arr.append(w);
     obj.setJSONArray("weights",arr);
     obj.setFloat("offset",offset);
+    obj.setInt("oper",oper);
     return obj;
   }
   float offset=0;
@@ -29,6 +33,7 @@ class Neuron {
   float[]weights;
   protected Neuron(){}
   Neuron(int prevNum) {
+    oper=random(100)<50?OP_ADD:OP_MULT;
     weights=new float[prevNum];
     for (int i=0; i<prevNum; i++) {
       weights[i]=random(-0.5, 0.5);
@@ -37,9 +42,11 @@ class Neuron {
   void calc(Neuron[]lastLayer) {
     value=0;
     for (int i=0; i<lastLayer.length; i++) {
-      value+=weights[i]*lastLayer[i].value;
+      if(oper==OP_ADD)value+=weights[i]*lastLayer[i].value;
+      else value*=weights[i]*lastLayer[i].value;;
     }
     value+=offset;
+    
     value=activationFunction(value);
   }
   Neuron vary(float variance) {
