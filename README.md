@@ -1,5 +1,7 @@
 # MySketches
 
+#### I am extremely sorry if you cannot find a certain commit/change.  I cannot remember everything I have done as it often is in different sketches.
+
 All my processing sketches.
 
 I try to have `README.md` files in all repositories.
