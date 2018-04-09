@@ -29,6 +29,7 @@ void setup() {//#AA70CE,#2170CE
   }
   for(int x=0;x<gridW;x++){
     grid[x][0].right=true;
+    finished.add(new PVector(x,0));
   }
   active.add(new PVector(gridW-1,0));
   //current=new PVector(int(gridSize/2), int(gridSize/2));
@@ -48,6 +49,15 @@ void draw() {
     stroke(150);
     rect(p.x*cellSize,p.y*cellSize,cellSize,cellSize);
   }
+  for(PVector p:active){
+    fill(#AA70CE);
+    stroke(#AA70CE);
+    rect(p.x*cellSize,p.y*cellSize,cellSize,cellSize);
+  }//#2170CE
+  PVector lastActive=active.get(active.size()-1);
+  fill(#2170CE);
+  stroke(#2170CE);
+  rect(lastActive.x*cellSize,lastActive.y*cellSize,cellSize,cellSize);
   for (int x=0; x<gridW; x++) {
     for (int y=0; y<gridH; y++) {
       stroke(255);
@@ -57,11 +67,6 @@ void draw() {
       if (!grid[x][y].down)myLine(x, y+1, x+1, y+1); //IF no  down THEN draw line
       strokeWeight(1);
     }
-  }
-  for(PVector p:active){
-    fill(#AA70CE);
-    stroke(#AA70CE);
-    rect(p.x*cellSize,p.y*cellSize,cellSize,cellSize);
   }
   fill(0, 255, 0);
   stroke(0, 255, 0);

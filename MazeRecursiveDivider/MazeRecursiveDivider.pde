@@ -8,8 +8,8 @@ class Edge {
   //finish=new PVector(c,d);
   //}
 }
-int cellSize=50;
-int gridSize=int(pow(2,6)+2);
+int cellSize=10;
+int gridSize=int(pow(2,4)+2);
 //int gridSize=100;
 //int cellSize=5;
 Edge[][] grid;
@@ -95,7 +95,7 @@ ArrayList<Rect>rects=new ArrayList<Rect>();
 void update() {
   ArrayList<Rect>newRects=new ArrayList<Rect>();
   for(Rect r:rects){
-    for(int x=r.x;x<=r.x+r.w;x++){
+    //for(int x=r.x;x<=r.x+r.w;x++){
     for(int x=r.x+1;x<=r.x+r.w;x++){
       grid[x][r.y].down=false;
       grid[x][r.y+r.h].down=false;

@@ -125,7 +125,7 @@ class Box {
     colorMode(HSB, 100);
     float val=pos.mag();
     //color col=color(val,20,75);
-    color col=color(val, 100, 100);
+    color col=color(val, 10, 100);
     colorMode(RGB, 255);
     //col=color(200,100);
     fill(col);
@@ -139,7 +139,7 @@ class Box {
     translate(pos.x+size/2, pos.y+size/2, pos.z+size/2);
     //sphereDetail(5);
     //sphere(size);
-    scale(0.9);
+    scale(0.99);
     box(size);
     popMatrix();
   }
@@ -177,6 +177,7 @@ ArrayList<Box>boxes;
 float rotX=0, rotY=0, rotZ=0;
 void draw() {
   background(0);
+  rotY+=0.01;
   //pointLight(0,0,0,255,0,0);
   pointLight(255,255,255,0,0,0);
   ambientLight(150,150,150);
