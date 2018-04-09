@@ -95,6 +95,7 @@ ArrayList<Rect>rects=new ArrayList<Rect>();
 void update() {
   ArrayList<Rect>newRects=new ArrayList<Rect>();
   for(Rect r:rects){
+    for(int x=r.x;x<=r.x+r.w;x++){
     for(int x=r.x+1;x<=r.x+r.w;x++){
       grid[x][r.y].down=false;
       grid[x][r.y+r.h].down=false;

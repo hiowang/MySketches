@@ -27,10 +27,6 @@ void setup() {//#AA70CE,#2170CE
       grid[x][y]=new Edge();
     }
   }
-  for(int x=0;x<gridW;x++){
-    grid[x][0].right=true;
-  }
-  active.add(new PVector(gridW-1,0));
   //current=new PVector(int(gridSize/2), int(gridSize/2));
   //current=new PVector(2, 2);
   //stack.add(current);
@@ -41,7 +37,6 @@ void myLine(float a, float b, float c, float d) {
   line(a*cellSize, b*cellSize, c*cellSize, d*cellSize);
 }
 void draw() {
-  if(done)return;
   background(100);
   for(PVector p:finished){
     fill(150);
@@ -58,49 +53,31 @@ void draw() {
       strokeWeight(1);
     }
   }
-  for(PVector p:active){
-    fill(#AA70CE);
-    stroke(#AA70CE);
-    rect(p.x*cellSize,p.y*cellSize,cellSize,cellSize);
-  }
   fill(0, 255, 0);
   stroke(0, 255, 0);
   if(perFrame){
-    for(int i=0;i<speed;i++)update();
+    for(int i=0;i<speed&&!done;i++)update();
   }else{
-    if(frameCount%speed==0)update();
+    if(frameCount%speed==0&&!done)update();
   }
 }
-ArrayList<PVector> active=new ArrayList<PVector>();
+boolean done=false;
+int x=0,y=0;
 ArrayList<PVector>finished=new ArrayList<PVector>();
-boolean done;
 void update() {
-  PVector lastActive=active.get(active.size()-1);
-  int ix=int(lastActive.x);
-  int iy=int(lastActive.y);
-  if(lastActive.y==gridH){
-    done=true;
-    finished.addAll(active);
-    active.clear();
-    return;
-  }
-  if(lastActive.x==gridW-1){
-    //grid[ix][gridH-1].down=true;
-    if(iy>0)grid[ix][iy-1].down=true;
-    finished.addAll(active);
-    active.clear();
-    active.add(new PVector(0,lastActive.y+1));
-    return;
+  finished.add(new PVector(x,y));
+  x++;
+  if(x>=gridW){
+    x=0;
+    y++;
+    if(y>=gridH){
+      done=true;
+      return;
+    }
   }
   if(random(100)<50){
-    active.add(new PVector(ix+1,iy));
-    grid[ix][iy].right=true;
+    grid[x][y].right=true;
   }else{
-    PVector rand=active.get(int(random(active.size())));
-    grid[int(rand.x)][int(rand.y)-1].down=true;
-    finished.addAll(active);
-    active.clear();
-    active.add(new PVector(ix+1,iy));
-    //grid[ix][iy].down=true;
+    grid[x][y].down=true;
   }
 }
