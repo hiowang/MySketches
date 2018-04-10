@@ -8,8 +8,8 @@ class Edge {
   //finish=new PVector(c,d);
   //}
 }
-int cellSize=50;
-int gridSize=10;
+int cellSize=10;
+int gridSize=80;
 //int gridSize=100;
 //int cellSize=5;
 Edge[][] grid;
@@ -66,8 +66,8 @@ void draw() {
   fill(0, 255, 0);
   stroke(0, 255, 0);
   rect(current.x*cellSize, current.y*cellSize, cellSize, cellSize);
-    //for(int i=0;i<1;i++)
-    if(frameCount%10==0)
+    for(int i=0;i<5;i++)
+    //if(frameCount%10==0)
   {update();}
 }
 PVector randDir() {

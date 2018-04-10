@@ -10,7 +10,7 @@ class Edge {
 }
 int speed=1;
 boolean perFrame=true;
-int cellSize=40;
+int cellSize=20;
 int gridW;
 int gridH;
 //int gridSize=100;
@@ -44,20 +44,22 @@ void myLine(float a, float b, float c, float d) {
 void draw() {
   if (done)return;
   background(100);
-  for (PVector p : C) {
-    fill(#AA70CE);
-    stroke(#AA70CE);
-    rect(p.x*cellSize, p.y*cellSize, cellSize, cellSize);
-  }
+  //for (PVector p : C) {
+    //fill(#AA70CE);
+    //stroke(#AA70CE);
+    //rect(p.x*cellSize, p.y*cellSize, cellSize, cellSize);
+  //}
   for (PVector p : finished) {
     fill(150);
     stroke(150);
     rect(p.x*cellSize, p.y*cellSize, cellSize, cellSize);
   }
-  PVector p=C.get(C.size()-1);
+  if (C.size()>0) {
+    PVector p=C.get(0);
     fill(#AA70CE);
     stroke(#AA70CE);
     rect(p.x*cellSize, p.y*cellSize, cellSize, cellSize);
+  }
   for (int x=0; x<gridW; x++) {
     for (int y=0; y<gridH; y++) {
       stroke(255);
@@ -93,21 +95,25 @@ boolean isValid(float x, float y) {
   if (y<1)return false;
   if (x>=gridW-1)return false;
   if (y>=gridH-1)return false;
+  if (finished.contains(new PVector(x, y)))return false;
   if (C.contains(new PVector(x, y)))return false;
   return true;
 }
 void update() {
-  if(C.size()==0){
+  if (C.size()==0) {
     done=true;
     return;
   }
-  PVector rand=C.get(0);
+  //PVector rand=C.get(int(random(C.size())));
+  //PVector rand=C.get(0);
+  PVector rand=C.get(C.size()-1);
   PVector randDir=randDir(rand);
   if (randDir==null) {
     C.remove(rand);
   } else {
-    C.add(PVector.add(rand, randDir));
-    finished.add(rand.copy());
+    PVector result=PVector.add(rand, randDir);
+    C.add(0,result);
+    finished.add(result);
     int ix=int(rand.x);
     int iy=int(rand.y);
     rand.add(randDir);

@@ -38,7 +38,7 @@ void draw() {
   y=lerp(y, ty, val);
   z=lerp(z, tz, val);
   float z=0.01;
-  if (frameCount%120==0) {
+  if (frameCount%60==0) {
     ty=random(2, 6);
     tz=random(2, 6);
     tn1=random(1, 8);
