@@ -25,7 +25,7 @@ void draw(){
   for(Circle c:circles){
     c.draw();
   }
-  saveFrame("frames06/frame-#####.png");
+  //saveFrame("frames01/frame-#####.png");
 }
 void mousePressed(){
   drawCircles();
@@ -34,10 +34,11 @@ float r=1;
 float off=0;
 ArrayList<Circle>circles=new ArrayList<Circle>();
 void drawCircles(){
-  float n=30;
+  float n=10;
+  r+=3;
   //r*=2;
-  r+=1;
-  angOff+=radians(50);
+  //r*=1.01;
+  angOff+=radians(137.5);
   off+=0.1;
   for(int i=0;i<n;i++){
     circles.add(new Circle(TWO_PI*i/n+angOff,r,off,col(i/n+off)));

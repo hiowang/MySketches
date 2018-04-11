@@ -18,8 +18,8 @@ class Circle{
   }
   ArrayList<Circle>makeNew(){
     ArrayList<Circle>list=new ArrayList<Circle>();
-    if(r<10)return list;
-    for(int i=0;i<10;i++)list.add(singleNew());
+    //if(r<10)return list;
+    for(int i=0;i<20;i++)list.add(singleNew());
     return list;
   }
 }
