@@ -1,6 +1,6 @@
 void setup(){
-  fullScreen();
-  //size(500,500);
+  //fullScreen();
+  size(500,500);
 }
 class Circle{
   float ang,r,off;
@@ -25,7 +25,7 @@ void draw(){
   for(Circle c:circles){
     c.draw();
   }
-  saveFrame("frames/frame-#####.png");
+  saveFrame("frames06/frame-#####.png");
 }
 void mousePressed(){
   drawCircles();
@@ -35,8 +35,9 @@ float off=0;
 ArrayList<Circle>circles=new ArrayList<Circle>();
 void drawCircles(){
   float n=30;
-  //r*=1.1;
-  angOff+=radians(10);
+  //r*=2;
+  r+=1;
+  angOff+=radians(50);
   off+=0.1;
   for(int i=0;i<n;i++){
     circles.add(new Circle(TWO_PI*i/n+angOff,r,off,col(i/n+off)));
