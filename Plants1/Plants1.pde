@@ -38,7 +38,7 @@ void drawCircles(){
   r+=3;
   //r*=2;
   //r*=1.01;
-  angOff+=radians(137.5);
+  angOff+=radians(35);
   off+=0.1;
   for(int i=0;i<n;i++){
     circles.add(new Circle(TWO_PI*i/n+angOff,r,off,col(i/n+off)));

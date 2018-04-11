@@ -35,7 +35,7 @@ void setup(){
   work.add(c);
 }
 void connect(Circle a,Circle b){
-  stroke(0,2);
+  stroke(0,1);
   line(a.x,a.y,b.x,b.y);
 }
 void draw(){
@@ -50,6 +50,14 @@ void draw(){
       }
     }
   }
+}
+void keyPressed(){
+  
+  Circle c=new Circle();
+  c.x=mouseX;
+  c.y=mouseY;
+  c.r=100;
+  work.add(c);
 }
 void mousePressed(){
   ArrayList<Circle>storage=new ArrayList<Circle>();
