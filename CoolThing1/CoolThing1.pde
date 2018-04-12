@@ -1,5 +1,7 @@
 void setup() {
-  size(500, 500);
+  //size(500, 500);
+  //fullScreen();
+  size(1000,1000);
 
   //endShape(CLOSE);
 }
@@ -12,9 +14,10 @@ void draw() {
   float cur=0;
   float ang=0;
   float r=0;
-  int n=100;
+  int n=70;
   translate(width/2, height/2);
   strokeWeight(0.01);
+  scale(1);
   for (int i=0; i<n; i++) {
     myShape(0, 0, 2, 2,float(i)/n);
     scale(1.1);
