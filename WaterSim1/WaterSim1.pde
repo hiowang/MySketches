@@ -1,13 +1,14 @@
 float[][]u;
 float[][]v;
-int w=50;
-int h=50;
-float d=5;
+int w=75;
+int h=75;
+float d=20;
 void settings() {
   //w*d=1000
   //d=1000/w
-  d=1000/w;
-  size(int(w*d), int(h*d), P3D);
+  //d=1000/w;
+  //size(int(w*d), int(h*d), P3D);
+  size(1000,1000,P3D);
 }
 void setup() {
   u=new float[w][h];
@@ -51,7 +52,7 @@ void update() {
       float ymi=u[x][y-1];
       float ypl=u[x][y+1];
       v[x][y]+=(xmi+xpl+ymi+ypl)/4-u[x][y];
-      v[x][y]*=0.67;//0.66
+      v[x][y]*=0.66;//0.66
       u[x][y]+=v[x][y];
     }
   }
@@ -63,17 +64,34 @@ void keyPressed() {
   if (key=='a')isA=true;
   if (key=='d')isD=true;
   if (key==' ')isA=isD=false;
-  if(key=='1'){
+  if (key=='1') {
     u[int(random(1, w-1))][int(random(1, h-1))]+=-1;
   }
-  if(key=='2'){
+  if (key=='2') {
     u[int(random(1, w-1))][int(random(1, h-1))]+=-10;
   }
-  if(key=='3'){
+  if (key=='3') {
     u[int(random(1, w-1))][int(random(1, h-1))]+=-100;
   }
-  if(key=='4')u[int(random(1, w-1))][int(random(1, h-1))]+=-250;
-  if(key=='5')u[int(random(1, w-1))][int(random(1, h-1))]+=-500;
+  if (key=='4')u[int(random(1, w-1))][int(random(1, h-1))]+=-250;
+  if (key=='5')u[int(random(1, w-1))][int(random(1, h-1))]+=-500;
+  if (key==' ') {
+
+    u=new float[w][h];
+    v=new float[w][h];
+    for (int x=0; x<w; x++) {
+      for (int y=0; y<h; y++) {
+        if (x==0||y==0||x==w-1||y==h-1) {
+          u[x][y]=0;
+          v[x][y]=0;
+        } else {
+          //u[x][y]=(cos(x*0.05)*sin(y*0.05));
+          u[x][y]=0;
+          v[x][y]=0;
+        }
+      }
+    }
+  }
 }
 void keyReleased() {
   if (key=='a')isA=false;
@@ -92,11 +110,15 @@ float getU(float x, float y) {
 }
 boolean rain=false;
 void draw() {
+  u[0][0]=0;
+  u[w-1][0]=0;
+  u[0][h-1]=0;
+  u[w-2][h-1]=0;
   float s=0.01;
   if (isA)rot-=s;
   if (isD)rot+=s;
-  if(rain){
-    for(int i=0;i<10;i++)u[int(random(1, w-1))][int(random(1, h-1))]+=-1;
+  if (rain) {
+    for (int i=0; i<3; i++)u[int(random(1, w-1))][int(random(1, h-1))]+=random(-0.1,01);
   }
   //if(frameCount%1==0)
   //if (mousePressed)u[int(random(1, w-1))][int(random(1, h-1))]=10;
@@ -104,8 +126,8 @@ void draw() {
   //Rotation with 'a' and 'd' keys
   //Fix the bug where pillars of water pop up
   //Waves?
-  background(100);
-  camera(0, -700, 1500, 0, 0, 0, 0, 1, 0);
+  background(#002831);
+  camera(0, -1500, 2500, 0, 0, 500, 0, 1, 0);
   ambientLight(50, 50, 50);
   pointLight(200, 200, 200, 0, -500, 800);
   fill(255);
@@ -114,20 +136,27 @@ void draw() {
   for (int x=0; x<w-1; x++) {
     for (int y=0; y<h-1; y++) {
       noStroke();
+      //stroke(#00AFD8);
       fill(0, 196, 242);
       pushMatrix();
       //rotateY(rot);
       translate(-w*d/2, -h*d/2);
       beginShape();
       vertex(x*d, getU(x, y), y*d);
-      //vertex(x*d+d, getU(x+1, y), y*d);
-      //vertex(x*d+d, getU(x+1, y+1), y*d+d);
-      //endShape(CLOSE);
-      //beginShape();
       vertex(x*d+d, getU(x+1, y), y*d);
+      vertex(x*d+d, getU(x+1, y+1), y*d+d);
+      endShape(CLOSE);
+      beginShape();
+      vertex(x*d, getU(x, y), y*d);
       vertex(x*d+d, getU(x+1, y+1), y*d+d);
       vertex(x*d, getU(x, y+1), y*d+d);
       endShape(CLOSE);
+      //beginShape();
+      //vertex(x*d, getU(x, y), y*d);
+      //vertex(x*d+d, getU(x+1, y), y*d);
+      //vertex(x*d+d, getU(x+1, y+1), y*d+d);
+      //vertex(x*d, getU(x, y+1), y*d+d);
+      //endShape(CLOSE);
       popMatrix();
       //pushMatrix();
       //noStroke();
