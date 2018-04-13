@@ -1,0 +1,114 @@
+float[][]u;
+float[][]v;
+int w=50;
+int h=50;
+void setup() {
+  size(500, 500, P3D);
+  u=new float[w][h];
+  v=new float[w][h];
+  for (int x=0; x<w; x++) {
+    for (int y=0; y<h; y++) {
+      if (x==0||y==0||x==w-1||y==h-1) {
+        u[x][y]=0;
+        v[x][y]=0;
+      } else {
+        //u[x][y]=(cos(x*0.05)*sin(y*0.05));
+        u[x][y]=0;
+        v[x][y]=0;
+      }
+    }
+  }
+}
+void update() {
+  for (int x=0; x<w; x++) {
+    for (int y=0; y<h; y++) {
+      //if (x==0||y==0||x==w-1||y==h-1) {
+        //u[x][y]=0;
+        //continue;
+      //}
+      float a=0.5;
+      if(x==0){
+        u[0][y]=u[1][y]*a;
+        continue;
+      }else if(y==0){
+        u[x][0]=u[x][1]*a;
+        continue;
+      }else if(x==w-1){
+        u[w-1][y]=u[w-2][y]*a;
+        continue;
+      }else if(y==h-1){
+        u[x][h-1]=u[x][h-2]*a;
+        continue;
+      }
+      float xmi=u[x-1][y];
+      float xpl=u[x+1][y];
+      float ymi=u[x][y-1];
+      float ypl=u[x][y+1];
+      v[x][y]+=(xmi+xpl+ymi+ypl)/4-u[x][y];
+      v[x][y]*=0.6;
+      u[x][y]+=v[x][y];
+    }
+  }
+  //map=newMap;
+}
+float rot=0;
+boolean isA=false, isD=false;
+void keyPressed() {
+  if (key=='a')isA=true;
+  if (key=='d')isD=true;
+  if (key==' ')isA=isD=false;
+}
+void keyReleased() {
+  if (key=='a')isA=false;
+  if (key=='d')isD=false;
+  if (key==' ')isA=isD=false;
+}
+void mousePressed(){
+  //for(int x=1;x<w-1;x++){
+    //u[x][h-1]=100;
+  //}
+  u[int(random(1, w-1))][int(random(1, h-1))]=10;
+}
+
+void draw() {
+  float s=0.01;
+  if (isA)rot-=s;
+  if (isD)rot+=s;
+  //if(frameCount%1==0)
+  //if (mousePressed)u[int(random(1, w-1))][int(random(1, h-1))]=10;
+  //if(keyPressed)u[int(random(w))][int(random(h))]=2;
+  //Rotation with 'a' and 'd' keys
+  //Fix the bug where pillars of water pop up
+  //Waves?
+  background(100);
+  camera(0, -500, 1000, 0, 0, 0, 0, 1, 0);
+  ambientLight(50,50,50);
+  pointLight(200,200,200,0,-500,800);
+  fill(255);
+  stroke(0);
+  //quad(-w*5,0,-w*5,w*5,0,-w*5,-w*5,0,w*5,w*5,0,w*5);
+  for (int x=0; x<w; x++) {
+    for (int y=0; y<h; y++) {
+      pushMatrix();
+      noStroke();
+      fill(0,196,242);
+      float h=map(u[x][y], 0, 5, 0, 500);
+      translate(-w*5, 0, -h*5);
+      //rotateY(rot);
+      //translate(x*10-w*5, 0, y*10-h*5);
+      translate(x*10, 0, y*10);
+      box(10, h, 10);
+      popMatrix();
+    }
+  }
+  update();
+  //for(int x=0;x<w;x++){
+  //  for(int y=0;y<h;y++){
+  //    float f=u[x][y];
+  //    f=map(f,0,10,0,255);
+  //    fill(0,0,f);
+  //    noStroke();
+  //    rect(x*width/w,y*height/h,width/w,height/h);
+  //  }
+  //}
+}
