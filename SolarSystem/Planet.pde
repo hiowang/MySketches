@@ -57,5 +57,5 @@ class Planet{
     y+=vy;
   }
 }
-float GravConst=0.1;
+float GravConst=01;
 int totalID=0;

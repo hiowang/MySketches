@@ -11,12 +11,17 @@ void setup(){
 }
 ArrayList<Planet>toAdd;
 ArrayList<Planet>toRem;
+float s=0.1;
+void mousePressed(){
+  s/=2;
+}
 void draw(){
   background(255);
   toAdd=new ArrayList<Planet>();
   toRem=new ArrayList<Planet>();
   translate(width/2,height/2);
-  scale(0.1);
+  scale(s);
+  //s/=1.001;
   for(Planet p:planets){
     p.display();
     p.update();
