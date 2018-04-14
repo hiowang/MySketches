@@ -32,7 +32,7 @@ void draw() {
   }
   seed.display();
   if(numNotDone()>0){
-    saveFrame("data/frame-#####.png");
+    //saveFrame("data/frame-#####.png");
   }
 }
 int numNotDone(){
