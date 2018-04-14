@@ -9,7 +9,7 @@ class Rect {
   }
   void display() {
     noFill();
-    stroke(255,5);
+    stroke(255,20);
     rect(x, y, w, h);
   }
   ArrayList<Rect>makeNew() {
@@ -42,20 +42,21 @@ void drawFractal(int x, int y, int w, int h, int n) {
   //ellipseMode(CENTER);
   //rectMode(CENTER);
   //ellipse(x,y,w*2,h*2);
-  rect(x, y, w, h);
+  //rect(x, y, w, h);
+  rects.add(new Rect(x,y,w,h));
   int nw=int(random(w));
   int nh=int(random(h));
-  drawFractal(x, y, nw, nh, n-1);
-  drawFractal(x+nw, y+nh, w-nw, h-nh, n-1);
-  drawFractal(x+nw, y, w-nw, nh, n-1);
-  drawFractal(x, y+nh, nw, h-nh, n-1);
+  if(rand())drawFractal(x, y, nw, nh, n-1);
+  if(rand())drawFractal(x+nw, y+nh, w-nw, h-nh, n-1);
+  if(rand())drawFractal(x+nw, y, w-nw, nh, n-1);
+  if(rand())drawFractal(x, y+nh, nw, h-nh, n-1);
 }
-int num=0;
+int num=10;
 void setup() {
   size(640, 480);
   background(0);
-  rects.add(new Rect(0,0,width,height));
-  //drawFractal(0, 0, width, height, 6);
+  //rects.add(new Rect(0,0,width,height));
+  drawFractal(0, 0, width, height, num);
 }
 void draw(){
   background(0);
@@ -64,7 +65,9 @@ void draw(){
   }
 }
 void mousePressed(){
-  ArrayList<Rect>newRects=new ArrayList<Rect>();
-  for(Rect r:rects)newRects.addAll(r.makeNew());
-  rects.addAll(newRects);
+  rects.clear();
+  drawFractal(0,0,width,height,num);
+  //ArrayList<Rect>newRects=new ArrayList<Rect>();
+  //for(Rect r:rects)newRects.addAll(r.makeNew());
+  //rects.addAll(newRects);
 }

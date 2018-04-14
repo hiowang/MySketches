@@ -45,14 +45,14 @@ void draw() {
 
   stroke(255, 0, 0);
   float milRads=map(mil, 0, 1000, 0, TWO_PI);
-  arc(0, 0, 100, 100, milRads-0.5, milRads);
+  arc(0, 0, 100, 100, milRads-0.25, milRads+0.25);
   strokeWeight(5);
   line(0,0,50*cos(milRads),50*sin(milRads));
   strokeWeight(20);
 
   stroke(255, 100, 150);
   float secRads=map(sec+mil/1000, 0, 59, 0, TWO_PI);
-  arc(0, 0, 150, 150, secRads-1, secRads);
+  arc(0, 0, 150, 150, secRads-0.5, secRads+0.5);
   strokeWeight(5);
   ellipse(0,0,150,150);
   line(0,0,75*cos(secRads),75*sin(secRads));
@@ -60,7 +60,7 @@ void draw() {
 
   stroke(150, 100, 255);
   float minRads=map(min+(sec+mil/1000)/60, 0, 59, 0, TWO_PI);
-  arc(0, 0, 200, 200, minRads-1.5, minRads);
+  arc(0, 0, 200, 200, minRads-0.75, minRads+0.75);
   strokeWeight(5);
   ellipse(0,0,200,200);
   line(0,0,100*cos(minRads),100*sin(minRads));
@@ -68,7 +68,7 @@ void draw() {
 
   stroke(150, 255, 100);
   float hourRads=map(hour+(min+(sec+mil/1000)/60)/60, 0, 24, 0, TWO_PI);
-  arc(0, 0, 250, 250, hourRads-2, hourRads);
+  arc(0, 0, 250, 250, hourRads-1, hourRads+1);
   strokeWeight(5);
   ellipse(0,0,250,250);
   line(0,0,125*cos(hourRads),125*sin(hourRads));
@@ -76,21 +76,21 @@ void draw() {
   
   stroke(255,150,100);
   float dayRads=map(day+(hour+(min+(sec+mil/1000)/60)/60)/24,1,31,0,TWO_PI);
-  arc(0,0,350,350,dayRads-2,dayRads);
+  arc(0,0,350,350,dayRads-1,dayRads+1);
   strokeWeight(5);
   ellipse(0,0,350,350);
   strokeWeight(20);
   
   stroke(150,100,255);
   float monRads=map(month+(day+(hour+(min+(sec+mil/1000)/60)/60)/24)/31,1,12,0,TWO_PI);
-  arc(0,0,400,400,monRads-2,monRads);
+  arc(0,0,400,400,monRads-1,monRads+1);
   strokeWeight(5);
   ellipse(0,0,400,400);
   strokeWeight(20);
   
   stroke(100,150,255);
   float yearRads=map(year+(month+(day+(hour+(min+(sec+mil/1000)/60)/60)/24)/31)/12,2000,3000,0,TWO_PI);
-  arc(0,0,450,450,yearRads-2,yearRads);
+  arc(0,0,450,450,yearRads-1,yearRads+1);
   strokeWeight(5);
   ellipse(0,0,450,450);
   strokeWeight(20);
