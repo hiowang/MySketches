@@ -116,6 +116,8 @@ void update() {
     if(r.area()>pow(2,2)){
       int cx=int(random(r.x,r.x+r.w));
       int cy=int(random(r.y,r.y+r.h));
+      cx=r.x+r.w/2;
+      cy=r.y+r.h/2;
       //int cx=r.x+r.w/2;
       //int cy=r.y+r.h/2;
       //int cx=r.x+r.w/2+int(random(-5,5));
