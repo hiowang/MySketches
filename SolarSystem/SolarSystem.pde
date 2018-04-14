@@ -5,7 +5,7 @@ void setup(){
   fullScreen();
   //size(1000,1000);
   planets=new ArrayList<Planet>();
-  for(int i=0;i<1000;i++){
+  for(int i=0;i<2000;i++){
     planets.add(new Planet());
   }
 }
@@ -13,7 +13,11 @@ ArrayList<Planet>toAdd;
 ArrayList<Planet>toRem;
 float s=0.1;
 void mousePressed(){
-  s/=2;
+  //s/=2;
+  
+  for(int i=0;i<1000;i++){
+    planets.add(new Planet());
+  }
 }
 void draw(){
   background(255);
@@ -21,7 +25,6 @@ void draw(){
   toRem=new ArrayList<Planet>();
   translate(width/2,height/2);
   scale(s);
-  //s/=1.001;
   for(Planet p:planets){
     p.display();
     p.update();

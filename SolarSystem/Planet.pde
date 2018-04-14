@@ -1,31 +1,39 @@
-class Planet{
-  float mass,x,y,r;
-  float vx,vy,ax,ay;
+class Planet {
+  float mass, x, y, r;
+  float vx, vy, ax, ay;
   int id=0;
   boolean dead=false;
-  Planet(){
-    x=random(-2500,2500);
-    y=random(-2500,2500);
-    mass=random(0.1,0.1);
-    r=10;
+  boolean stuck=false;
+  Planet() {
+    x=random(-2500, 2500);
+    y=random(-2500, 2500);
+    if(totalID<1)stuck=true;
+    if(stuck){
+      mass=2;
+      r=10;
+    }else{
+      mass=0.1;
+      r=10;
+    }
     vx=vy=ax=ay=0;
     id=totalID;
     totalID++;
   }
-  void display(){
+  void display() {
     ellipseMode(CENTER);
     fill(50);
-    ellipse(x,y,r,r);
+    ellipse(x, y, r, r);
   }
-  void update(){
-    for(Planet p:planets){
-      if(p.id==id)continue;
-      if(p.dead)continue;
-      if(dead)continue;
-      float dist=dist(x,y,p.x,p.y);
+  void update() {
+    if(stuck)r=50;
+    for (Planet p : planets) {
+      if (p.id==id)continue;
+      if (p.dead)continue;
+      if (dead)continue;
+      float dist=dist(x, y, p.x, p.y);
       float forceMag=GravConst*sq(p.mass)*sq(mass)/sq(dist);
       float accMag=forceMag/mass;
-      if(dist<r/2+p.r/2){
+      if (dist<r/2+p.r/2) {
         //accMag=0;
         Planet newP=new Planet();
         newP.x=(p.x+x)/2;
@@ -36,6 +44,7 @@ class Planet{
         newP.vy=(p.vy+vy)/2;
         newP.ax=(p.ax+ax)/2;
         newP.ay=(p.ay+ay)/2;
+        newP.stuck=stuck||p.stuck;
         toAdd.add(newP);
         toRem.add(this);
         toRem.add(p);
@@ -43,19 +52,33 @@ class Planet{
         p.dead=true;
       }
       //}else{
-        //stroke(0,map(forceMag,0,1,255,0));
-        //line(x+width/2,y+height/2,p.x+width/2,p.y+height/2);
+      //stroke(0,map(forceMag,0,1,255,0));
+      //line(x+width/2,y+height/2,p.x+width/2,p.y+height/2);
       //}
       ax+=accMag*(p.x-x);
       ay+=accMag*(p.y-y);
     }
-    ax=constrain(ax,-1,1);
-    ay=constrain(ay,-1,1);
-    vx+=ax;
-    vy+=ay;
-    x+=vx;
-    y+=vy;
+    //if (!stuck) {
+      ax=constrain(ax, -maxAcc, maxAcc);
+      ay=constrain(ay, -maxAcc, maxAcc);
+      vx=constrain(vx, -maxVel, maxVel);
+      vy=constrain(vy, -maxVel, maxVel);
+      if(stuck){
+        ax*=stuckAcc;
+        ay*=stuckAcc;
+        vx*=stuckVel;
+        vy*=stuckVel;
+      }
+      vx+=ax;
+      vy+=ay;
+      x+=vx;
+      y+=vy;
+    //}
   }
 }
+float stuckAcc=0;
+float stuckVel=0;
+float maxAcc=1;
+float maxVel=30;
 float GravConst=01;
 int totalID=0;
