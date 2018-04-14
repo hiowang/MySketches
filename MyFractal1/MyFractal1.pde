@@ -11,6 +11,7 @@ class Rect {
     noFill();
     stroke(255,20);
     rect(x, y, w, h);
+    ellipse(x,y,w,h);
   }
   ArrayList<Rect>makeNew() {
     done=true;

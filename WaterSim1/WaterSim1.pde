@@ -1,8 +1,8 @@
 float[][]u;
 float[][]v;
-int w=75;
-int h=75;
-float d=20;
+int w=100;
+int h=100;
+float d=15;
 void settings() {
   //w*d=1000
   //d=1000/w

@@ -28,10 +28,10 @@ class Planet {
     if(stuck)r=50;
     for (Planet p : planets) {
       if (p.id==id)continue;
-      if (p.dead)continue;
+      //if (p.dead)continue;
       if (dead)continue;
       float dist=dist(x, y, p.x, p.y);
-      float forceMag=GravConst*sq(p.mass)*sq(mass)/sq(dist);
+      float forceMag=forceCalc(this,p);
       float accMag=forceMag/mass;
       if (dist<r/2+p.r/2) {
         //accMag=0;
@@ -76,9 +76,15 @@ class Planet {
     //}
   }
 }
+//G*m^2/d^2
+float forceCalc(Planet a,Planet b){
+  if(a.id==b.id)return 0;
+  float dist=dist(a.x,a.y,b.x,b.y);
+  return GravConst*sq(a.mass)*sq(b.mass)/sq(dist);
+}
 float stuckAcc=0;
 float stuckVel=0;
 float maxAcc=1;
 float maxVel=30;
-float GravConst=01;
+float GravConst=1;
 int totalID=0;

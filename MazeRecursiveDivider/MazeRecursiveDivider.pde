@@ -9,7 +9,7 @@ class Edge {
   //}
 }
 int cellSize=10;
-int gridSize=int(pow(2,4)+2);
+int gridSize=int(pow(2,6)+2);
 //int gridSize=100;
 //int cellSize=5;
 Edge[][] grid;
@@ -113,7 +113,7 @@ void update() {
     grid[r.x][lefGap].right=true;
     int rigGap=int(random(r.y,r.y+r.h));
     grid[r.x+r.w][rigGap].right=true;
-    if(r.area()>pow(2,2)){
+    if(r.area()>pow(2,3)){
       int cx=int(random(r.x,r.x+r.w));
       int cy=int(random(r.y,r.y+r.h));
       cx=r.x+r.w/2;

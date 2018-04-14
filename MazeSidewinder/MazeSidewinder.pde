@@ -8,7 +8,7 @@ class Edge {
   //finish=new PVector(c,d);
   //}
 }
-int speed=5;
+int speed=2;
 boolean perFrame=false;
 int cellSize=40;
 int gridW;
@@ -97,7 +97,7 @@ void update() {
     active.add(new PVector(0,lastActive.y+1));
     return;
   }
-  if(random(100)<50){
+  if(random(100)<80){
     active.add(new PVector(ix+1,iy));
     grid[ix][iy].right=true;
   }else{
