@@ -22,10 +22,10 @@ class Branch {
       translate(-b.x-offx,b.y,-b.z-offz);
     }
   }
-  ArrayList<Branch>makeNew() {
+  ArrayList<Branch>makeNew(float aa,float ba) {
     ArrayList<Branch>list=new ArrayList<Branch>();
     if(leaf)return list;
-    int numNew=int(random(1, 10));
+    int numNew=int(random(aa,ba));
     for (int i=0; i<numNew; i++) {
       //PVector newTip=new PVector(a.x+random(-50,50),a.y-100,a.z+random(-50,50));
       PVector offset=new PVector(random(-50, 50), random(100), random(-50, 50));

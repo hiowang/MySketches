@@ -35,4 +35,16 @@ void draw() {
     rotateY(-rot);
     translate(-spacing*x+spacing*w/2,0,-spacing*y+spacing*h/2);
   }
+  //rotateY(rot);
+  fill(225);
+  stroke(0);
+  beginShape();
+  float a=spacing*w/2;
+  float b=spacing*h/2;
+  vertex(-a,0,b);
+  vertex(-a,0,-b);
+  vertex(a,0,-b);
+  vertex(a,0,b);
+  endShape(CLOSE);
+  //rotateY(-rot);
 }
