@@ -18,7 +18,7 @@ float spacing=400;
 void draw() {
   background(255);
   camera(1000, -1000, 1000, 0, 0, 0, 0, 1, 0);
-  rot+=0.01;
+  //rot+=0.01;
   int x=0;
   int y=0;
   for(Tree t:trees){
