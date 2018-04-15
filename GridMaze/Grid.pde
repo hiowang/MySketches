@@ -100,6 +100,9 @@ class Grid {
   void setWall(Cell c,Dir d,boolean b){
     setWall(c.x,c.y,d,b);
   }
+  void setWall(Cell a,Cell b,boolean bool){
+    setWall(a,aToB(a,b),bool);
+  }
   void setWall(float x, float y, Dir d, boolean b) {
     setWall(int(x), int(y), d, b);
   }
@@ -121,7 +124,7 @@ class Grid {
       cells[x][y].down=b;
     }
   }
-  void djikstraColoring(int size,int startX,int startY,float r,float g,float b){
+  void djikstraColoring(float sx,float sy,int startX,int startY,float r,float g,float b){
     int[][]nums=new int[w][h];
     Cell[][]froms=new Cell[w][h];
     for(int x=0;x<w;x++){
@@ -161,30 +164,34 @@ class Grid {
     }
     for(int x=0;x<w;x++){
       for(int y=0;y<h;y++){
-        float f=map(nums[x][y],mi,ma,255,0);
+        float f=map(nums[x][y],mi,ma,0,255);
         //println(nums[x][y]);
         fill(r*f,g*f,b*f);
         noStroke();
-        rect(x*size,y*size,size,size);
+        rect(x*sx,y*sy,sx,sy);
       }
     }
   }
-  void displayWalls(int size, boolean bg) {
+  void displayWalls(float sx,float sy, boolean bg,float stroke,float alpha) {
     if (bg)fill(150);
     else noFill();
     stroke(255);
-    rect(0, 0, w*size, h*size);
+    rect(0, 0, w*sx, h*sy);
 
     for (int cx=0; cx<w; cx++) {
       for (int cy=0; cy<h; cy++) {
-        stroke(255);
+        stroke(stroke,alpha);
         if (!getWall(cx, cy, Dir.XPL)) {
-          line(size+cx*size, cy*size, size+cx*size, size+cy*size);
+          line(sx+cx*sx, cy*sy, sx+cx*sx, sy+cy*sy);
         }
         if (!getWall(cx, cy, Dir.YPL)) {
-          line(cx*size, size+cy*size, size+cx*size, size+cy*size);
+          line(cx*sx, sy+cy*sy, sx+cx*sx, sy+cy*sy);
         }
       }
     }
+    //if (bg)fill(150);
+    noFill();
+    stroke(255);
+    rect(0, 0, w*sx, h*sy);
   }
 }

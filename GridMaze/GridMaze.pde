@@ -1,35 +1,46 @@
 Grid grid;
-int sizeX=25;
-int sizeY=25;
-int densX,densY;
-void setup(){
-  size(600,600);
+float sizeX=10;
+float sizeY=10;
+float densX, densY;
+MazeGenerator mazeGen;
+void setup() {
+  size(600, 600);
   initMaze();
 }
-void initMaze(){
-  grid=new Grid(sizeX,sizeY);
-  densX=(width-100)/sizeX;
-  densY=(height-100)/sizeY;
-  for(int i=0;i<grid.w;i++){
-    for(int j=0;j<grid.h;j++){
-      ArrayList<Dir>dirs=new ArrayList<Dir>();
-      //dirs.add(Dir.XPL);
-      //dirs.add(Dir.YPL);
-      if(i<grid.w-1)dirs.add(Dir.XPL);
-      if(j<grid.h-1)dirs.add(Dir.YPL);
-      if(dirs.size()==0)continue;
-      grid.setWall(i,j,dirs.get(int(random(dirs.size()))),true);
+void initMaze() {
+  densX=(width)/sizeX;
+  densY=(height)/sizeY;
+  mazeGen=new MazeGeneratorBinaryTree();
+  mazeGen=new MazeGeneratorSidewinder();
+  mazeGen=new MazeGeneratorRecursiveBacktracker();
+  grid=mazeGen.generateMaze(int(sizeX), int(sizeY));
+}
+void mousePressed() {
+  initMaze();
+}
+float alpha=0, stroke=255;
+void keyPressed() {
+  if (key=='l') {
+    if (alpha==0) {
+      alpha=255;
+      stroke=255;
+    } else {
+      alpha=0;
+      stroke=0;
     }
   }
 }
-void mousePressed(){
-  initMaze();
-}
-void draw(){
+void draw() {
   background(0);
-  translate(50,50);
-  int mx=constrain(int(map(mouseX,0,width,0,sizeX)),0,sizeX-1);
-  int my=constrain(int(map(mouseY,0,height,0,sizeY)),0,sizeY-1);
-  grid.djikstraColoring(densX,mx,my,0.5,1,0.5);
-  grid.displayWalls(densY,false);
+  //translate(50,50);
+  int mx;
+  int my;
+  mx=0;
+  my=0;
+  //mx=int(sizeX/2);
+  //my=int(sizeY/2);
+  PVector col=mazeGen.getColorScalar();
+  grid.djikstraColoring(densX, densY, mx, my, col.x, col.y, col.z);
+  strokeWeight(5);
+  grid.displayWalls(densX, densY, false, stroke, alpha);
 }
