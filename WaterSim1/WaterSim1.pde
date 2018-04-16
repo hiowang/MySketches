@@ -1,8 +1,8 @@
 float[][]u;
 float[][]v;
-int w=100;
-int h=100;
-float d=15;
+int w=30;
+int h=30;
+float d=30;
 void settings() {
   //w*d=1000
   //d=1000/w
@@ -27,6 +27,7 @@ void setup() {
   }
 }
 void update() {
+  float[][]newu=new float[w][h];
   for (int x=0; x<w; x++) {
     for (int y=0; y<h; y++) {
       //if (x==0||y==0||x==w-1||y==h-1) {
@@ -51,19 +52,22 @@ void update() {
       float xpl=u[x+1][y];
       float ymi=u[x][y-1];
       float ypl=u[x][y+1];
-      v[x][y]+=(xmi+xpl+ymi+ypl)/4-u[x][y];
+      v[x][y]+=0.25*xmi+0.25*xpl+0.25*ymi+0.25*ypl-u[x][y];
       v[x][y]*=0.66;//0.66
       u[x][y]+=v[x][y];
     }
   }
+  //u=newu;
   //map=newMap;
 }
 float rot=0;
 boolean isA=false, isD=false;
+ArrayList<PVector>fullPos=new ArrayList<PVector>();
 void keyPressed() {
   if (key=='a')isA=true;
   if (key=='d')isD=true;
   if (key==' ')isA=isD=false;
+  if(key=='q')fullPos.add(new PVector(random(w),random(h)));
   if (key=='1') {
     u[int(random(1, w-1))][int(random(1, h-1))]+=-1;
   }
@@ -110,10 +114,13 @@ float getU(float x, float y) {
 }
 boolean rain=false;
 void draw() {
-  u[0][0]=0;
-  u[w-1][0]=0;
-  u[0][h-1]=0;
-  u[w-2][h-1]=0;
+  //u[0][0]=0;
+  //u[w-1][0]=0;
+  //u[0][h-1]=0;
+  //u[w-2][h-1]=0;
+  for(PVector p:fullPos){
+    u[int(p.x)][int(p.y)]=-2;
+  }
   float s=0.01;
   if (isA)rot-=s;
   if (isD)rot+=s;
