@@ -39,7 +39,7 @@ void mousePressed(){
 void draw(){
   background(255);
   for(Line l:finished){
-    stroke(0,10);
+    stroke(0,100);
     line(l.x1,l.y1,l.x2,l.y2);
   }
 }

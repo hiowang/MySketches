@@ -1,5 +1,5 @@
 //4:3.5 aspect ratio
-float mult=1000;
+float mult=200;
 void settings() {
   size(int(3.5*mult), int(4*mult));
   pixelDensity(2);
@@ -39,7 +39,10 @@ color col(float num) {
   if (num>=30) {
     return color(0, 0, 0);
   } else {
-    return color(map(num, 0, 20, 0, 100), 100, 100);
+    //return color(map(num, 0, 20, 0, 100));
+    return color(map(num, 0, 20, 0, 100),100,100);
+    //return color(100,map(num, 0, 20, 0, 100),100);
+    //return color(100,100,map(num, 0, 20, 0, 100));
   }
 }
 void setup() {
@@ -58,10 +61,11 @@ void setup() {
         float newx=mapx*mapx-mapy*mapy;
         float newy=2*mapx*mapy;
         mapx=newx+origx;
-        mapy=newy-origy;
+        mapy=newy+origy;
         num++;
       }
       colorMode(HSB, 100, 100, 100);
+      //colorMode(RGB, 100, 100, 100);
       if ( num < 30 ) {
         // sqrt of inner term removed using ;log simplification rules.
         float log_zn = log( mapx*mapx + mapy*mapy ) / 2;
@@ -86,6 +90,6 @@ void setup() {
       }
     }
   }
-  save("mandelbrot.png");
-  exit();
+  //save("mandelbrot.png");
+  //exit();
 }
