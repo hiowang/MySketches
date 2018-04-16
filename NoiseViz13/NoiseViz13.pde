@@ -44,8 +44,8 @@ class Thing {
   }
   void update() {
     //acc=acc.add(new PVector(mouseX-pos.x,mouseY-pos.y).mult(0.1));
-    acc.x+=cos(noise(pos.x, pos.y)*PI)*0.0001;
-    acc.y+=sin(noise(pos.x, pos.y)*PI)*0.0001;
+    acc.x+=cos(noise(pos.x, pos.y)*TWO_PI)*0.0001;
+    acc.y+=sin(noise(pos.x, pos.y)*TWO_PI)*0.0001;
     vel.x+=acc.x*speed;
     vel.y+=acc.y*speed;
     vel.setMag(speed);
