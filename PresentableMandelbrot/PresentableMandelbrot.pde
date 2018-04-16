@@ -1,5 +1,5 @@
 //4:3.5 aspect ratio
-float mult=200;
+float mult=1000;
 void settings() {
   size(int(3.5*mult), int(4*mult));
   pixelDensity(2);
@@ -39,8 +39,8 @@ color col(float num) {
   if (num>=30) {
     return color(0, 0, 0);
   } else {
-    //return color(map(num, 0, 20, 0, 100));
-    return color(map(num, 0, 20, 0, 100),100,100);
+    return color(map(num, 0, 20, 0, 100));
+    //return color(map(num, 0, 20, 0, 100),100,100);
     //return color(100,map(num, 0, 20, 0, 100),100);
     //return color(100,100,map(num, 0, 20, 0, 100));
   }
@@ -64,8 +64,8 @@ void setup() {
         mapy=newy+origy;
         num++;
       }
-      colorMode(HSB, 100, 100, 100);
-      //colorMode(RGB, 100, 100, 100);
+      //colorMode(HSB, 100, 100, 100);
+      colorMode(RGB, 100, 100, 100);
       if ( num < 30 ) {
         // sqrt of inner term removed using ;log simplification rules.
         float log_zn = log( mapx*mapx + mapy*mapy ) / 2;
@@ -75,12 +75,14 @@ void setup() {
         // because we want the entire palette to range from the
         // center to radius 2, NOT our bailout radius.
         //iteration = iteration + 1 - nu
-        num=num+1-nu;
+        //num=num+1-nu;
+        num=30-(num-1-8+8*nu);
       }
       color c1=col(floor(num));
       color c2=col(floor(num)+1);
       //println(num%1);
       color col=lerpColor(c1,c2,num%1);
+      //color col=col(num-(1/30)*sqrt(sq(mapx)+sq(mapy)));
       if(d==1){
         set(int(x),int(y),col);
       }else{
@@ -90,6 +92,6 @@ void setup() {
       }
     }
   }
-  //save("mandelbrot.png");
-  //exit();
+  save("mandelbrot.png");
+  exit();
 }

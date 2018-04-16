@@ -9,7 +9,7 @@ class Planet {
     y=random(-2500, 2500);
     if(totalID<1)stuck=true;
     if(stuck){
-      mass=2;
+      mass=5;
       r=10;
     }else{
       mass=0.1;
@@ -80,7 +80,7 @@ class Planet {
 float forceCalc(Planet a,Planet b){
   if(a.id==b.id)return 0;
   float dist=dist(a.x,a.y,b.x,b.y);
-  return GravConst*sq(a.mass)*sq(b.mass)/sq(dist);
+  return GravConst*(a.mass)*(b.mass)/sq(dist);
 }
 float stuckAcc=0;
 float stuckVel=0;

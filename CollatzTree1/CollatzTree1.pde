@@ -10,14 +10,14 @@ void draw() {
   //fi
 }
 void doCollatz(int n){
-  stroke(0,10);
+  stroke(0,4);
   noFill();
   beginShape();
   int y=0;
   curveVertex(n,0);
   while(n!=1){
     curveVertex(n,y);
-    y+=30;
+    y+=10;
     n=collatz(n);
   }
   curveVertex(n,y);
