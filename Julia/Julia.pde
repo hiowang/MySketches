@@ -3,7 +3,7 @@ void setup() {
   pixelDensity(2);
   textFont(loadFont("Monospaced-20.vlw"));
 }
-float density=5;
+float density=1;
 float offx=0;
 float offy=0;
 float scale=1;
@@ -53,7 +53,7 @@ void draw() {
 
       int numIters=0;
 
-      while (numIters<30&&a*a+b*b<4) {
+      while (numIters<30&&a*a+b*b<40) {
         double na=a*a-b*b;
         double nb=2*a*b;
         a=na;
@@ -63,7 +63,7 @@ void draw() {
 
         numIters++;
       }
-  
+
       color col=color(0, 0, 0);
       float v=float(numIters)/30;
       if (doHSB) {
@@ -81,8 +81,8 @@ void draw() {
   }
   stroke(255);
   fill(255);
-  textAlign(LEFT,TOP);
-  text("a: "+moda+"\nb: "+modb,2,2);
+  textAlign(LEFT, TOP);
+  text("a: "+moda+"\nb: "+modb, 2, 2);
   line(0, height/2, width, height/2);
   line(width/2, 0, width/2, height);
   println("end frame "+frameCount);
@@ -92,8 +92,8 @@ float moda=0;
 float modb=0;
 void keyPressed() {
   if (key=='h')doHSB=!doHSB;
-  if(key=='1')moda-=0.1;
-  if(key=='2')modb-=0.1;
-  if(key=='3')moda+=0.1;
-  if(key=='4')modb+=0.1;
+  if (key=='1')moda-=0.1;
+  if (key=='2')modb-=0.1;
+  if (key=='3')moda+=0.1;
+  if (key=='4')modb+=0.1;
 }
