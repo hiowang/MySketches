@@ -11,8 +11,8 @@ class Circle {
   //}
 }
 
-int numCircles=3;
-float radMi=30, radMa=100;
+int numCircles=10;
+float radMi=10, radMa=50;
 float ampRange=0.01;
 float ampScale=1;
 
@@ -35,6 +35,7 @@ void setup() {
 }
 void doSetup() {
   circles=new Circle[numCircles];
+  int f=60;
   for (int i=0; i<circles.length; i++) {
     circles[i]=new Circle();
     //circles[i].rad=(numCircles-i)*10+10;
@@ -42,6 +43,9 @@ void doSetup() {
     //circles[i].off1=0;
     circles[i].rad=rand(radMi, radMa);
     circles[i].amp1=rand(-ampRange, ampRange)*ampScale;
+    //circles[i].rad=f;
+    //f-=10;
+    //circles[i].amp1=0.001;
   }
   iters=0;
   points=new ArrayList<PVector>();
@@ -93,7 +97,7 @@ void draw() {
     for (Circle c : circles) {
       noFill();
       stroke(150);
-      if (drawScaffolding)ellipse(v.x, v.y, c.rad*2, c.rad*2);
+      //if (drawScaffolding)ellipse(v.x, v.y, c.rad*2, c.rad*2);
       lastV=v.copy();
       v.x=c.rad*cos(iters*c.amp1+c.off1)+v.x;
       v.y=c.rad*sin(iters*c.amp1+c.off1)+v.y;
@@ -101,7 +105,7 @@ void draw() {
       if (drawScaffolding)line(v.x, v.y, lastV.x, lastV.y);
       fill(255, 0, 0);
       stroke(255, 0, 0);
-      if (drawScaffolding) ellipse(v.x-3, v.y-3, 6, 6);
+      //if (drawScaffolding) ellipse(v.x-3, v.y-3, 6, 6);
       //v.x=c.rad*cos(iters*c.amp1+c.off1)+v.x;
       //v.y=c.rad*sin(iters*c.amp2+c.off2)+v.y;
     }
