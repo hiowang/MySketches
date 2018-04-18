@@ -1,5 +1,6 @@
 void setup() {
   size(500, 500);
+  background(230,230,250);
 }
 void draw() {
   fill(230, 230, 250, 50);
@@ -38,7 +39,7 @@ class Drop {
   }
   void update() {
     //vely=map(;
-    velx+=map(noise(frameCount*0.01, posy*0.01),0,1,-1,1)*z*0.01;
+    velx+=map(noise(frameCount*0.01, posx*0.01,posy*0.01),0,1,-1,1)*z*0.01;
     posx+=velx;
     posy+=vely;
     stroke(138, 43, 226);

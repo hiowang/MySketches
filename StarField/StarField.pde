@@ -34,7 +34,7 @@ void removeExtraLines() {
     }
   }
 }
-float speed=10;
+float speed=300;
 class Line {
   PVector start;
   float offx, offy;
