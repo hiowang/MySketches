@@ -55,6 +55,7 @@ void update() {
       v[x][y]+=0.25*xmi+0.25*xpl+0.25*ymi+0.25*ypl-u[x][y];
       v[x][y]*=0.66;//0.66
       u[x][y]+=v[x][y];
+      //newu[x][y]=u[x][y]+v[x][y];
     }
   }
   //u=newu;
