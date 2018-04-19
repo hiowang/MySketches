@@ -10,7 +10,9 @@ Dir randDir(ArrayList<Dir>dirs){
 }
 Cell pickRandom(ArrayList<Cell>list){
   if(list.size()==0)return null;
-  return list.get(int(random(list.size())));
+  Cell c=list.get(int(random(list.size())));
+  if(c==null)return pickRandom(list);
+  return c;
 }
 boolean chanceEven(){
   return chanceTrue(0.5);

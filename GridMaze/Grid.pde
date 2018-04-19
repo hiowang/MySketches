@@ -1,5 +1,9 @@
 class Grid {
   void errorBounds(Cell c){
+    if(c==null){
+      println("null");
+      return;
+    }
     errorBounds(c.x,c.y);
   }
   void errorCell(Cell c,String msg){
@@ -38,6 +42,7 @@ class Grid {
     return x<0||y<0||x>=w||y>=h;
   }
   boolean outBounds(Cell c){
+    if(c==null)return true;
     return outBounds(c.x,c.y);
   }
   boolean getWall(Cell c,Dir d){
@@ -90,7 +95,8 @@ class Grid {
     for(int i=0;i<list.size();i++){
       if(!getWall(list.get(i),c))list.set(i,null);
     }
-    while(list.contains(null))list.remove(null);
+    //while(list.contains(null))list.remove(null);
+    list=removeNull(list);
     return list;
   }
   boolean getWall(Cell a,Cell b){
