@@ -3,6 +3,10 @@ class Predator {
   int id=0;
   Predator() {
     pos=getRandom().mult(random(size));
+    vel=new PVector(0, 0, 0);
+    acc=new PVector(0, 0, 0);
+    id=totalID;
+    totalID++;
   }
   Predator(PVector p) {
     pos=p;
@@ -10,6 +14,12 @@ class Predator {
     acc=new PVector(0, 0, 0);
     id=totalID;
     totalID++;
+  }
+  PVector normVel(float f){
+    PVector p=vel.copy();
+    p.normalize();
+    p.setMag(f);
+    return p;
   }
   void update() {
     npos=pos.copy();
@@ -24,6 +34,8 @@ class Predator {
     for (Boid b : boids) {
       if (PVector.dist(pos, b.pos)>predSeeDist)continue;
       attack.add(PVector.sub(b.pos, pos));
+      stroke(0,50);
+      line(pos.x,pos.y,pos.z,b.pos.x,b.pos.y,b.pos.z);
       num++;
     }
     attack.mult(predAttack);
@@ -59,11 +71,14 @@ class Predator {
     fill(200, 0, 0);
     //stroke(50);
     noStroke();
-    pushMatrix();
-    rotateY(rot);
+    //pushMatrix();
+    //rotateY(rot);
     //translate(xoff,yoff,zoff);
+    if(followPred&&predToFollow==this)fill(0,255,0);
     translate(pos.x, pos.y, pos.z);
     box(10);
-    popMatrix();
+    translate(-pos.x,-pos.y,-pos.z);
+    //rotateY(-rot);
+    //popMatrix();
   }
 }
