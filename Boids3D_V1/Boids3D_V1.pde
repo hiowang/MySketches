@@ -65,7 +65,8 @@ class Predator {
   }
   void display() {
     fill(200, 0, 0);
-    stroke(50);
+    //stroke(50);
+    noStroke();
     pushMatrix();
     rotateY(rot);
     //translate(xoff,yoff,zoff);
@@ -163,7 +164,8 @@ class Boid {
   }
   void display() {
     fill(200);
-    stroke(50);
+    //stroke(50);
+    noStroke();
     pushMatrix();
     //translate(xoff,yoff,zoff);
     rotateY(rot);
