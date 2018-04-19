@@ -4,7 +4,7 @@ class Boid {
   PVector npos, nvel, nacc;
   int id=0;
   Boid() {
-    pos=getRandom().mult(random(size));
+    pos=getRandom().mult(size/2);
     vel=new PVector(0,0);
     acc=new PVector(0,0);
   }
@@ -28,14 +28,15 @@ class Boid {
     int n=0;
     for (Boid b : boids) {
       if (b.id==id)continue;
-      if (PVector.dist(pos, b.pos)>boidAttractDist)continue;
+      if (PVector.dist(pos, b.pos)>=boidAttractDist)continue;
       com.add(b.pos);
       n++;
       //stroke(0,10);
       //line(pos.x,pos.y,b.pos.x,b.pos.y);
     }
-    if (n!=0)com=com.mult(1.0/n);
-    com=com.sub(this.pos);
+    //if (n!=0)com=com.mult(1.0/n);
+    println(com.x+" "+com.y);
+    com.sub(new PVector(pos.x*n,pos.y*n));
     com=com.mult(boidCenterOfMass);
 
     this.nvel=this.nvel.add(com);

@@ -10,16 +10,19 @@ float predMaxVel=4;
 float predRandom=0;//1
 float predStayInBorders=0.01;
 
-float boidStayInBorders=0.01;
+float boidStayInBorders=0.001;
 float boidSeePredDist=80;
 float boidRunFromPred=0.25;
-float boidAlignDist=30;
-float boidAttractDist=30;
-float boidRepelDist=20;
-float boidRepel=0.1;
-float boidCenterOfMass=0.01;//position
-float boidPVel=0.05;
-float boidRandom=0.01;//0.01
+
+float boidAlignDist=0;
+float boidPVel=0;
+
+float boidAttractDist=2000;
+float boidCenterOfMass=10;//position
+
+float boidRepelDist=0;
+float boidRepel=0;
+float boidRandom=0.0;//0.01
 float boidMaxVel=3;
 
 float rot=0;
@@ -28,8 +31,7 @@ float predFunc(float num){
   return 1;
 }
 PVector getRandom() {
-  float ang=random(TWO_PI);
-  return new PVector(cos(ang), sin(ang), random(-1, 1));
+  return new PVector(random(-1,1),random(-1,1),random(-1,1)).normalize();
 }
 
 ArrayList<Boid>boids;
@@ -39,15 +41,15 @@ void setup(){
   size(1000,1000,P3D);
   boids=new ArrayList<Boid>();
   preds=new ArrayList<Predator>();
-  for(int i=0;i<100;i++){
+  for(int i=0;i<1000;i++){
     boids.add(new Boid());
   }
 }
 void draw(){
-  background(255);
-  camera(400,-400,400,0,0,0,0,1,0);
-  //rot+
-  rot+=0.001;
+  background(100);
+  camera(600,-400,600,0,0,0,0,1,0);
+  //rot+=0.001;
+  pointLight(255,255,255,0,0,0);
   for(Predator p:preds){
     p.display();
     p.update();
@@ -56,12 +58,13 @@ void draw(){
     b.display();
     b.update();
   }
-  //translate(250,250,250);
+  for(Boid b:boids){
+    b.applyUpdate();
+  }
   noFill();
   rotateY(rot);
-  stroke(0);
+  stroke(120);
   sphereDetail(10);
   sphere(size);
   rotateY(-rot);
-  //translate(-250,-250,-250);
 }
