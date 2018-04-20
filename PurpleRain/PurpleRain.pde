@@ -1,12 +1,12 @@
 void setup() {
-  size(500, 500);
+  size(1500, 1000);
   background(230,230,250);
 }
 void draw() {
   fill(230, 230, 250, 50);
   noStroke();
   rect(0, 0, width, height);
-  for (int i=0; i<2; i++)drops.add(new Drop(random(0, width), -100));
+  for (int i=0; i<map(width,0,500,0,2); i++)drops.add(new Drop(random(0, width), -100));
   for (Drop d : drops)d.update();
   removeExtras();
 }
