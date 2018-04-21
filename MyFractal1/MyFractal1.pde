@@ -9,8 +9,10 @@ class Rect {
   }
   void display() {
     noFill();
+    //ellipseMode(CORNER);
     stroke(255,20);
     rect(x, y, w, h);
+    stroke(255,40);
     ellipse(x,y,w,h);
   }
   ArrayList<Rect>makeNew() {
