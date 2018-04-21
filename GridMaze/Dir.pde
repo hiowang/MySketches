@@ -18,6 +18,16 @@ Dir dirFromDXDY(int dx,int dy){
   if(dy==1)return Dir.YPL;
   return Dir.NONE;
 }
+Dir randDir(Cell c){
+  int x=c.x;
+  int y=c.y;
+  Dir d=randDir();
+  if(grid.outBounds(x+getDX(d),y+getDY(d)))return null;
+  //while(grid.outBounds(x+getDX(d),y+getDY(d))){
+    //d=randDir();
+  //}
+  return d;
+}
 Dir randDir(){
   int i=int(random(4));
   if(i==0)return Dir.XMI;

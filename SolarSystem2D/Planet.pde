@@ -22,6 +22,7 @@ class Planet {
   void display() {
     ellipseMode(CENTER);
     fill(50);
+    if(stuck)fill(150,0,0);
     ellipse(x, y, r, r);
   }
   void update() {
@@ -82,8 +83,8 @@ float forceCalc(Planet a,Planet b){
   float dist=dist(a.x,a.y,b.x,b.y);
   return GravConst*(a.mass)*(b.mass)/sq(dist);
 }
-float stuckAcc=0;
-float stuckVel=0;
+float stuckAcc=1;
+float stuckVel=0.9;
 float maxAcc=1;
 float maxVel=30;
 float GravConst=1;

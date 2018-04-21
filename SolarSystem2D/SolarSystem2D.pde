@@ -59,7 +59,7 @@ void draw() {
         //fx*=f;
         //fy*=f;
         stroke(0);
-        float s=1;
+        float s=2;
         line(x,y,fx*s+x,fy*s+y);
         //for(Planet p:planets)f+=forceCalc(p,custom);
         //fill(f*50);
