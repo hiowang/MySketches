@@ -7,8 +7,31 @@ class MazeGeneratorRecursiveBacktracker extends MazeGenerator {
   }
   ArrayList<Cell>stack=new ArrayList<Cell>();
   Cell current;
+  boolean first=true;
   void update(){
+    if(!first&&stack.size()<1){
+      first=false;
+      return;
+    }
     ArrayList<Cell>adj=grid.getAllAdj(current);
+    for(int i=0;i<adj.size();i++){
+      if(stack.contains(adj.get(i)))adj.set(i,null);
+    }
+
+    adj=removeNull(adj);
+    if(adj.size()==0){
+      while(adj.size()==0){
+        stack.remove(0);
+        current=stack.get(0);
+        adj=grid.getAllAdj(current);
+        for(int i=0;i<adj.size();i++){
+          if(stack.contains(adj.get(i)))adj.set(i,null);
+        }
+        adj=removeNull(adj);
+      }
+      return;
+    }
+    stack.add(0,current);
     Cell next=pickRandom(adj);
     grid.setWall(next,current,true);
     current=next;

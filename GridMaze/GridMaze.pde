@@ -1,6 +1,6 @@
 Grid grid;
-float sizeX=100;
-float sizeY=100;
+float sizeX=10;
+float sizeY=10;
 float densX, densY;
 MazeGenerator mazeGen;
 void setup() {
@@ -11,8 +11,8 @@ void initMaze() {
   densX=(width)/sizeX;
   densY=(height)/sizeY;
   //mazeGen=new MazeGeneratorBinaryTree();
-  mazeGen=new MazeGeneratorSidewinder();
-  //mazeGen=new MazeGeneratorRecursiveBacktracker();
+  //mazeGen=new MazeGeneratorSidewinder();
+  mazeGen=new MazeGeneratorRecursiveBacktracker();
   grid=mazeGen.generateMaze(int(sizeX), int(sizeY));
 }
 void mousePressed() {
@@ -39,7 +39,8 @@ void draw() {
   my=0;
   //mx=int(sizeX/2);
   //my=int(sizeY/2);
-  for(int x=0;x<100;x++)mazeGen.update();
+  //for(int x=0;x<100;x++)
+  if(frameCount%2==0)mazeGen.update();
   PVector col=mazeGen.getColorScalar();
   grid.djikstraColoring(densX, densY, mx, my, col.x, col.y, col.z);
   strokeWeight(2);
