@@ -15,19 +15,21 @@ class Rect {
     stroke(255,40);
     ellipse(x,y,w,h);
   }
-  ArrayList<Rect>makeNew() {
-    done=true;
-    int nw=int(random(w));
-    int nh=int(random(h));
-    ArrayList<Rect>list=new ArrayList<Rect>();
-    //list.add(new Rect(x, y, nw, nh));
-    if(rand())list.add(aToB(x,y,x+nw,y+nh));
-    if(rand())list.add(aToB(x+nw,y+nh,x+w,y+h));
-    if(rand())list.add(aToB(x,y+nh,x+nw,y+h));
-    if(rand())list.add(aToB(x+nw,y,x+w,y+nh));
-    //list.add(new Rect(x+nw,y+nh,x+w,y+h));
-    return list;
-  }
+  //ArrayList<Rect>makeNew() {
+  //  done=true;
+  //  int nw=w/2;
+  //  int nh=h/2;
+  //  nw=w/2;
+  //  nh=h/2;
+  //  ArrayList<Rect>list=new ArrayList<Rect>();
+  //  //list.add(new Rect(x, y, nw, nh));
+  //  if(rand())list.add(aToB(x,y,x+nw,y+nh));
+  //  if(rand())list.add(aToB(x+nw,y+nh,x+w,y+h));
+  //  if(rand())list.add(aToB(x,y+nh,x+nw,y+h));
+  //  if(rand())list.add(aToB(x+nw,y,x+w,y+nh));
+  //  //list.add(new Rect(x+nw,y+nh,x+w,y+h));
+  //  return list;
+  //}
 }
 boolean rand(){
   return random(100)<75;
@@ -49,6 +51,8 @@ void drawFractal(int x, int y, int w, int h, int n) {
   rects.add(new Rect(x,y,w,h));
   int nw=int(random(w));
   int nh=int(random(h));
+  nw=w/2;
+  nh=h/2;
   if(rand())drawFractal(x, y, nw, nh, n-1);
   if(rand())drawFractal(x+nw, y+nh, w-nw, h-nh, n-1);
   if(rand())drawFractal(x+nw, y, w-nw, nh, n-1);
@@ -56,7 +60,7 @@ void drawFractal(int x, int y, int w, int h, int n) {
 }
 int num=10;
 void setup() {
-  size(640, 480);
+  size(500, 500);
   background(0);
   //rects.add(new Rect(0,0,width,height));
   drawFractal(0, 0, width, height, num);

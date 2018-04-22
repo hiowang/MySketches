@@ -5,7 +5,7 @@ void setup() {
   size(1000,1000,P3D);
   planets=new ArrayList<Planet>();
   for (int i=0; i<2000; i++) {
-    planets.add(new Planet(2000,100));
+    planets.add(new Planet(1000,100));
   }
 }
 ArrayList<Planet>toAdd;
@@ -20,7 +20,7 @@ void draw() {
   if(key=='a')rotY-=0.01;
   if(key=='d')rotY+=0.01;
   background(255);
-  camera(1500,-1500,1500,0,0,0,0,1,0);
+  camera(1500,-1000,1500,0,0,0,0,1,0);
   rotateY(rotY);
   toAdd=new ArrayList<Planet>();
   toRem=new ArrayList<Planet>();

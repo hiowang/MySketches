@@ -13,7 +13,6 @@ class Planet {
     x=cos(ang)*cur_r;
     z=sin(ang)*cur_r;
     y=random(-h,h);
-    //float theH=random(TWO_PI);
     if(totalID<1){
       stuck=true;
       x=y=z=0;
@@ -112,7 +111,7 @@ class Planet {
 //G*m^2/d^2
 float forceCalc(Planet a,Planet b){
   if(a.id==b.id)return 0;
-  float dist=dist(a.x,a.y,b.x,b.y);
+  float dist=dist(a.x,a.y,a.z,b.x,b.y,b.z);
   return GravConst*(a.mass)*(b.mass)/sq(dist);
 }
 float stuckAcc=1;
