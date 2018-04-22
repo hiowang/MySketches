@@ -1,5 +1,6 @@
 void setup() {
-  size(500, 500);
+  size(2000,2000);
+  //size(500, 500);
   pixelDensity(2);
   //textFont(loadFont("Monospaced-20.vlw"));
 }
@@ -41,8 +42,8 @@ void draw() {
   scale=lerp(scale, targscale, 0.1);
   if (targscale<0.00001)targscale=0.00001;
   if (scale<0.00001)scale=0.00001;
-      float ca=1;
-      float cb=0;
+      float ca=0;
+      float cb=1;
       float mandelScale=1;
   for (float x=0; x<width*2; x+=density) {
     for (float y=0; y<height*2; y+=density) {
@@ -94,7 +95,9 @@ void draw() {
   stroke(255);
   //line(0, height/2, width, height/2);
   //line(width/2, 0, width/2, height);
+  save("frame.png");
   println("end frame "+frameCount);
+  exit();
   //n+=0.01;
 }
 float n=4;
