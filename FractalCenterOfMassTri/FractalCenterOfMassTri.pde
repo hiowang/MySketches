@@ -26,7 +26,9 @@ class Tri {
 ArrayList<Tri>work=new ArrayList<Tri>(), finished=new ArrayList<Tri>();
 void setup() {
   size(600, 500);
-  work.add(new Tri(new PVector(width/2, 10), new PVector(width-10, height-10), new PVector(10, height-10)));
+  //work.add(new Tri(new PVector(width/2, 10), new PVector(width-10, height-10), new PVector(10, height-10)));
+  work.add(new Tri(new PVector(0,0),new PVector(width,0),new PVector(0,height)));
+  work.add(new Tri(new PVector(width,height),new PVector(width,0),new PVector(0,height)));
 }
 boolean workFirst=false;
 void keyPressed() {
