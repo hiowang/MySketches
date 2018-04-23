@@ -130,7 +130,7 @@ class Grid {
       cells[x][y].down=b;
     }
   }
-  void djikstraColoring(float sx,float sy,int startX,int startY,float r,float g,float b){
+  void djikstraColoring(float sx,float sy,int startX,int startY,float r,float g,float b,float a){
     int[][]nums=new int[w][h];
     Cell[][]froms=new Cell[w][h];
     for(int x=0;x<w;x++){
@@ -172,7 +172,7 @@ class Grid {
       for(int y=0;y<h;y++){
         float f=map(nums[x][y],mi,ma,0,255);
         //println(nums[x][y]);
-        fill(r*f,g*f,b*f);
+        fill(r*f,g*f,b*f,a);
         noStroke();
         rect(x*sx,y*sy,sx,sy);
       }
