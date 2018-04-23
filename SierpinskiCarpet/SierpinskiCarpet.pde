@@ -1,5 +1,5 @@
 void carpet(float x,float y,float w,float h,int n){
-  if(n>7)return;
+  if(n>_n)return;
   fill(255);
   noStroke();
   float nw=w/3;
@@ -18,9 +18,15 @@ void carpet(float x,float y,float w,float h,int n){
 boolean edges=true;
 boolean corners=true;
 void setup(){
-  size(5000,5000);
+  size(500,500);
+  //save("frame.png");
+  //exit();
+}
+void draw(){
   background(#3B117D);
   carpet(0,0,width,height,1);
-  save("frame.png");
-  exit();
+}
+int _n=0;
+void mousePressed(){
+  _n++;
 }

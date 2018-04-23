@@ -1,7 +1,7 @@
 float[][]u;
 float[][]v;
-int w=30;
-int h=30;
+int w=70;
+int h=70;
 float d=30;
 void settings() {
   //w*d=1000
@@ -141,8 +141,10 @@ void draw() {
   fill(255);
   stroke(0);
   //quad(-w*5,0,-w*5,w*5,0,-w*5,-w*5,0,w*5,w*5,0,w*5);
+  float total=0;
   for (int x=0; x<w-1; x++) {
     for (int y=0; y<h-1; y++) {
+      total+=u[x][y];
       noStroke();
       //stroke(#00AFD8);
       fill(0, 196, 242);
@@ -178,6 +180,7 @@ void draw() {
       //popMatrix();
     }
   }
+  println("AVG:"+(total/(w-1)/(h-1)));
   update();
   //for(int x=0;x<w;x++){
   //  for(int y=0;y<h;y++){

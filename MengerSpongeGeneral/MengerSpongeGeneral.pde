@@ -7,11 +7,11 @@ void setup() {
   boxes.add(new Box(-ss/2, -ss/2, -ss/2, ss));
   initGrids();
   grid=gridMengerSponge;
-  //grid=gridMengerSpiky;
-  //grid=gridMengerSnowflake;
-  //grid=gridRemEdges;
-  //grid=gridRemCorners;
-  //grid=gridLeaveEdges;
+  grid=gridMengerSpiky;
+  grid=gridMengerSnowflake;
+  grid=gridRemEdges;
+  grid=gridRemCorners;
+  grid=gridLeaveEdges;
 }
 void mousePressed() {
   iterate();
@@ -131,6 +131,7 @@ class Box {
     fill(col);
     //fill(200,20);
     stroke(col);
+    //noStroke();
     //fill(0);
     pushMatrix();
     rotateX(rotX);

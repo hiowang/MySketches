@@ -1,10 +1,10 @@
 void setup() {
-  size(2000,2000);
+  size(1000, 1000);
   //size(500, 500);
   pixelDensity(2);
   //textFont(loadFont("Monospaced-20.vlw"));
 }
-float density=1;
+float density=2;
 float offx=0;
 float offy=0;
 float scale=1;
@@ -42,9 +42,6 @@ void draw() {
   scale=lerp(scale, targscale, 0.1);
   if (targscale<0.00001)targscale=0.00001;
   if (scale<0.00001)scale=0.00001;
-      float ca=0;
-      float cb=1;
-      float mandelScale=1;
   for (float x=0; x<width*2; x+=density) {
     for (float y=0; y<height*2; y+=density) {
       float a=mapX(x);
@@ -53,12 +50,11 @@ void draw() {
       b+=offy;
 
       int numIters=0;
-
       while (numIters<30&&sq(a)+sq(b)<n) {
-        if (a>1)a=2-a;
-        else if (a<-1)a=-2-a;
-        if (b>1)b=2-b;
-        else if (b<-1)b=-2-b;
+        if (a>pa)a=2-a;
+        else if (a<pb)a=-2-a;
+        if (b>pa)b=2-b;
+        else if (b<pb)b=-2-b;
         float mag=sqrt(a*a+b*b);
         if (mag<0.5) {
           a*=4;
@@ -95,13 +91,23 @@ void draw() {
   stroke(255);
   //line(0, height/2, width, height/2);
   //line(width/2, 0, width/2, height);
-  save("frame.png");
+  //save("frame.png");
   println("end frame "+frameCount);
-  exit();
+  //exit();
   //n+=0.01;
 }
+float pa=1;
+float pb=-1;
+  float ca=0;
+  float cb=1;
+  float mandelScale=1;
+
 float n=4;
-boolean doHSB=false;
+boolean doHSB=true;
 void keyPressed() {
   if (key=='h')doHSB=!doHSB;
+  if(key=='1')mandelScale-=0.1;
+  if(key=='2')mandelScale+=0.1;
+  if(key=='3')n-=0.1;
+  if(key=='4')n+=0.1;
 }

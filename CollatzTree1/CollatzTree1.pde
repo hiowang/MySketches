@@ -6,6 +6,7 @@ void draw() {
   //translate(width/2, 0);
   //doCollatz(wid);
   for(int x=1;x<width;x+=1)doCollatz(x);
+  println(frameCount);
   //doCollatz
   //fi
 }

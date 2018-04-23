@@ -9,7 +9,7 @@ class Edge {
   //}
 }
 int cellSize;
-int gridSize=30;
+int gridSize=20;
 //int gridSize=100;
 //int cellSize=5;
 Edge[][] grid;
