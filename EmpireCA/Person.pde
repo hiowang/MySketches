@@ -12,12 +12,13 @@ class Person {
 
   void update() {
     age+=0.0011;
-    repro+=0.00225;
+    repro+=0.005;
     //strength+=random(-0.01,-0.005);
     if(!alive)return;
     //if(random(100)<1)alive=false;
     //if(diseased)if(random(100)<0.1)alive=false;
     if(age>1)alive=false;
+    if(strength<0)alive=false;
     lastAtPos[x][y]=colID;
     int speed=5;
     int i=int(random(4));
@@ -43,7 +44,7 @@ class Person {
           //if(random(100)<0.01){
             //println(frameCount);
             //alive=false;
-            strength-=0.00025;
+            strength-=0.001;
           //}
           //if(diseased){
             //if(random(100)<10)other.diseased=true;

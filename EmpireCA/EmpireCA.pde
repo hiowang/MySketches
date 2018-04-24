@@ -88,19 +88,22 @@ void draw() {
   float[]xs=new float[totalColID];
   float[]ys=new float[totalColID];
   color[]cols=new color[totalColID];
+  float[]numPPL=new float[totalColID];
   for (Person p : people) {
     strengths[p.colID]+=p.strength/people.size();
     xs[p.colID]+=float(p.x)/numPPLCol(p.colID);
     ys[p.colID]+=float(p.y)/numPPLCol(p.colID);
     cols[p.colID]=p.col;
+    numPPL[p.colID]=numPPLCol(p.colID);
   }
   for(int i=0;i<totalColID;i++){
     for(int j=0;j<totalColID;j++){
-      if(strengths[i]>strengths[j]){
+      if(strengths[i]*numPPL[i]>strengths[j]*numPPL[j]){
         strengths=swap(strengths,i,j);
         xs=swap(xs,i,j);
         ys=swap(ys,i,j);
         cols=swap(cols,i,j);
+        numPPL=swap(numPPL,i,j);
       }
     }
   }
@@ -121,7 +124,7 @@ void draw() {
     textAlign(LEFT, TOP);
     textSize(20);
     if (strengths[i]==0)continue;
-    text(nfs(strengths[i], 1, 2)+":"+nf(numPPLCol(i), 4), 2, 2+y);
+    text(nfs(strengths[i], 1, 2)+":"+nf(int(numPPL[i]), 4), 2, 2+y);
     rect(152, 2+y, 100, 20);
     if(mouseX>152&&mouseY>2+y&&mouseX<152+100&&mouseY<22+y){
       stroke(cols[i]);
@@ -164,7 +167,7 @@ void removeDead() {
   }
 }
 boolean hideStats=false;
-int simSpeed=1;
+int simSpeed=3;
 void keyPressed(){
   if(key=='s')hideStats=!hideStats;
 }
