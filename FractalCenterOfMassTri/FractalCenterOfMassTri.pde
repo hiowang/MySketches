@@ -15,17 +15,21 @@ class Tri {
     //list.add(new Tri(a,ac,c));
     //list.add(new Tri(bc,b,c));
     
+    list.add(new Tri(ab,ac,a));
+    list.add(new Tri(ab,bc,b));
+    list.add(new Tri(bc,ac,c));
+    
     //list.add(new Tri(a, b, p));
     //list.add(new Tri(a, p, c));
     //list.add(new Tri(p, b, c));
     
-    list.add(new Tri(a,ab,p));
-    list.add(new Tri(ab,b,p));
-    list.add(new Tri(a,ac,p));
+    //list.add(new Tri(a,ab,p));
+    //list.add(new Tri(ab,b,p));
+    //list.add(new Tri(a,ac,p));
     
-    list.add(new Tri(c,ac,p));
-    list.add(new Tri(b,bc,p));
-    list.add(new Tri(c,bc,p));
+    //list.add(new Tri(c,ac,p));
+    //list.add(new Tri(b,bc,p));
+    //list.add(new Tri(c,bc,p));
     return list;
   }
   void display(color col) {

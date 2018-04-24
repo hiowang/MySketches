@@ -51,8 +51,8 @@ void drawFractal(int x, int y, int w, int h, int n) {
   rects.add(new Rect(x,y,w,h));
   int nw=int(random(w));
   int nh=int(random(h));
-  nw=w/2;
-  nh=h/2;
+  //nw=w/2;
+  //nh=h/2;
   if(rand())drawFractal(x, y, nw, nh, n-1);
   if(rand())drawFractal(x+nw, y+nh, w-nw, h-nh, n-1);
   if(rand())drawFractal(x+nw, y, w-nw, nh, n-1);
@@ -60,7 +60,7 @@ void drawFractal(int x, int y, int w, int h, int n) {
 }
 int num=10;
 void setup() {
-  size(500, 500);
+  size(1000, 1000);
   background(0);
   //rects.add(new Rect(0,0,width,height));
   drawFractal(0, 0, width, height, num);
