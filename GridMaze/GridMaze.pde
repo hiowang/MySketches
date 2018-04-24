@@ -1,27 +1,28 @@
 Grid grid;
 //720/1280
-float sizeX=200;
-float sizeY=350;
+float sizeX=5;
+float sizeY=5;
 float densX, densY;
 MazeGenerator mazeGen;
 void setup() {
   //size(1000,1000);
-  size(1280,720);
+  size(1000,1000);
   initMaze();
 }
 void initMaze() {
   densX=(width)/sizeX;
   densY=(height)/sizeY;
-  //mazeGen=new MazeGeneratorBinaryTree();
-  //mazeGen=new MazeGeneratorSidewinder();
+  mazeGen=new MazeGeneratorBinaryTree();
+  mazeGen=new MazeGeneratorSidewinder();
   mazeGen=new MazeGeneratorRecursiveBacktracker();
+  mazeGen=new MazeGeneratorRecursiveDivider();
   grid=mazeGen.generateMaze(int(sizeX), int(sizeY));
 }
 void mousePressed() {
   initMaze();
 }
 boolean doD=true;
-float alpha=0, stroke=255;
+float alpha=255, stroke=255;
 void keyPressed() {
   if(key=='d')doD=!doD;
   if (key=='l') {
@@ -48,7 +49,7 @@ void draw() {
   //translate(50,50);
   //mx=int(sizeX/2);
   //my=int(sizeY/2);
-  for(int x=0;x<3000;x++)
+  for(int x=0;x<2;x++)
     mazeGen.update();
   mazeGen.display();
   PVector col=mazeGen.getColorScalar();

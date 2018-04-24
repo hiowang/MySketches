@@ -35,6 +35,9 @@ class Grid {
       }
     }
   }
+  void clearWalls(){
+    for(int x=0;x<w;x++)for(int y=0;y<h;y++)cells[x][y].right=cells[x][y].down=true;
+  }
   boolean outBounds(float x, float y) {
     return outBounds(int(x), int(y));
   }

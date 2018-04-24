@@ -18,7 +18,9 @@ class MazeGeneratorRecursiveBacktracker extends MazeGenerator {
     return grid;
   }
   boolean first=true;
-
+  boolean isValidPos(int x, int y) {
+    return isValidPos(new PVector(x, y));
+  }
   PImage img;
 
   color getCol(float x, float y) {
@@ -44,8 +46,8 @@ class MazeGeneratorRecursiveBacktracker extends MazeGenerator {
   }
   boolean isValidPos(PVector p) {
     if (visited.contains(p))return false;
-    color col=getCol(p.x, p.y);
-    if (!isValidRGB(red(col), green(col), blue(col)))return false;
+    //color col=getCol(p.x, p.y);
+    //if (!isValidRGB(red(col), green(col), blue(col)))return false;
     if (p.x<0)return false;
     if (p.y<0)return false;
     if (p.x>grid.w-1)return false;
@@ -65,8 +67,22 @@ class MazeGeneratorRecursiveBacktracker extends MazeGenerator {
   ArrayList<PVector>visited=new ArrayList<PVector>();
   ArrayList<PVector>retraced=new ArrayList<PVector>();
   PVector current;
+  boolean done=false;
   void update() {
-    if (stack.size()<1)return;
+    if(done)return;
+    if (stack.size()<1) {
+
+      for (int x=0; x<grid.w-1; x++) {
+        for (int y=0; y<grid.h-1; y++) {
+          //if(x==18&&y==33)continue;
+          //println(x+" "+y);
+          //if (!isValidPos(x+1, y))grid.setWall(x, y, Dir.XPL, true);
+          //if (!isValidPos(x, y+1))grid.setWall(x, y, Dir.YPL, true);
+        }
+      }
+      done=true;
+      return;
+    }
     int ix=int(current.x);
     int iy=int(current.y);
 
@@ -98,7 +114,7 @@ class MazeGeneratorRecursiveBacktracker extends MazeGenerator {
     //}
   }
   void display() {
-    image(img, 0, 0, width, height);
+    //image(img, 0, 0, width, height);
   }
 
   PVector getColorScalar() {
