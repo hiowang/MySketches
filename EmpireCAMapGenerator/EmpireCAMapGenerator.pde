@@ -1,0 +1,12 @@
+size(1000,1000);
+background(0,255,0);
+noStroke();
+fill(0,0,255);
+rect(0,0,250,height);
+rect(width/2,100,100,200);
+rect(width/2,height-300,100,200);
+save("../EmpireCA/data/trimmed_blue_eyes.png");
+background(0,255,0);
+fill(0,0,255);
+rect(0,0,250,height);
+save("../EmpireCA/data/trimmed.png");

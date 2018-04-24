@@ -6,11 +6,13 @@ void settings() {
   //map=loadImage("world_map.png");
   //map=loadImage("maze.png");
   //initMap("world_map_large_rivers.png");
-  initMap("canadian_flag.png");
+  //initMap("canadian_flag.png");
   //initMap("lines.png");
   //initMap("flatlands.png");
   //initMap("fun.png");
-  //initMap("all_green.png");
+  //initMap("trimmed_blue_eyes.png");
+  initMap("trimmed.png");
+  
   lastAtPos=new int[map.width][map.height];
   for (int x=0; x<map.width; x++) {
     for (int y=0; y<map.height; y++) {
@@ -24,7 +26,7 @@ int totalColID=0;
 ArrayList<Person>newPeople=new ArrayList<Person>();
 ArrayList<Person>people=new ArrayList<Person>();
 void setup() {
-  for (int i=0; i<10; i++) {
+  for (int i=0; i<30; i++) {
     addColony(false);
   }
 }
@@ -41,7 +43,7 @@ void addColony(boolean mouse) {
   }
   color col=color(random(255), random(100), random(255));
   totalColID++;
-  float strength=random(0, 1);
+  float strength=random(0, 3);
   for (int j=0; j<100; j++) {
     Person p=new Person();
     p.strength=strength+random(-1, 1);
