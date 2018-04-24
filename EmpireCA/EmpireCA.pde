@@ -10,8 +10,8 @@ void settings() {
   //initMap("lines.png");
   //initMap("flatlands.png");
   //initMap("fun.png");
-  //initMap("trimmed_blue_eyes.png");
-  initMap("trimmed.png");
+  initMap("trimmed_blue_eyes.png");
+  //initMap("trimmed.png");
   
   lastAtPos=new int[map.width][map.height];
   for (int x=0; x<map.width; x++) {
@@ -26,9 +26,10 @@ int totalColID=0;
 ArrayList<Person>newPeople=new ArrayList<Person>();
 ArrayList<Person>people=new ArrayList<Person>();
 void setup() {
-  for (int i=0; i<30; i++) {
-    addColony(false);
-  }
+  //for (int i=0; i<30; i++) {
+    //addColony(false);
+  //}
+  image(map, 0, 0, width, height);
 }
 void addColony(boolean mouse) {
   int x=int(random(width));
@@ -63,8 +64,11 @@ void mousePressed() {
   addColony(true);
 }
 void draw() {
+  if(frameCount%2==0&&totalColID<30)addColony(false);
   background(0);
   image(map, 0, 0, width, height);
+  //fill(255,20);
+  //rect(0,0,width,height);
   newPeople.clear();
   for (int i=0; i<simSpeed; i++) {
     for (Person person : people) {
@@ -89,6 +93,16 @@ void draw() {
     xs[p.colID]+=float(p.x)/numPPLCol(p.colID);
     ys[p.colID]+=float(p.y)/numPPLCol(p.colID);
     cols[p.colID]=p.col;
+  }
+  for(int i=0;i<totalColID;i++){
+    for(int j=0;j<totalColID;j++){
+      if(strengths[i]>strengths[j]){
+        strengths=swap(strengths,i,j);
+        xs=swap(xs,i,j);
+        ys=swap(ys,i,j);
+        cols=swap(cols,i,j);
+      }
+    }
   }
   fill(255);
   stroke(255);
@@ -122,6 +136,18 @@ void draw() {
   //fill(cols[lastAtPos[x][y]]);
   //rect(map(x,0,map.width,0,width),map(a,0,map.height,0,height),10,10);
   //}}
+}
+color[]swap(color[]arr,int i,int j){
+  color temp=arr[i];
+  arr[i]=arr[j];
+  arr[j]=temp;
+  return arr;
+}
+float[]swap(float[]arr,int i,int j){
+  float temp=arr[i];
+  arr[i]=arr[j];
+  arr[j]=temp;
+  return arr;
 }
 int numPPLCol(int id) {
   int n=0;

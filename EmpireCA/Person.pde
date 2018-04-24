@@ -43,7 +43,7 @@ class Person {
           //if(random(100)<0.01){
             //println(frameCount);
             //alive=false;
-            strength-=0.001;
+            strength-=0.00025;
           //}
           //if(diseased){
             //if(random(100)<10)other.diseased=true;
