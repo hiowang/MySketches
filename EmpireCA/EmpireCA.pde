@@ -10,8 +10,8 @@ void settings() {
   //initMap("lines.png");
   //initMap("flatlands.png");
   //initMap("fun.png");
-  initMap("trimmed_blue_eyes.png");
-  //initMap("trimmed.png");
+  //initMap("trimmed_blue_eyes.png");
+  initMap("trimmed.png");
   
   lastAtPos=new int[map.width][map.height];
   for (int x=0; x<map.width; x++) {
@@ -64,7 +64,7 @@ void mousePressed() {
   addColony(true);
 }
 void draw() {
-  if(frameCount%2==0&&totalColID<30)addColony(false);
+  if(frameCount%2==0&&totalColID<10)addColony(false);
   background(0);
   image(map, 0, 0, width, height);
   //fill(255,20);
@@ -167,7 +167,7 @@ void removeDead() {
   }
 }
 boolean hideStats=false;
-int simSpeed=3;
+int simSpeed=1;
 void keyPressed(){
   if(key=='s')hideStats=!hideStats;
 }
