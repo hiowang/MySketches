@@ -136,8 +136,8 @@ void draw() {
   //Waves?
   background(#002831);
   camera(0, -1500, 2500, 0, 0, 500, 0, 1, 0);
-  ambientLight(50, 50, 50);
-  pointLight(200, 200, 200, 0, -500, 800);
+  //ambientLight(50, 50, 50);
+  pointLight(200, 200, 200, w*d/2, -100, h*d/2);
   fill(255);
   stroke(0);
   //quad(-w*5,0,-w*5,w*5,0,-w*5,-w*5,0,w*5,w*5,0,w*5);
