@@ -1,13 +1,13 @@
 class Ellipse extends Thing{
   void display(){
     fill(100,0,0);
-    noStroke();
-    //stroke(255);
+    //noStroke();
+    stroke(255);
     Vec2 pos = box2d.getBodyPixelCoord(body);
     float a = body.getAngle();
     pushMatrix();
     translate(pos.x,pos.y);
-    //rotate(-a);
+    rotate(-a);
     if(!dynamic){
       fill(50);
       noStroke();
@@ -53,7 +53,7 @@ class Ellipse extends Thing{
     FixtureDef fd=new FixtureDef();
     fd.shape=ps;
     fd.friction=0;
-    fd.restitution=0.75;
+    fd.restitution=0.8;
     fd.density=1;
 
     body.createFixture(fd);

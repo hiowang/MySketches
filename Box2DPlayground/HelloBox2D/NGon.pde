@@ -1,8 +1,8 @@
 class NGon extends Thing {
   void display() {
     fill(0,0,100);
-    noStroke();
-    //stroke(100);
+    //noStroke();
+    stroke(255);
     Vec2 pos = box2d.getBodyPixelCoord(body);
     float a = body.getAngle();
     pushMatrix();
@@ -22,7 +22,7 @@ class NGon extends Thing {
     //vertex(0,0);
     //vertex(0,s);
     //vertex(s,0);
-    endShape();
+    endShape(CLOSE);
     //ellipse(0, 0, s*2, s*2);
     popMatrix();
   }
@@ -84,7 +84,7 @@ class NGon extends Thing {
     fd.shape=ps;
     fd.friction=0;
     fd.restitution=0.75;
-    fd.density=1;
+    fd.density=1000;
 
     body.createFixture(fd);
   }

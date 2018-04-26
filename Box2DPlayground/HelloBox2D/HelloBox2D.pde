@@ -1,7 +1,11 @@
 import shiffman.box2d.*;
+import org.jbox2d.common.*;
+import org.jbox2d.dynamics.joints.*;
 import org.jbox2d.collision.shapes.*;
+import org.jbox2d.collision.shapes.Shape;
 import org.jbox2d.common.*;
 import org.jbox2d.dynamics.*;
+import org.jbox2d.dynamics.contacts.*;
 ArrayList<Thing>things;
 Box2DProcessing box2d;
 void setup() {
@@ -10,7 +14,7 @@ void setup() {
   textFont(loadFont("Monospaced-15.vlw"));
   box2d=new Box2DProcessing(this);
   box2d.createWorld();
-  box2d.setGravity(0, -50);
+  box2d.setGravity(0, -150);
   things=new ArrayList<Thing>();
   things.add(new Box(0,350,150,10,false));
   things.add(new Box(150,100,350,10,false));
@@ -28,9 +32,17 @@ void setup() {
 }
 void mouseDragged(){
   float r=random(100);
-  if(r<45)things.add(new Ellipse(mouseX,mouseY,5,5,true));
-  else if(r<90)things.add(new Box(mouseX,mouseY,5,5,true));
-  else things.add(new NGon(mouseX,mouseY,int(random(5,10)),2,true));
+  float f=50;
+  float mi=10;
+  float ma=15;
+  if(r<f)things.add(new Ellipse(mouseX,mouseY,random(mi,ma),random(mi,ma),true));
+  else if(r<f*2)things.add(new Box(mouseX,mouseY,random(mi,ma),random(mi,ma),true));
+  //else things.add(new NGon(mouseX,mouseY,int(random(5,10)),5,true));
+}
+void keyPressed(){
+  if(key=='n'){
+    things.add(new NGon(mouseX,mouseY,int(random(5,10)),5,true));
+  }
 }
 long startTime,endTime;
 void startTiming(){
@@ -41,15 +53,15 @@ long endTiming(){
   return endTime-startTime;
 }
 void draw() {
-  background(255);
+  background(0);
   startTiming();
-  box2d.step();
+  for(int i=0;i<1;i++)box2d.step();
   long stepTime=endTiming();
   startTiming();
   for (Thing t : things)t.display();
   long drawTime=endTiming();
   fill(255,0,0);
   textAlign(LEFT,TOP);
-  //text("frameRate: "+frameRate+"\nframeCount: "+frameCount+"\n# things: "+(things.size()-7)+"\nstepTime: "+stepTime+"\ndrawTime: "+drawTime+"\ntotalTime: "+(drawTime+stepTime),0,0);
+  text("frameRate: "+frameRate+"\nframeCount: "+frameCount+"\n# things: "+(things.size()-7)+"\nstepTime: "+stepTime+"\ndrawTime: "+drawTime+"\ntotalTime: "+(drawTime+stepTime),0,0);
   //thing.display();
 }
