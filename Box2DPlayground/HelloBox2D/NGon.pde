@@ -26,14 +26,15 @@ class NGon extends Thing {
     //ellipse(0, 0, s*2, s*2);
     popMatrix();
   }
-  Body body;
   float s;
   int n;
-  boolean dynamic;
   NGon(float x, float y, int num,float s, boolean dynamic) {
     this(x, y, num,s, dynamic, 0, 0, 0);
   }
   PolygonShape ps;
+  void destroy(){
+    box2d.destroyBody(body);
+  }
   NGon(float x, float y, int num,float _s, boolean dynamic, float vx, float vy, float angVel) {
     //x+=_w;
     //y+=_h;

@@ -15,9 +15,10 @@ class Ellipse extends Thing{
     ellipse(0,0,w*2,h*2);
     popMatrix();
   }
-  Body body;
+  void destroy(){
+    box2d.destroyBody(body);
+  }
   float w,h;
-  boolean dynamic;
   Ellipse(float x,float y,float _w,float _h,boolean dynamic){
     this(x,y,_w,_h,dynamic,0,0,0);
   }

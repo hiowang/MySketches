@@ -1,17 +1,17 @@
 class Edge{
   Mass a;
   Mass b;
-  Edge(Mass m1,Mass m2,float dist){
+  Edge(Mass m1,Mass m2,float dist,float tension){
     a=m1;
     b=m2;
     DistanceJointDef djd=new DistanceJointDef();
     djd.bodyA=a.body;
     djd.bodyB=b.body;
     djd.length=box2d.scalarPixelsToWorld(dist);
-    djd.frequencyHz=5;
+    djd.frequencyHz=tension;
     djd.dampingRatio=0;
     DistanceJoint dj=(DistanceJoint)box2d.world.createJoint(djd);
-    println(dj);
+    //println(dj);
     
     
   }
