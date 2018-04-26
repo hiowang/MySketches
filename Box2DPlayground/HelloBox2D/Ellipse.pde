@@ -1,27 +1,27 @@
-class Box extends Thing{
+class Ellipse extends Thing{
   void display(){
-    fill(0,100,0);
+    fill(100,0,0);
     noStroke();
     //stroke(255);
     Vec2 pos = box2d.getBodyPixelCoord(body);
     float a = body.getAngle();
     pushMatrix();
     translate(pos.x,pos.y);
-    rotate(-a);
+    //rotate(-a);
     if(!dynamic){
       fill(50);
       noStroke();
     }
-    rect(-w,-h,w*2,h*2);
+    ellipse(0,0,w*2,h*2);
     popMatrix();
   }
   Body body;
   float w,h;
   boolean dynamic;
-  Box(float x,float y,float _w,float _h,boolean dynamic){
+  Ellipse(float x,float y,float _w,float _h,boolean dynamic){
     this(x,y,_w,_h,dynamic,0,0,0);
   }
-  Box(float x,float y,float _w,float _h,boolean dynamic,float vx,float vy,float angVel){
+  Ellipse(float x,float y,float _w,float _h,boolean dynamic,float vx,float vy,float angVel){
     x+=_w;
     y+=_h;
     this.dynamic=dynamic;
@@ -39,15 +39,15 @@ class Box extends Thing{
     body.setLinearVelocity(new Vec2(vx,vy));
     body.setAngularVelocity(angVel);
 
-    PolygonShape ps=new PolygonShape();
+    //Cir ps=new PolygonShape();
     //Vec2 size=box2d.coordPixelsToWorld(w,h);
     //println(size.x+" "+size.y);
     w=_w;
     h=_h;
     _w=box2d.scalarPixelsToWorld(w);
     _h=box2d.scalarPixelsToWorld(h);
-    //println(w+ " "+h);
-    ps.setAsBox(_w,_h);
+    CircleShape ps=new CircleShape();
+    ps.setRadius(_w/2+_h/2);
     //ps.setAsEllipse(_w,_h);
 
     FixtureDef fd=new FixtureDef();
