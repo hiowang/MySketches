@@ -46,8 +46,8 @@ class MazeGeneratorRecursiveBacktracker extends MazeGenerator {
   }
   boolean isValidPos(PVector p) {
     if (visited.contains(p))return false;
-    //color col=getCol(p.x, p.y);
-    //if (!isValidRGB(red(col), green(col), blue(col)))return false;
+    color col=getCol(p.x, p.y);
+    if (!isValidRGB(red(col), green(col), blue(col)))return false;
     if (p.x<0)return false;
     if (p.y<0)return false;
     if (p.x>grid.w-1)return false;
