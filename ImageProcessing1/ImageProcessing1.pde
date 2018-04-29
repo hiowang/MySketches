@@ -1,6 +1,6 @@
 PImage img;
 void settings() {
-  img=loadImage("img1.jpg");
+  img=loadImage("apple1.jpg");
   size(img.width, img.height);
 }
 void setup() {
@@ -18,11 +18,11 @@ void draw() {
   float sampleRad=10;
   for (int x=0; x<width; x++) {
     for (int y=0; y<height; y++) {
-      float ang=angs[x][y]+random(-0.1,0.1);
+      float ang=random(TWO_PI);
       float dx=cos(ang)*sampleRad;
       float dy=sin(ang)*sampleRad;
       while (x+dx<0||y+dy<0||x+dx>=width||y+dy>=height) {
-        ang+=random(-0.1,0.1);
+        ang=random(TWO_PI);
         dx=cos(ang)*sampleRad;
         dy=sin(ang)*sampleRad;
       }
