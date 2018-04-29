@@ -47,7 +47,7 @@ class MazeGeneratorRecursiveBacktracker extends MazeGenerator {
   boolean isValidPos(PVector p) {
     if (visited.contains(p))return false;
     color col=getCol(p.x, p.y);
-    if (!isValidRGB(red(col), green(col), blue(col)))return false;
+    //if (!isValidRGB(red(col), green(col), blue(col)))return false;
     if (p.x<0)return false;
     if (p.y<0)return false;
     if (p.x>grid.w-1)return false;
@@ -68,6 +68,9 @@ class MazeGeneratorRecursiveBacktracker extends MazeGenerator {
   ArrayList<PVector>retraced=new ArrayList<PVector>();
   PVector current;
   boolean done=false;
+  boolean isDone(){
+    return stack.size()<1;
+  }
   void update() {
     if(done)return;
     if (stack.size()<1) {
@@ -114,6 +117,9 @@ class MazeGeneratorRecursiveBacktracker extends MazeGenerator {
     //}
   }
   void display() {
+    fill(230,29,255);
+    noStroke();
+    rect(current.x*densX,current.y*densY,densX,densY);
     //image(img, 0, 0, width, height);
   }
 

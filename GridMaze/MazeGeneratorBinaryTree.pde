@@ -12,7 +12,10 @@ class MazeGeneratorBinaryTree extends MazeGenerator {
       x=0;
       y++;
     }
-    if (y==sizeY)return;
+    if (y==sizeY){
+      done=true;
+      return;
+    }
     ArrayList<Dir>dirs=new ArrayList<Dir>();
     //dirs.add(Dir.XPL);
     //dirs.add(Dir.YPL);
@@ -26,6 +29,11 @@ class MazeGeneratorBinaryTree extends MazeGenerator {
     x++;
     //}
     //}
+  }
+  boolean done=false;
+  boolean isDone(){
+    //return x==grid.w&&y==grid.h;
+    return done;
   }
   PVector getColorScalar() {
     return new PVector(1, 0, 1);

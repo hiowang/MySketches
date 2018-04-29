@@ -8,6 +8,11 @@ class MazeGeneratorSidewinder extends MazeGenerator {
 
     return grid;
   }
+  boolean isDone(){
+    //return x==sizeX&&y==sizeY;
+    return done;
+  }
+  boolean done=false;
   int x=0, y=0;
   ArrayList<Cell>runSet=new ArrayList<Cell>();
   void update() {
@@ -17,6 +22,7 @@ class MazeGeneratorSidewinder extends MazeGenerator {
       runSet=new ArrayList<Cell>();
     }
     if (y==sizeY) {
+      done=true;
       return;
     }
     if (y==0)grid.setWall(x, y, Dir.XPL, true);

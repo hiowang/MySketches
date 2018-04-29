@@ -3,5 +3,8 @@ abstract class MazeGenerator{
   abstract PVector getColorScalar();
   void update(){}
   void display(){}
+  boolean isDone(){
+    return false;
+  }
   //abstract PVector getT
 }
