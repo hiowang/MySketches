@@ -7,9 +7,9 @@ MazeGenerator mazeGen;
 void setup() {
   size(2000,2000);
   //size(750,750);
-  doMaze(new MazeGeneratorBinaryTree(),"binary_tree");
-  doMaze(new MazeGeneratorSidewinder(),"side_winder");
-  //doMaze(new MazeGeneratorRecursiveBacktracker(),"recursive_backtracker");
+  //doMaze(new MazeGeneratorBinaryTree(),"binary_tree");
+  //doMaze(new MazeGeneratorSidewinder(),"side_winder");
+  doMaze(new MazeGeneratorRecursiveBacktracker(),"recursive_backtracker");
   exit();
 }
 long start,end;
@@ -30,8 +30,13 @@ void doMaze(MazeGenerator gen,String str){
   while(!mazeGen.isDone()){
     i++;
     if(i%100==0){
-      println(nf(100.0*i/maxI,3,2));
+      println(nf(100.0*i/maxI,3,2)+" "+(System.currentTimeMillis()-start));
+      //float val=float(i)/maxI;
+      
       //long numOfMil=System.currentTimeMillis()-start;
+      //float milPerI=numOfMil/float(i);
+      //milPerI*=maxI-i;
+      //println(milPerI);
       
       //float milPerUpdate=(float)numOfMil/i;
       //float remI=maxI-i;
