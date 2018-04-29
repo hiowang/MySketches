@@ -1,5 +1,5 @@
-int w=300;
-int h=300;
+int w=250;
+int h=250;
 int size;
 boolean three_d=false;
 void settings() {
@@ -13,7 +13,7 @@ void setup() {
   v=new float[w][h];
   for (int x=0; x<w; x++) {
     for (int y=0; y<h; y++) {
-      u[x][y]=0+cos(x*0.1)*cos(y*0.1)*0;
+      u[x][y]=0+cos(x*0.1)*cos(y*0.1)*5;
       v[x][y]=0;
     }
   }
@@ -87,7 +87,7 @@ void draw() {
   }
 }
 float scaledu(int x, int y) {
-  return -abs(-50*getu(x, y));
+  return (-50*getu(x, y));
 }
 color col(int x, int y) {
   float f=1+getu(x, y)/5;
@@ -119,8 +119,8 @@ void updateSim() {
       //float mimi=0, mipl=0, plmi=0, plpl=0;
       float here=getu(x, y);
       float avg=(xmi+xpl+ymi+ypl+mimi+mipl+plmi+plpl+here)/9;
-      newv[x][y]+=(avg-here)*2;
-      newv[x][y]*=0.999;
+      newv[x][y]+=(avg-here)/2;
+      newv[x][y]*=0.99;
       newu[x][y]+=newv[x][y];
     }
   }
