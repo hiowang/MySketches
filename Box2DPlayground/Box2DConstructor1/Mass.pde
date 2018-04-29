@@ -36,8 +36,9 @@ class Mass{
   Body body;
   
   void display(){
-    fill(100);
-    stroke(125);
+    fill(theme.massColor);
+    noStroke();
+    //stroke(125);
     Vec2 pos=box2d.getBodyPixelCoord(body);
     float ang=body.getAngle();
     

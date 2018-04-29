@@ -19,7 +19,7 @@ class Edge{
   void display(){
     Vec2 posa=box2d.getBodyPixelCoord(a.body);
     Vec2 posb=box2d.getBodyPixelCoord(b.body);
-    stroke(255,100);
+    stroke(theme.edgeColor);
     line(posa.x,posa.y,posb.x,posb.y);
   }
 }

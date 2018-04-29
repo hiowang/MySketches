@@ -11,10 +11,11 @@ Box2DProcessing box2d;
 void setup() {
   size(500, 500);
   org.jbox2d.common.Settings.maxPolygonVertices=10;
-  textFont(loadFont("Monospaced-15.vlw"));
+  //org.jbox2d.common.Settings.polygonRadius=0;
+  textFont(loadFont("Monospaced-10.vlw"));
   box2d=new Box2DProcessing(this);
   box2d.createWorld();
-  box2d.setGravity(0, -150);
+  box2d.setGravity(10, -50);
   things=new ArrayList<Thing>();
   addBounds();
   //boxes.add(new Box(
