@@ -133,6 +133,28 @@ class Grid {
       cells[x][y].down=b;
     }
   }
+  boolean getWall(int a,int b,int c,int d){
+    if(outBounds(a,b)||outBounds(c,d))return false;
+    return getWall(cells[a][b],cells[c][d]);
+  }
+  void connectionColoring(float r,float g,float b,float a){
+    //r*=255;
+    //g*=255;
+    //b*=255;
+    for(int x=0;x<w;x++){
+      for(int y=0;y<h;y++){
+        int num=0;
+        if(getWall(x,y,x-1,y))num++;
+        if(getWall(x,y,x+1,y))num++;
+        if(getWall(x,y,x,y-1))num++;
+        if(getWall(x,y,x,y+1))num++;
+        num=int(map(num,0,4,0,255));
+        fill(r*num,g*num,b*num,a);
+        noStroke();
+        rect(x*width/sizeX,y*height/sizeY,width/sizeX,height/sizeY);
+      }
+    }
+  }
   void djikstraColoring(float sx,float sy,int startX,int startY,float r,float g,float b,float a){
     int[][]nums=new int[w][h];
     Cell[][]froms=new Cell[w][h];
