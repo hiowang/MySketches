@@ -9,13 +9,13 @@ class Circle {
   boolean isValid(){
     int i=0;
     for(PVector p:points)if(contains(p))i++;
-    return i>0;
+    return i>=4;
   }
   boolean contains(PVector p) {
     return contains(p.x, p.y);
   }
   boolean contains(float a, float b) {
-    return dist(a, b, x, y)<r*2;
+    return dist(a, b, x, y)<r*2+4;
     //return true;
   }
 }

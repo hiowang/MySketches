@@ -10,6 +10,13 @@ class Triangle {
     id=totalID;
     totalID++;
   }
+  ArrayList<PVector>getPoints() {
+    ArrayList<PVector>p=new ArrayList<PVector>();
+    p.add(a);
+    p.add(b);
+    p.add(c);
+    return p;
+  }
   boolean contains(float x, float y) {
     PVector p1=a;
     PVector p2=b;
@@ -91,23 +98,75 @@ void calcTris() {
   //function BowyerWatson (pointList)
   // pointList is a set of coordinates defining the points to be triangulated
   //triangulation := empty triangle mesh data structure
-  tris.add(new Triangle(new PVector(10, 0), new PVector(width, 10), new PVector(20, height)));
- 
-  //   for each triangle in badTriangles do // find the boundary of the polygonal hole
-  //      for each edge in triangle do
-  //         if edge is not shared by any other triangles in badTriangles
-  //            add edge to polygon
-  //   for each triangle in badTriangles do // remove them from the data structure
-  //      remove triangle from triangulation
-  //   for each edge in polygon do // re-triangulate the polygonal hole
-  //      newTri := form a triangle from edge to point
-  //      add newTri to triangulation
-  //for each triangle in triangulation // done inserting points, now clean up
-  //   if triangle contains a vertex from original super-triangle
-  //      remove triangle from triangulation
-
-  //ArrayList<PVector>finished=new ArrayList<PVector>();
-  //finished.add(
+  PVector x1=new PVector(10, 0), x2=new PVector(width, 10), x3=new PVector(20, height);
+  tris.add(new Triangle(x1, x2, x3));
+  for (PVector p : points) {
+    boolean done=false;
+    for (int i=0; i<tris.size()&&!done; i++) {
+      Triangle t=tris.get(i);
+      if (t.contains(p.x, p.y)) {
+        tris.remove(t);
+        tris.add(new Triangle(t.a, t.b, p));
+        tris.add(new Triangle(t.a, p, t.c));
+        tris.add(new Triangle(p, t.b, t.c));
+        done=true;
+      }
+    }
+    for (Triangle t1 : tris) {
+      ArrayList<PVector>points1=t1.getPoints();
+      if (circum(t1).isValid())continue; 
+      for (Triangle t2 : tris) {
+        if (circum(t2).isValid())continue;
+        if (t1.id<=t2.id)continue;
+        flipTris(t1, t2);
+      }
+    }
+  }
+  ArrayList<Triangle>bads=new ArrayList<Triangle>();
+  for (Triangle t : tris) {
+    ArrayList<PVector>points=t.getPoints();
+    while (points.contains(x1))points.remove(x1);
+    while (points.contains(x2))points.remove(x2);
+    while (points.contains(x3))points.remove(x3);
+    if (points.size()<=1)bads.add(t);
+    //if(points.contains(x1)||points.contains(x2)||points.contains(x3)){
+    //bads.add(t);
+    //}
+  }
+  tris.removeAll(bads);
+  //tris.add(new Triangle(x1, x2, x3));
+}
+void flipTris(Triangle t1, Triangle t2) {
+  ArrayList<PVector>points1=t1.getPoints();
+  ArrayList<PVector>points2=t2.getPoints();
+  PVector uncommon1=t1.a;
+  if (points2.contains(t1.a)) {
+    if (points2.contains(t1.b)) {
+      uncommon1=t1.c;
+    } else {
+      uncommon1=t1.b;
+    }
+  }
+  PVector uncommon2=t2.a;
+  if (points1.contains(t2.a)) {
+    if (points1.contains(t2.b)) {
+      uncommon2=t2.c;
+    } else {
+      uncommon2=t2.b;
+    }
+  }
+  ArrayList<PVector>common=t1.getPoints();
+  common.remove(uncommon1);
+  PVector common1=common.get(0);
+  PVector common2=common.get(1);
+  t1.a=uncommon1;
+  t1.b=uncommon2;
+  t1.c=common1;
+  
+  t2.a=uncommon1;
+  t2.b=uncommon1;
+  t2.c=common2;
+  println("flip "+common.size());
 }
 boolean isNotBad(PVector p) {
   return !isBad(p);
