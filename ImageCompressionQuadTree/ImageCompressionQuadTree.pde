@@ -77,7 +77,7 @@ class Rect {
 }
 PImage img;
 void settings() {
-  imgName="concentric-circle";
+  imgName="ball";
   extension="png";
   img=loadImage(imgName+"."+extension);
   size(1024, 1024);
