@@ -15,7 +15,7 @@ void setup() {
   textFont(loadFont("Monospaced-10.vlw"));
   box2d=new Box2DProcessing(this);
   box2d.createWorld();
-  box2d.setGravity(10, -50);
+  box2d.setGravity(0, -50);
   things=new ArrayList<Thing>();
   addBounds();
   //boxes.add(new Box(
@@ -35,7 +35,7 @@ void addBounds(){
   things.add(new Box(0,0,10,height,false));
 }
 void mouseDragged(){
-  float r=random(100);
+  float r=random(0);
   float f=50;
   float mi=5;
   float ma=5;

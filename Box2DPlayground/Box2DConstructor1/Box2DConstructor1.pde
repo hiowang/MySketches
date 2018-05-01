@@ -20,49 +20,10 @@ ArrayList<Edge>edges=new ArrayList<Edge>();
 void addEdge(Mass a,Mass b,float d,float t){
   edges.add(new Edge(a,b,d,t));
 }
-
-float gravX;
-float gravY;
-
-GUIMenu menuUI;
-GUIMenu menuNew;
-GUIMenu menuDelete;
-GUIMenu menuGrav;
-GUIMenu menuWind;
-
-GUILabel lblGravX,lblGravY;
-GUILabel lblWindX,lblWindY;
-
-GUIButton itemNewPoint,itemNewEdge;
-GUIButton itemDelPoint,itemDelEdge;
-GUIButton gravYMI,gravYPL,gravXMI,gravXPL;
 void setup(){
   size(600,600);
   textFont(loadFont("Monospaced-10.vlw"));
-  
-  menuUI=new GUIMenu(5,5,100,15,"Options",2.5,3);
-  menuNew=menuUI.addMenu("New");
-  menuDelete=menuUI.addMenu("Delete");
-  menuGrav=menuUI.addMenu("Gravity");
-  
-  itemNewPoint=menuNew.addButton("New point",new GUIPrintEvent("New point"));
-  itemNewPoint.addKey('p');
-  itemNewEdge=menuNew.addButton("New edge",new GUIPrintEvent("New edge"));
-  itemNewEdge.addKey('e');
-  
-  itemDelPoint=menuDelete.addButton("Delete point",new GUIPrintEvent("Delete point"));
-  itemDelPoint.addKey('d');
-  itemDelEdge=menuDelete.addButton("Delete edge",new GUIPrintEvent("Delete edge"));
-  itemDelEdge.addKey('l');
-  
-  lblGravX=menuGrav.addLabel("GravX: ");
-  lblGravY=menuGrav.addLabel("GravY: ");
-  gravYMI=menuGrav.addButton("GravY-",new GUIPrintEvent("GravY-"));
-  gravYPL=menuGrav.addButton("GravY+",new GUIPrintEvent("GravY+"));
-  gravXMI=menuGrav.addButton("GravX-",new GUIPrintEvent("GravX-"));
-  gravXPL=menuGrav.addButton("GravX+",new GUIPrintEvent("GravX+"));
-  
-  menuUI.expandMenus();
+  initGUI();
   
   
   box2d=new Box2DProcessing(this);
@@ -82,10 +43,11 @@ void setup(){
   
 }
 void draw(){
+  updateGUI();
   background(theme.bgColor);
   box2d.step();
   for(Mass m:masses)m.display();
   for(Edge e:edges)e.display();
   for(Boundary b:bounds)b.display();
-  menuUI.display();
+  displayGUI();
 }
