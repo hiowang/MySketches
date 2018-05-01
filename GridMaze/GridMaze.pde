@@ -15,6 +15,8 @@ void setup() {
   //iterateMaze("");
 
   //doAlgs();
+  //sizeX=sizeY=5;
+  //doAlgs();
   //sizeX=sizeY=10;
   //doAlgs();
   //sizeX=sizeY=50;
@@ -23,8 +25,8 @@ void setup() {
   //doAlgs();
   //sizeX=sizeY=200;
   //doAlgs();
-  sizeX=sizeY=500;
-  doAlgs();
+  //sizeX=sizeY=500;
+  //doAlgs();
   sizeX=sizeY=1000;
   doAlgs();
   exit();
@@ -50,7 +52,7 @@ void doConnections() {
 void doJikstra() {
   background(0);
   PVector col=mazeGen.getColorScalar();
-  grid.djikstraColoring(densX, densY, 0, 0, col.x, col.y, col.z, 150);
+  grid.djikstraColoring(densX, densY, int(sizeX/2),int(sizeY/2), col.x, col.y, col.z, 150);
 }
 void doGrid() {
   background(0);
