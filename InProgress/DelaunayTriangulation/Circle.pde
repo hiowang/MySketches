@@ -1,21 +1,12 @@
-
-class Circle {
-  float x, y, r;
-  Circle(float a, float b, float c) {
-    x=a;
-    y=b;
-    r=c;
+class Circle{
+  float r;
+  PVector center;
+  void display(color str){
+    stroke(str);
+    noFill();
+    ellipse(center.x,center.y,r*2,r*2);
   }
-  boolean isValid(){
-    int i=0;
-    for(PVector p:points)if(contains(p))i++;
-    return i>=4;
-  }
-  boolean contains(PVector p) {
-    return contains(p.x, p.y);
-  }
-  boolean contains(float a, float b) {
-    return dist(a, b, x, y)<r*2+4;
-    //return true;
+  boolean contains(PVector p){
+    return center.dist(p)<r;
   }
 }
