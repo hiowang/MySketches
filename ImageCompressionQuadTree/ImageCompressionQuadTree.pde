@@ -13,9 +13,9 @@ class Rect {
     fill(col);
     if (doStroke)stroke(0, 125);
     else noStroke();
-    
+
     //fill(error(),0,0);
-    
+
     if (doRect)rect(x, y, w, h);
     else ellipse(x+w/2, y+h/2, w, h);
   }
@@ -40,19 +40,19 @@ class Rect {
     //diffr/=area();
     //diffg/=area();
     //diffb/=area();
-    return (diffr+diffg+diffb)*pow(area(),0.1);
+    return (diffr+diffg+diffb)*pow(area(), 0.1);
     //return pow(area(),1);
   }
   Rect(float a, float b, float c, float d) {
     //col=img.get(int(map(a, 0, width, 0, img.width)), int(map(b, 0, height, 0, img.height)));
     //float colr=0,colg=0,colb=0;
     //for(float u=a;u<a+c;u++){
-      //for(float v=b;v<b+d;v++){
-        //color thecol=img.get(int(map(u, 0, width, 0, img.width)), int(map(v, 0, height, 0, img.height)));
-        //colr+=red(thecol);
-        //colg+=green(thecol);
-        //colb+=blue(thecol);
-      //}
+    //for(float v=b;v<b+d;v++){
+    //color thecol=img.get(int(map(u, 0, width, 0, img.width)), int(map(v, 0, height, 0, img.height)));
+    //colr+=red(thecol);
+    //colg+=green(thecol);
+    //colb+=blue(thecol);
+    //}
     //}
     //col=color(colr/b/d,colg/b/d,colb/b/d);
     x=a;
@@ -61,28 +61,28 @@ class Rect {
     h=d;
     calcCol();
   }
-  void calcCol(){
-    float colr=0,colg=0,colb=0;
+  void calcCol() {
+    float colr=0, colg=0, colb=0;
     float area=w*h;
-    for(float a=x;a<x+w;a++){
-      for(float b=y;b<y+h;b++){
+    for (float a=x; a<x+w; a++) {
+      for (float b=y; b<y+h; b++) {
         color c=img.get(int(map(a, 0, width, 0, img.width)), int(map(b, 0, height, 0, img.height)));
         colr+=red(c)/area;
         colg+=green(c)/area;
         colb+=blue(c)/area;
       }
     }
-    col=color(colr,colg,colb);
+    col=color(colr, colg, colb);
   }
 }
 PImage img;
 void settings() {
-  imgName="ball";
-  extension="png";
+  imgName="Zoe1";
+  extension="jpg";
   img=loadImage(imgName+"."+extension);
   size(1024, 1024);
 }
-String imgName,extension;
+String imgName, extension;
 
 boolean doStroke=false;
 boolean doRect=true;
@@ -97,16 +97,16 @@ void keyPressed() {
   if (key==' ')doIterate=!doIterate;
   if (key=='t') {
     //save("processed-"+str);
-    if(doStroke){
-      if(doRect){
+    if (doStroke) {
+      if (doRect) {
         save(imgName+"/stroke-rect.png");
-      }else{
+      } else {
         save(imgName+"/stroke-ellipse.png");
       }
-    }else{
-      if(doRect){
+    } else {
+      if (doRect) {
         save(imgName+"/nostroke-rect.png");
-      }else{
+      } else {
         save(imgName+"/nostroke-ellipse.png");
       }
     }
@@ -118,7 +118,7 @@ void mousePressed() {
   //errThreshold-=1000;
   //start=System.currentTimeMillis();
   //int n=20;
-  for(int i=0;i<10;i++)iterate();
+  for (int i=0; i<10; i++)iterate();
   //end=System.currentTimeMillis();
 }
 float iterate() {
@@ -157,17 +157,17 @@ float bdiff(color a, color b) {
 ArrayList<Rect>rects=new ArrayList<Rect>();
 int num=0;
 void draw() {
-  if(doIterate)iterate();
+  if (doIterate)iterate();
   //if (iterate()>errThreshold)for (int i=0; i<2; i++)iterate();
   background(255);
   for (Rect r : rects)r.display();
-  for(Rect r:rects){
-    if(r.x<mouseX&&r.x+r.w>mouseX){
-      if(r.y<mouseY&&r.y+r.h>mouseY){
+  for (Rect r : rects) {
+    if (r.x<mouseX&&r.x+r.w>mouseX) {
+      if (r.y<mouseY&&r.y+r.h>mouseY) {
         println(r.error());
         stroke(0);
         noFill();
-        rect(r.x,r.y,r.w,r.h);
+        rect(r.x, r.y, r.w, r.h);
       }
     }
   }
