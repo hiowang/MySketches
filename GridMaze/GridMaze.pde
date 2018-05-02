@@ -27,8 +27,8 @@ void setup() {
   //doAlgs();
   //sizeX=sizeY=500;
   //doAlgs();
-  sizeX=sizeY=1000;
-  doAlgs();
+  //sizeX=sizeY=1000;
+  //doAlgs();
   exit();
 }
 void doAlgs() {  
