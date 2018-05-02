@@ -1,14 +1,31 @@
+int totalID=0;
+
 class Triangle {
   PVector p1, p2, p3;
+  int id;
   Triangle(float a, float b, float c, float d, float f, float g) {
     p1=new PVector(a, b);
     p2=new PVector(c, d);
     p3=new PVector(f, g);
+    id=totalID++;
+  }
+  ArrayList<Line>getLines(){
+    ArrayList<Line>list=new ArrayList<Line>();
+    list.add(new Line(p1,p2));
+    list.add(new Line(p2,p3));
+    list.add(new Line(p3,p1));
+    return list;
   }
   Triangle(PVector a, PVector b, PVector c) {
     p1=a;
     p2=b;
     p3=c;
+    id=totalID++;
+  }
+  
+  PVector center(){
+    return PVector.add(PVector.add(p1,p2),p3).mult(1.0/3.0);
+    //return ;
   }
   
   int numPointsInside(){
@@ -16,7 +33,6 @@ class Triangle {
     Circle circum=circum();
     ArrayList<PVector>thePoints=getPoints();
     for(PVector p:points)if(circum.contains(p)&&!thePoints.contains(p))i++;
-    println("asd "+i);
     return i;
   }
   
@@ -44,6 +60,12 @@ class Triangle {
   void display(color str) {
     stroke(str);
     noFill();
+    //stroke(0,0,0);
+    //line(p1.x,p1.y,p2.x,p2.y);
+    //stroke(255,0,0);
+    //line(p2.x,p2.y,p3.x,p3.y);
+    //stroke(0,0,255);
+    //line(p3.x,p3.y,p1.x,p1.y);
     beginShape();
     vertex(p1.x, p1.y);
     vertex(p2.x, p2.y);
