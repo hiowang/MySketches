@@ -1,13 +1,15 @@
 void doTriangulation() {
-  println("New triangulation");
+  println("New triangulation: frameCount="+frameCount);
   tris.clear();
   PVector rem1=new PVector(0, 0);
   PVector rem2=new PVector(width, 0);
   PVector rem3=new PVector(0, height);
+  PVector rem4=new PVector(width,height);
   //points.add(rem1);
   //points.add(rem2);
   //points.add(rem3);
   tris.add(new Triangle(rem1, rem2, rem3));
+  tris.add(new Triangle(rem2, rem3, rem4));
   for (PVector point : points) {
     boyerWatson(point);
     //tris.removeAll(badTris);
@@ -15,7 +17,9 @@ void doTriangulation() {
   ArrayList<Triangle>rems=new ArrayList<Triangle>();
   for (Triangle t : tris) {
     ArrayList<PVector>p=t.getPoints();
-    if (p.contains(rem1)||p.contains(rem2)||p.contains(rem3)||!t.isGood())rems.add(t);
+    if (
+    p.contains(rem1)||p.contains(rem2)||p.contains(rem3)||p.contains(rem4)||
+    !t.isGood())rems.add(t);
   }
   
   tris.removeAll(rems);
@@ -27,7 +31,7 @@ void boyerWatson(PVector point) {
   for (int i=0; i<tris.size(); i++) {
     if (tris.get(i).circum().contains(point)) {
       badTris.add(tris.get(i));
-      println("BadTRI");
+      //println("BadTRI");
     }
   }
   for(Triangle t:badTris)tris.remove(t);
@@ -43,7 +47,7 @@ void boyerWatson(PVector point) {
     for (Line l : lines) {
       if (numContains(allLines, l)==1) {
         polygon.add(l);
-        println("polyline "+polygon.size());
+        //println("polyline "+polygon.size());
       }
     }
   }

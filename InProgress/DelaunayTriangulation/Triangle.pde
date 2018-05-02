@@ -24,8 +24,8 @@ class Triangle {
   }
   
   PVector center(){
-    return PVector.add(PVector.add(p1,p2),p3).mult(1.0/3.0);
-    //return ;
+    //return PVector.add(PVector.add(p1,p2),p3).mult(1.0/3.0);
+    return circum().center;
   }
   
   int numPointsInside(){
