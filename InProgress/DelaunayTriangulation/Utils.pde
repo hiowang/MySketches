@@ -13,16 +13,16 @@ boolean sameLine(Line a, Line b) {
 }
 void divideTris(PVector point) {
   Triangle badTri=null;
-  for (Triangle tri : tris) {
+  for (Triangle tri : triangulation) {
     if (tri.contains(point)) {
       badTri=tri;
     }
   }
   if (badTri==null)return;
-  tris.remove(badTri);
-  tris.add(new Triangle(point, badTri.p2, badTri.p3));
-  tris.add(new Triangle(badTri.p1, point, badTri.p3));
-  tris.add(new Triangle(badTri.p1, badTri.p2, point));
+  triangulation.remove(badTri);
+  triangulation.add(new Triangle(point, badTri.p2, badTri.p3));
+  triangulation.add(new Triangle(badTri.p1, point, badTri.p3));
+  triangulation.add(new Triangle(badTri.p1, badTri.p2, point));
 }
 PVector uncommon(Triangle a, Triangle b) {
   ArrayList<PVector>pa=a.getPoints();

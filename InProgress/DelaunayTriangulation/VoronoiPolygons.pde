@@ -1,0 +1,3 @@
+void calcVoronoiPolygons(){
+  voronoi.clear();
+}

@@ -1,6 +1,8 @@
 ArrayList<PVector>points;
 ArrayList<Integer>cols;
-ArrayList<Triangle>tris;
+ArrayList<Triangle>triangulation;
+ArrayList<Polygon>voronoi;
+
 
 //TODO: Get voronoi diagram returning ArrayList<Line>
 
@@ -9,7 +11,8 @@ void setup() {
   pixelDensity(2);
   points=new ArrayList<PVector>();
   cols=new ArrayList<Integer>();
-  tris=new ArrayList<Triangle>();
+  voronoi=new ArrayList<Polygon>();
+  triangulation=new ArrayList<Triangle>();
   vorCols=new color[width/dens][height/dens];
 }
 int dens=4;
@@ -31,56 +34,52 @@ void addPoint(PVector p) {
   //if (p.x>height-p.y)return;
   points.add(p);
   changedPoints=true;
-  colorMode(HSB,100);
-  cols.add(color(random(100),100,100));
-  colorMode(RGB,255);
+  colorMode(HSB, 100);
+  cols.add(color(random(100), 100, 100));
+  colorMode(RGB, 255);
   //cols.add(color(random(255),random(255),random(255)));
 }
 color[][]vorCols;
+color invCol(color c) {
+  return color(255-red(c), 255-green(c), 255-blue(c));
+}
+long start, end;
+void startTimer() {
+  start=System.currentTimeMillis();
+}
+long endTimer() {
+  end=System.currentTimeMillis();
+  return end-start;
+}
 void draw() {
-  surface.setTitle("DelaunayTriangulation, frameRate= "+nf(frameRate,2,3));
+  surface.setTitle("DelaunayTriangulation, frameRate= "+nf(frameRate, 2, 3));
   background(255);
-  for(int x=0;x<width;x+=dens){
-    for(int y=0;y<height;y+=dens){
-      fill(vorCols[x/dens][y/dens]);
-      noStroke();
-      rect(x,y,dens,dens);
-    }
-  }
-  
+  //for(int x=0;x<width;x+=dens){
+  //  for(int y=0;y<height;y+=dens){
+  //    fill(vorCols[x/dens][y/dens]);
+  //    noStroke();
+  //    rect(x,y,dens,dens);
+  //  }
+  //}
+  startTimer();
   for (PVector p : points) {
-    displayPoint(p, 0);
+    displayPoint(p, invCol(cols.get(points.indexOf(p))));
   }
+  println("Points displaying: "+endTimer());
   if (changedPoints) {
     doTriangulation();
     calcCols();
+    calcVoronoiPolygons();
     changedPoints=false;
   }
-  for (Triangle t : tris) {
-    color col1=t.isGood()?color(0, 100):color(255, 0, 0, 100);
-    color col2=t.isGood()?color(0, 25):color(255, 0, 0, 25);
-    col1=color(0);
-    col2=color(0, 10);
-    if (!t.isGood()) {
-      col1=color(255, 0, 0);
-      col2=color(0, 60);
-      displayPoint(t.p1, color(255, 0, 0));
-      displayPoint(t.p2, color(255, 0, 0));
-      displayPoint(t.p3, color(255, 0, 0));
-    }
-    t.display(col1);
-    //t.circum().display(col2);
-    for(Triangle t1:tris){
-      if(isAdjacent(t,t1)){
-        PVector p1=t.center();
-        PVector p2=t1.center();
-        stroke(0,0,255);
-        strokeWeight(20);
-        line(p1.x,p1.y,p2.x,p2.y);
-        strokeWeight(1);
-      }
-    }
+  startTimer();
+  for (Triangle t : triangulation) {
+    t.display(0);
   }
+  for (Polygon p : voronoi) {
+    p.display(color(0, 0, 255));
+  }
+  println("End display triangles: "+endTimer());
 }
 void displayPoint(PVector p, color col) {
   fill(col);

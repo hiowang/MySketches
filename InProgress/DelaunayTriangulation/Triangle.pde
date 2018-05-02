@@ -23,6 +23,8 @@ class Triangle {
     id=totalID++;
   }
   
+  boolean good=false;
+  
   PVector center(){
     //return PVector.add(PVector.add(p1,p2),p3).mult(1.0/3.0);
     return circum().center;
@@ -66,11 +68,14 @@ class Triangle {
     //line(p2.x,p2.y,p3.x,p3.y);
     //stroke(0,0,255);
     //line(p3.x,p3.y,p1.x,p1.y);
-    beginShape();
-    vertex(p1.x, p1.y);
-    vertex(p2.x, p2.y);
-    vertex(p3.x, p3.y);
-    endShape(CLOSE);
+    //beginShape();
+    //vertex(p1.x, p1.y);
+    //vertex(p2.x, p2.y);
+    //vertex(p3.x, p3.y);
+    //endShape(CLOSE);
+    line(p1.x,p1.y,p2.x,p2.y);
+    line(p2.x,p2.y,p3.x,p3.y);
+    line(p3.x,p3.y,p1.x,p1.y);
   }
   Circle circum() {
     float a=p1.x;
