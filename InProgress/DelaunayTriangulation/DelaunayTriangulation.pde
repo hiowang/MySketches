@@ -7,15 +7,16 @@ ArrayList<Polygon>voronoi;
 //TODO: Get voronoi diagram returning ArrayList<Line>
 
 void setup() {
-  size(500, 500);
+  size(1024, 1024);
   pixelDensity(2);
   points=new ArrayList<PVector>();
   cols=new ArrayList<Integer>();
   voronoi=new ArrayList<Polygon>();
   triangulation=new ArrayList<Triangle>();
   vorCols=new color[width/dens][height/dens];
+  initTris();
 }
-int dens=4;
+int dens=2;
 void keyPressed() {
   int n=0;
   if (key=='1')n=1;
@@ -26,17 +27,17 @@ void keyPressed() {
     addPoint(new PVector(random(width), random(height)));
   }
 }
-boolean changedPoints=false;
 void mousePressed() {
   addPoint(new PVector(mouseX, mouseY));
 }
 void addPoint(PVector p) {
+  drawn=false;
   //if (p.x>height-p.y)return;
   points.add(p);
-  changedPoints=true;
   colorMode(HSB, 100);
-  cols.add(color(random(100), 100, 100));
+  cols.add(color(random(100), 50, 100));
   colorMode(RGB, 255);
+  //calcCols();
   //cols.add(color(random(255),random(255),random(255)));
 }
 color[][]vorCols;
@@ -51,35 +52,50 @@ long endTimer() {
   end=System.currentTimeMillis();
   return end-start;
 }
+boolean drawn=false;
 void draw() {
+  if (drawn)return;
+  println("NEW DRAW");
+  drawn=true;
   surface.setTitle("DelaunayTriangulation, frameRate= "+nf(frameRate, 2, 3));
-  background(255);
-  //for(int x=0;x<width;x+=dens){
-  //  for(int y=0;y<height;y+=dens){
-  //    fill(vorCols[x/dens][y/dens]);
-  //    noStroke();
-  //    rect(x,y,dens,dens);
-  //  }
-  //}
+  background(200);
+  calcCols();
+  for(int x=0;x<width/dens;x++){
+    for(int y=0;y<height/dens;y++){
+      //fill(vorCols[x][y]);
+      //stroke(vorCols[x][y]);
+      //rect(x*dens,y*dens,dens,dens);
+    }
+  }
+  
   startTimer();
   for (PVector p : points) {
-    displayPoint(p, invCol(cols.get(points.indexOf(p))));
+    //displayPoint(p, invCol(cols.get(points.indexOf(p))));
+    displayPoint(p, 255);
   }
   println("Points displaying: "+endTimer());
-  if (changedPoints) {
-    doTriangulation();
-    calcCols();
-    calcVoronoiPolygons();
-    changedPoints=false;
-  }
+  startTimer();
+  doTriangulation();
+  calcVoronoiPolygons();
+  println("Calculations: "+endTimer());
   startTimer();
   for (Triangle t : triangulation) {
-    t.display(0);
+    strokeWeight(5);
+    t.display(color(0));
+    strokeWeight(2);
+    //  //displayPoint(t.p1,color(250));
+    //  //displayPoint(t.p2,color(250));
+    //  //displayPoint(t.p3,color(250));
+      Circle c=t.circum();
+      c.display(color(50));
+      strokeWeight(0);
   }
   for (Polygon p : voronoi) {
-    p.display(color(0, 0, 255));
+    strokeWeight(5);
+    //p.display(color(0,50));
+    strokeWeight(1);
   }
-  println("End display triangles: "+endTimer());
+  println("End display "+triangulation.size()+ " triangles and "+voronoi.size()+" polygons: "+endTimer());
 }
 void displayPoint(PVector p, color col) {
   fill(col);

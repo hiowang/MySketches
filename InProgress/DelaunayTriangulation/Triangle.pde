@@ -26,7 +26,6 @@ class Triangle {
   boolean good=false;
   
   PVector center(){
-    //return PVector.add(PVector.add(p1,p2),p3).mult(1.0/3.0);
     return circum().center;
   }
   
@@ -88,7 +87,7 @@ class Triangle {
     float PB=-(1.0/2)*(a*a*c-a*a*f-a*c*c-a*d*d+a*f*f+a*g*g+b*b*c-b*b*f+c*c*f-c*f*f-c*g*g+d*d*f)/(a*d-a*g-b*c+b*f+c*g-d*f);
     Circle cir=new Circle();
     cir.center=new PVector(PA, PB);
-    cir.r=dist(a, b, PA, PB);
+    cir.r=theDist(a, b, PA, PB);
     return cir;
   }
 }

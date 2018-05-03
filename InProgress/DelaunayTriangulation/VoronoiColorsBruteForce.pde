@@ -7,7 +7,7 @@ void calcCols(){
       float bestDist=10000;
       for(int i=0;i<points.size();i++){
         PVector p=points.get(i);
-        float dist=dist(x,y,p.x,p.y);
+        float dist=theDist(x,y,p.x,p.y);
         if(dist<bestDist){
           bestDist=dist;
           bestCol=cols.get(i);

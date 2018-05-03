@@ -3,6 +3,16 @@ boolean contains(ArrayList<Line>list, Line l) {
   for (Line line : list)if (sameLine(line, l))return true;
   return false;
 }
+boolean isTriSame(Triangle a,Triangle b){
+  ArrayList<PVector>p1=a.getPoints();
+  ArrayList<PVector>p2=b.getPoints();
+  for(PVector p:p2)if(p1.contains(p))p1.remove(p);
+  return p1.size()==0;
+}
+float theDist(float a1,float a2,float b1,float b2){
+  //return abs(a1-b1)+abs(a2-b2);
+  return dist(a1,a2,b1,b2);
+}
 int numContains(ArrayList<Line>list, Line l) {
   int i=0;
   for (Line line : list)if (sameLine(line, l))i++;
