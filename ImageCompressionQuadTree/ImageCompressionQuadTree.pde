@@ -77,7 +77,7 @@ class Rect {
 }
 PImage img;
 void settings() {
-  imgName="Zoe1";
+  imgName="3-Cosmos/Cosmos09";
   extension="jpg";
   img=loadImage(imgName+"."+extension);
   size(1024, 1024);
@@ -99,15 +99,15 @@ void keyPressed() {
     //save("processed-"+str);
     if (doStroke) {
       if (doRect) {
-        save(imgName+"/stroke-rect.png");
+        save("saved_images/"+imgName+"/stroke-rect.png");
       } else {
-        save(imgName+"/stroke-ellipse.png");
+        save("saved_images/"+imgName+"/stroke-ellipse.png");
       }
     } else {
       if (doRect) {
-        save(imgName+"/nostroke-rect.png");
+        save("saved_images/"+imgName+"/nostroke-rect.png");
       } else {
-        save(imgName+"/nostroke-ellipse.png");
+        save("saved_images/"+imgName+"/nostroke-ellipse.png");
       }
     }
   }
