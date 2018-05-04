@@ -3,6 +3,14 @@ boolean contains(ArrayList<Line>list, Line l) {
   for (Line line : list)if (sameLine(line, l))return true;
   return false;
 }
+int lineListContains(ArrayList<Line>list,Line l){
+  int i=0;
+  for(Line line:list)if(isLineSame(line,l))i++;
+  return i;
+}
+boolean isLineSame(Line a,Line b){
+  return (a.a.equals(b.a)&&a.b.equals(b.b))||(a.b.equals(b.a)&&a.a.equals(b.b));
+}
 boolean isTriSame(Triangle a,Triangle b){
   ArrayList<PVector>p1=a.getPoints();
   ArrayList<PVector>p2=b.getPoints();
