@@ -16,7 +16,7 @@ void setup() {
   vorCols=new color[width/dens][height/dens];
   initTris();
 }
-int dens=16;
+int dens=64;
 void mousePressed() {
   addPoint(new PVector(mouseX, mouseY));
 }
@@ -42,21 +42,24 @@ long endTimer() {
   end=System.currentTimeMillis();
   return end-start;
 }
+int mx=-1;
+int my=-1;
 void draw() {
   background(200);
   startTimer();
-  int selectedIndex=0;
+  //int selectedIndex=0;
   for (int x=0; x<width/dens; x++) {
     for (int y=0; y<height/dens; y++) {
       fill(vorCols[x][y]);
       stroke(vorCols[x][y]);
-      if (int(mouseX/dens)==x&&int(mouseY/dens)==dens) {
-        selectedIndex=cols.indexOf(vorCols[x][y]);
-        fill(0);
-      }
+      //if (int(mouseX/dens)==x&&int(mouseY/dens)==dens) {
+        //fill(0);
+      //}
       rect(x*dens, y*dens, dens, dens);
     }
   }
+  long l1=endTimer();
+  startTimer();
 
   for (PVector p : points) {
     displayPoint(p, 255);
@@ -74,15 +77,29 @@ void draw() {
     //c.display(color(50));
     strokeWeight(0);
   }
+  Polygon thePoly=null;
   for (Polygon p : voronoi) {
     strokeWeight(5);
-    color col=cols.get(voronoi.indexOf(p));
-    if (voronoi.indexOf(p)!=selectedIndex)col=color(0, 50);
+    color col=color(255,0,0);
+    //if (voronoi.indexOf(p)!=selectedIndex)col=color(0, 50);
+    boolean best=isBest(points.get(voronoi.indexOf(p)),mx,my);
+    if(best)thePoly=p;
+    else col=color(255);
+    if(thePoly==p)continue;
     p.display(col);
     strokeWeight(1);
   }
-  long l=endTimer();
-  surface.setTitle("DelaunayTriangulation, frameRate= "+nf(frameRate, 2, 3)+" tpf in ms: "+l);
+  if(thePoly!=null){
+    strokeWeight(5);
+    thePoly.display(invCol(cols.get(voronoi.indexOf(thePoly))));
+    strokeWeight(1);
+  }
+  long l2=endTimer();
+  surface.setTitle("DelaunayTriangulation, frameRate= "+nf(frameRate, 2, 3)+" tpf in ms: "+l1+" "+l2+" "+(l1+l2));
+}
+void mouseMoved(){
+  mx=mouseX;
+  my=mouseY;
 }
 void displayPoint(PVector p, color col) {
   fill(col);
