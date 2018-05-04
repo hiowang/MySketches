@@ -16,9 +16,15 @@ void setup() {
   vorCols=new color[width/dens][height/dens];
   initTris();
 }
-int dens=64;
+int dens=8;
 void mousePressed() {
   addPoint(new PVector(mouseX, mouseY));
+}
+void keyPressed(){
+  if(key=='1')drawDelaunay=!drawDelaunay;
+  if(key=='2')drawCircum=!drawCircum;
+  if(key=='3')drawColoredCells=!drawColoredCells;
+  if(key=='4')drawVoronoi=!drawVoronoi;
 }
 void addPoint(PVector p) {
   points.add(p);
@@ -30,6 +36,10 @@ void addPoint(PVector p) {
   calcVoronoiPolygons();
   calcCols();
 }
+boolean drawDelaunay=false;
+boolean drawCircum=false;
+boolean drawColoredCells=true;
+boolean drawVoronoi=true;
 color[][]vorCols;
 color invCol(color c) {
   return color(255-red(c), 255-green(c), 255-blue(c));
@@ -46,20 +56,22 @@ int mx=-1;
 int my=-1;
 void draw() {
   background(200);
-  startTimer();
+  //startTimer();
   //int selectedIndex=0;
-  for (int x=0; x<width/dens; x++) {
-    for (int y=0; y<height/dens; y++) {
-      fill(vorCols[x][y]);
-      stroke(vorCols[x][y]);
-      //if (int(mouseX/dens)==x&&int(mouseY/dens)==dens) {
+  if (drawColoredCells) {
+    for (int x=0; x<width/dens; x++) {
+      for (int y=0; y<height/dens; y++) {
+        fill(vorCols[x][y]);
+        stroke(vorCols[x][y]);
+        //if (int(mouseX/dens)==x&&int(mouseY/dens)==dens) {
         //fill(0);
-      //}
-      rect(x*dens, y*dens, dens, dens);
+        //}
+        rect(x*dens, y*dens, dens, dens);
+      }
     }
   }
-  long l1=endTimer();
-  startTimer();
+  //long l1=endTimer();
+  //startTimer();
 
   for (PVector p : points) {
     displayPoint(p, 255);
@@ -68,36 +80,38 @@ void draw() {
     ArrayList<PVector>p=t.getPoints();
     if (p.contains(rem1)||p.contains(rem2)||p.contains(rem3))continue;
     strokeWeight(5);
-    t.display(color(0));
+    if(drawDelaunay)t.display(color(50));
     strokeWeight(2);
     //  //displayPoint(t.p1,color(250));
     //  //displayPoint(t.p2,color(250));
     //  //displayPoint(t.p3,color(250));
     Circle c=t.circum();
-    //c.display(color(50));
+    if(drawCircum)c.display(color(0,20));
     strokeWeight(0);
   }
-  Polygon thePoly=null;
-  for (Polygon p : voronoi) {
-    strokeWeight(5);
-    color col=color(255,0,0);
-    //if (voronoi.indexOf(p)!=selectedIndex)col=color(0, 50);
-    boolean best=isBest(points.get(voronoi.indexOf(p)),mx,my);
-    if(best)thePoly=p;
-    else col=color(255);
-    if(thePoly==p)continue;
-    p.display(col);
-    strokeWeight(1);
+  if (drawVoronoi) {
+    Polygon thePoly=null;
+    for (Polygon p : voronoi) {
+      strokeWeight(5);
+      color col=color(255, 0, 0);
+      //if (voronoi.indexOf(p)!=selectedIndex)col=color(0, 50);
+      boolean best=isBest(points.get(voronoi.indexOf(p)), mx, my);
+      if (best)thePoly=p;
+      else col=color(0);
+      if (thePoly==p)continue;
+      p.display(col);
+      strokeWeight(1);
+    }
+    if (thePoly!=null) {
+      strokeWeight(15);
+      thePoly.display(invCol(cols.get(voronoi.indexOf(thePoly))));
+      strokeWeight(1);
+    }
   }
-  if(thePoly!=null){
-    strokeWeight(5);
-    thePoly.display(invCol(cols.get(voronoi.indexOf(thePoly))));
-    strokeWeight(1);
-  }
-  long l2=endTimer();
-  surface.setTitle("DelaunayTriangulation, frameRate= "+nf(frameRate, 2, 3)+" tpf in ms: "+l1+" "+l2+" "+(l1+l2));
+  //long l2=endTimer();
+  surface.setTitle("DelaunayTriangulation, frameRate= "+nf(frameRate, 2, 3));
 }
-void mouseMoved(){
+void mouseMoved() {
   mx=mouseX;
   my=mouseY;
 }
