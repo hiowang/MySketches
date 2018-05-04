@@ -16,7 +16,7 @@ void setup() {
   vorCols=new color[width/dens][height/dens];
   initTris();
 }
-int dens=8;
+int dens=16;
 void mousePressed() {
   addPoint(new PVector(mouseX, mouseY));
 }
@@ -25,6 +25,26 @@ void keyPressed(){
   if(key=='2')drawCircum=!drawCircum;
   if(key=='3')drawColoredCells=!drawColoredCells;
   if(key=='4')drawVoronoi=!drawVoronoi;
+  int n=0;
+  if(key=='5'){
+    n=1;
+  }
+  if(key=='6'){
+    n=2;
+  }
+  if(key=='7'){
+    n=5;
+  }
+  if(key=='8'){
+    n=10;
+  }
+  if(key=='9'){
+    n=20;
+  }
+  if(key=='0'){
+    n=50;
+  }
+  for(int i=0;i<n;i++)addPoint(new PVector(random(100,width-100),random(100,height-100)));
 }
 void addPoint(PVector p) {
   points.add(p);
