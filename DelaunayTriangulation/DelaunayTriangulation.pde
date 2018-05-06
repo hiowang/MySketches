@@ -2,7 +2,7 @@ ArrayList<PVector>points;
 ArrayList<Integer>cols;
 ArrayList<Triangle>triangulation;
 ArrayList<Polygon>voronoi;
-
+PImage img;
 
 //TODO: Get voronoi diagram returning ArrayList<Line>
 
@@ -14,43 +14,46 @@ void setup() {
   voronoi=new ArrayList<Polygon>();
   triangulation=new ArrayList<Triangle>();
   vorCols=new color[width/dens][height/dens];
+  img=loadImage("Zoe1.jpg");
   initTris();
 }
-int dens=16;
+int dens=8;
 void mousePressed() {
   addPoint(new PVector(mouseX, mouseY));
 }
-void keyPressed(){
-  if(key=='1')drawDelaunay=!drawDelaunay;
-  if(key=='2')drawCircum=!drawCircum;
-  if(key=='3')drawColoredCells=!drawColoredCells;
-  if(key=='4')drawVoronoi=!drawVoronoi;
+void keyPressed() {
+  if (key=='1')drawDelaunay=!drawDelaunay;
+  if (key=='2')drawCircum=!drawCircum;
+  if (key=='3')drawColoredCells=!drawColoredCells;
+  if (key=='4')drawVoronoi=!drawVoronoi;
+  if (key=='5')drawPoints=!drawPoints;
   int n=0;
-  if(key=='5'){
+  if (key=='6') {
     n=1;
   }
-  if(key=='6'){
+  if (key=='7') {
     n=2;
   }
-  if(key=='7'){
+  if (key=='8') {
     n=5;
   }
-  if(key=='8'){
+  if (key=='9') {
     n=10;
   }
-  if(key=='9'){
+  if (key=='0') {
     n=20;
   }
-  if(key=='0'){
+  if (key=='q') {
     n=50;
   }
-  for(int i=0;i<n;i++)addPoint(new PVector(random(100,width-100),random(100,height-100)));
+  for (int i=0; i<n; i++)addPoint(new PVector(random(100, width-100), random(100, height-100)));
 }
 void addPoint(PVector p) {
   points.add(p);
-  colorMode(HSB, 100);
-  cols.add(color(random(100), 50, 100));
-  colorMode(RGB, 255);
+  //colorMode(HSB, 100);
+  //cols.add(color(random(100), 50, 100));
+  //colorMode(RGB, 255);
+  cols.add(img.get(int(map(p.x, 0, width, 0, img.width)), int(map(p.y, 0, height, 0, img.height))));
 
   doCalculationsForPoint(p);
   calcVoronoiPolygons();
@@ -60,6 +63,7 @@ boolean drawDelaunay=false;
 boolean drawCircum=false;
 boolean drawColoredCells=true;
 boolean drawVoronoi=true;
+boolean drawPoints=true;
 color[][]vorCols;
 color invCol(color c) {
   return color(255-red(c), 255-green(c), 255-blue(c));
@@ -92,21 +96,22 @@ void draw() {
   }
   //long l1=endTimer();
   //startTimer();
-
-  for (PVector p : points) {
-    displayPoint(p, 255);
+  if (drawPoints) {
+    for (PVector p : points) {
+      displayPoint(p, 255);
+    }
   }
   for (Triangle t : triangulation) {
     ArrayList<PVector>p=t.getPoints();
     if (p.contains(rem1)||p.contains(rem2)||p.contains(rem3))continue;
     strokeWeight(5);
-    if(drawDelaunay)t.display(color(50));
+    if (drawDelaunay)t.display(color(50));
     strokeWeight(2);
     //  //displayPoint(t.p1,color(250));
     //  //displayPoint(t.p2,color(250));
     //  //displayPoint(t.p3,color(250));
     Circle c=t.circum();
-    if(drawCircum)c.display(color(0,20));
+    if (drawCircum)c.display(color(0, 20));
     strokeWeight(0);
   }
   if (drawVoronoi) {
