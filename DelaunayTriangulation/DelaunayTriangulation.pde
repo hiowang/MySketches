@@ -17,7 +17,7 @@ void setup() {
   img=loadImage("Zoe1.jpg");
   initTris();
 }
-int dens=8;
+int dens=2;
 void mousePressed() {
   addPoint(new PVector(mouseX, mouseY));
 }
@@ -46,7 +46,8 @@ void keyPressed() {
   if (key=='q') {
     n=50;
   }
-  for (int i=0; i<n; i++)addPoint(new PVector(random(100, width-100), random(100, height-100)));
+  float m=0;
+  for (int i=0; i<n; i++)addPoint(new PVector(random(m, width-m), random(m, height-m)));
 }
 void addPoint(PVector p) {
   points.add(p);
@@ -55,7 +56,9 @@ void addPoint(PVector p) {
   //colorMode(RGB, 255);
   cols.add(img.get(int(map(p.x, 0, width, 0, img.width)), int(map(p.y, 0, height, 0, img.height))));
 
-  doCalculationsForPoint(p);
+  //doCalculationsForPoint(p);
+  initTris();
+  for(PVector v:points)doCalculationsForPoint(v);
   calcVoronoiPolygons();
   calcCols();
 }
@@ -82,18 +85,18 @@ void draw() {
   background(200);
   //startTimer();
   //int selectedIndex=0;
-  if (drawColoredCells) {
-    for (int x=0; x<width/dens; x++) {
-      for (int y=0; y<height/dens; y++) {
-        fill(vorCols[x][y]);
-        stroke(vorCols[x][y]);
-        //if (int(mouseX/dens)==x&&int(mouseY/dens)==dens) {
-        //fill(0);
-        //}
-        rect(x*dens, y*dens, dens, dens);
-      }
-    }
-  }
+  //if (drawColoredCells) {
+  //  for (int x=0; x<width/dens; x++) {
+  //    for (int y=0; y<height/dens; y++) {
+  //      fill(vorCols[x][y]);
+  //      stroke(vorCols[x][y]);
+  //      //if (int(mouseX/dens)==x&&int(mouseY/dens)==dens) {
+  //      //fill(0);
+  //      //}
+  //      rect(x*dens, y*dens, dens, dens);
+  //    }
+  //  }
+  //}
   //long l1=endTimer();
   //startTimer();
   if (drawPoints) {
@@ -113,6 +116,14 @@ void draw() {
     Circle c=t.circum();
     if (drawCircum)c.display(color(0, 20));
     strokeWeight(0);
+  }
+  for(Polygon p:voronoi){
+    fill(cols.get(voronoi.indexOf(p)));
+    //stroke(0);
+    noStroke();
+    beginShape();
+    for(Line l:p.lines)vertex(l.a.x,l.a.y);
+    endShape();
   }
   if (drawVoronoi) {
     Polygon thePoly=null;

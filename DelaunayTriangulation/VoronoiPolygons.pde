@@ -14,6 +14,7 @@ void calcVoronoiPolygons(){
   for(PVector p:points){
     Polygon poly=new Polygon();
     poly.lines=new ArrayList<Line>();
+    poly.center=p.copy();
     for(Triangle t1:triangulation){
       ArrayList<PVector>p1=t1.getPoints();
       if(!p1.contains(p))continue;
@@ -27,6 +28,7 @@ void calcVoronoiPolygons(){
         poly.lines.add(new Line(t1.circum().center,t2.circum().center));
       }
     }
+    poly.sortPoints();
     voronoi.add(poly);
   }
 }

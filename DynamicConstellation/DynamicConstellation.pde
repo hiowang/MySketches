@@ -2,7 +2,7 @@
 
 float maxDist=Float.MAX_VALUE;
 float minDist=150;
-float grav=0.1;
+float grav=1;
 int totalID=0;
 PVector calcDir(float x, float y, int id, boolean display) {
   PVector acc=new PVector(0, 0);
@@ -76,6 +76,7 @@ void keyPressed() {
   if (key=='2')mode=1;
   if (key=='3')mode=2;
   if (key=='4')extras=!extras;
+  if (key==' ')background(0);
 }
 boolean extras=false;
 //TODO: add draw mode controls
@@ -90,8 +91,10 @@ float the_dist(float a1, float a2, float b1, float b2) {
 
 void draw() {
   //background(0);
-  fill(0, 20);
-  rect(0, 0, width, height);
+  //if (frameCount%60==0) {
+    fill(0, 10);
+    rect(0, 0, width, height);
+  //}
   surface.setTitle("DynamicConstellation: frameRate="+nf(frameRate, 2, 3));
   for (Thing t : things) {
     if (mode==0)t.update(true);
