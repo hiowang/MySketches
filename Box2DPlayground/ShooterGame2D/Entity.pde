@@ -66,6 +66,10 @@ class Entity{
     }
   }
   
+  void applyForce(Vec2 v){
+    applyForce(v.x,v.y);
+  }
+  
   void display(){
     body.setAngularVelocity(body.getAngularVelocity()*0.1);
     Vec2 pos=box2d.getBodyPixelCoord(body);

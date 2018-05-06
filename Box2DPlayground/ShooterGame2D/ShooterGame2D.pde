@@ -42,7 +42,7 @@ void draw(){
   surface.setTitle("ShooterGame2D, frameRate="+nf(frameRate,3,2));
   println("A: "+isA+" D: "+isD+" W: "+isW+" S: "+isS+" _: "+isSpace);
   //background(255);
-  fill(255,50);
+  fill(255,100);
   rect(-1,-1,width+2,height+2);
   box2d.step();
   player.display();
