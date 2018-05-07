@@ -4,6 +4,14 @@ void initTris(){
   rem3=new PVector(0,height*2);
   triangulation=new ArrayList<Triangle>();
   triangulation.add(new Triangle(rem1,rem2,rem3));
+  ensureAddedPoint(new PVector(0,0));
+  ensureAddedPoint(new PVector(width,0));
+  ensureAddedPoint(new PVector(0,height));
+  ensureAddedPoint(new PVector(width,height));
+}
+void ensureAddedPoint(PVector p){
+  if(points.size()<10)return;
+  if(!points.contains(p))addPoint(p);
 }
 
 PVector rem1,rem2,rem3;

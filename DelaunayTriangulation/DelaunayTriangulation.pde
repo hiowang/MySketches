@@ -49,6 +49,7 @@ void keyPressed() {
   float m=0;
   for (int i=0; i<n; i++)addPoint(new PVector(random(m, width-m), random(m, height-m)));
 }
+boolean calculated=false;
 void addPoint(PVector p) {
   points.add(p);
   //colorMode(HSB, 100);
@@ -57,10 +58,7 @@ void addPoint(PVector p) {
   cols.add(img.get(int(map(p.x, 0, width, 0, img.width)), int(map(p.y, 0, height, 0, img.height))));
 
   //doCalculationsForPoint(p);
-  initTris();
-  for(PVector v:points)doCalculationsForPoint(v);
-  calcVoronoiPolygons();
-  calcCols();
+  calculated=false;
 }
 boolean drawDelaunay=false;
 boolean drawCircum=false;
@@ -83,6 +81,13 @@ int mx=-1;
 int my=-1;
 void draw() {
   background(200);
+  if (!calculated) {
+
+    initTris();
+    for (PVector v : points)doCalculationsForPoint(v);
+    calcVoronoiPolygons();
+    calcCols();
+  }
   //startTimer();
   //int selectedIndex=0;
   //if (drawColoredCells) {
@@ -108,7 +113,7 @@ void draw() {
     ArrayList<PVector>p=t.getPoints();
     if (p.contains(rem1)||p.contains(rem2)||p.contains(rem3))continue;
     strokeWeight(5);
-    if (drawDelaunay)t.display(color(50));
+    if (drawDelaunay)t.display(color(0,0),true,false);
     strokeWeight(2);
     //  //displayPoint(t.p1,color(250));
     //  //displayPoint(t.p2,color(250));
@@ -117,31 +122,31 @@ void draw() {
     if (drawCircum)c.display(color(0, 20));
     strokeWeight(0);
   }
-  for(Polygon p:voronoi){
-    fill(cols.get(voronoi.indexOf(p)));
-    //stroke(0);
-    noStroke();
-    beginShape();
-    for(Line l:p.lines)vertex(l.a.x,l.a.y);
-    endShape();
-  }
   if (drawVoronoi) {
-    Polygon thePoly=null;
+    //Polygon thePoly=null;
+    //for (Polygon p : voronoi) {
+    //  strokeWeight(5);
+    //  color col=color(255, 0, 0);
+    //  //if (voronoi.indexOf(p)!=selectedIndex)col=color(0, 50);
+    //  boolean best=isBest(points.get(voronoi.indexOf(p)), mx, my);
+    //  if (best)thePoly=p;
+    //  else col=color(0);
+    //  if (thePoly==p)continue;
+    //  p.display(col);
+    //  strokeWeight(1);
+    //}
+    //if (thePoly!=null) {
+    //  strokeWeight(15);
+    //  thePoly.display(invCol(cols.get(voronoi.indexOf(thePoly))));
+    //  strokeWeight(1);
+    //}
     for (Polygon p : voronoi) {
-      strokeWeight(5);
-      color col=color(255, 0, 0);
-      //if (voronoi.indexOf(p)!=selectedIndex)col=color(0, 50);
-      boolean best=isBest(points.get(voronoi.indexOf(p)), mx, my);
-      if (best)thePoly=p;
-      else col=color(0);
-      if (thePoly==p)continue;
-      p.display(col);
-      strokeWeight(1);
-    }
-    if (thePoly!=null) {
-      strokeWeight(15);
-      thePoly.display(invCol(cols.get(voronoi.indexOf(thePoly))));
-      strokeWeight(1);
+      fill(cols.get(voronoi.indexOf(p)));
+      //stroke(0);
+      noStroke();
+      beginShape();
+      for (Line l : p.lines)vertex(l.a.x, l.a.y);
+      endShape();
     }
   }
   //long l2=endTimer();

@@ -58,23 +58,33 @@ class Triangle {
 
     return ((b1 == b2) && (b2 == b3));
   }
-  void display(color str) {
+  color avg(color a,color b,color c){
+    return color(red(a)/3+red(b)/3+red(c)/3,green(a)/3+green(b)/3+green(c)/3,blue(a)/3+blue(b)/3+blue(c)/3);
+  }
+  void display(color str,boolean doFill,boolean stroke) {
     stroke(str);
     noFill();
+    if(!stroke)noStroke();
+    if(doFill){
+      color col1=img.get(int(map(p1.x,0,width,0,img.width)),int(map(p1.y,0,height,0,img.height)));
+      color col2=img.get(int(map(p2.x,0,width,0,img.width)),int(map(p2.y,0,height,0,img.height)));
+      color col3=img.get(int(map(p3.x,0,width,0,img.width)),int(map(p3.y,0,height,0,img.height)));
+      fill(avg(col1,col2,col3));
+    }
     //stroke(0,0,0);
     //line(p1.x,p1.y,p2.x,p2.y);
     //stroke(255,0,0);
     //line(p2.x,p2.y,p3.x,p3.y);
     //stroke(0,0,255);
     //line(p3.x,p3.y,p1.x,p1.y);
-    //beginShape();
-    //vertex(p1.x, p1.y);
-    //vertex(p2.x, p2.y);
-    //vertex(p3.x, p3.y);
-    //endShape(CLOSE);
-    line(p1.x,p1.y,p2.x,p2.y);
-    line(p2.x,p2.y,p3.x,p3.y);
-    line(p3.x,p3.y,p1.x,p1.y);
+    beginShape();
+    vertex(p1.x, p1.y);
+    vertex(p2.x, p2.y);
+    vertex(p3.x, p3.y);
+    endShape(CLOSE);
+    //line(p1.x,p1.y,p2.x,p2.y);
+    //line(p2.x,p2.y,p3.x,p3.y);
+    //line(p3.x,p3.y,p1.x,p1.y);
   }
   Circle circum() {
     float a=p1.x;
