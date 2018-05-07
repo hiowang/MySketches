@@ -39,6 +39,9 @@ class Thing {
   void update(boolean doDraw) {
     //PVector newAcc=new PVector(0,0);
     acc.add(calcDir(pos.x, pos.y, id, doDraw));
+  }
+
+  void applyUpdate() {
     vel.add(acc);
     pos.add(acc);
   }
@@ -63,12 +66,16 @@ void setup() {
   size(1024, 1024);
   background(0);
   things=new ArrayList<Thing>();
+  for (float f=0; f<=TWO_PI; f+=TWO_PI/35) {
+    float a=500;
+    addThing(width/2+cos(f)*a, height/2+sin(f)*a);
+  }
 }
 void mouseDragged() {
-  if (frameCount%5==0)addPoint(mouseX, mouseY);
+  if (frameCount%5==0)addThing(mouseX, mouseY);
 }
 void mousePressed() {
-  addPoint(mouseX, mouseY);
+  addThing(mouseX, mouseY);
 }
 int mode=0;
 void keyPressed() {
@@ -80,7 +87,7 @@ void keyPressed() {
 }
 boolean extras=false;
 //TODO: add draw mode controls
-void addPoint(float x, float y) {
+void addThing(float x, float y) {
   Thing t=new Thing(x, y);
   things.add(t);
 }
@@ -92,8 +99,8 @@ float the_dist(float a1, float a2, float b1, float b2) {
 void draw() {
   //background(0);
   //if (frameCount%60==0) {
-    fill(0, 10);
-    rect(0, 0, width, height);
+  fill(0, 10);
+  rect(0, 0, width, height);
   //}
   surface.setTitle("DynamicConstellation: frameRate="+nf(frameRate, 2, 3));
   for (Thing t : things) {
@@ -101,6 +108,7 @@ void draw() {
     if (mode==1||mode==2)t.update(false);
     if (mode==2)t.display();
   }
+  for(Thing t:things)t.applyUpdate();
   if (extras) {
     for (Thing t : things) {
       t.displayExtras();
