@@ -1,4 +1,4 @@
-
+//Inspired by: https://necessarydisorder.wordpress.com/2018/03/31/a-trick-to-get-looping-curves-with-lerp-and-delay/
 void setup(){
   size(1024,1024);
   pointA=new CircleProvider(200,512,100,1);
