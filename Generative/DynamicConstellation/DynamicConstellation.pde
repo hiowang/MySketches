@@ -2,7 +2,7 @@
 
 float maxDist=Float.MAX_VALUE;
 float minDist=150;
-float grav=1;
+float grav=5 ;
 int totalID=0;
 PVector calcDir(float x, float y, int id, boolean display) {
   PVector acc=new PVector(0, 0);
@@ -52,9 +52,10 @@ class Thing {
     ellipse(pos.x, pos.y, 5, 5);
   }
   void displayExtras() {
-    stroke(255, 255/2, 0, 50);
+    stroke(255/4, 255/2, 0, 10);
+    //stroke(50,10);
     line(pos.x, pos.y, pos.x+vel.x, pos.y+vel.y);
-    stroke(255/2, 255, 0, 50);
+    stroke(255/5, 255, 0, 10);
     float accMult=100;
     line(pos.x, pos.y, pos.x+acc.x*accMult, pos.y+acc.y*accMult);
   }
@@ -64,11 +65,11 @@ ArrayList<Thing>things;
 
 void setup() {
   size(1024, 1024);
-  background(0);
+  //background(0);
   things=new ArrayList<Thing>();
-  for (float f=0; f<=TWO_PI; f+=TWO_PI/35) {
+  for (float f=0; f<=TWO_PI; f+=TWO_PI/100) {
     float a=500;
-    addThing(width/2+cos(f)*a, height/2+sin(f)*a);
+    //addThing(width/2+cos(f)*a, height/2+sin(f)*a);
   }
 }
 void mouseDragged() {
@@ -99,8 +100,7 @@ float the_dist(float a1, float a2, float b1, float b2) {
 void draw() {
   //background(0);
   //if (frameCount%60==0) {
-  fill(0, 10);
-  rect(0, 0, width, height);
+  //blend(
   //}
   surface.setTitle("DynamicConstellation: frameRate="+nf(frameRate, 2, 3));
   for (Thing t : things) {
@@ -108,7 +108,7 @@ void draw() {
     if (mode==1||mode==2)t.update(false);
     if (mode==2)t.display();
   }
-  for(Thing t:things)t.applyUpdate();
+  for (Thing t : things)t.applyUpdate();
   if (extras) {
     for (Thing t : things) {
       t.displayExtras();

@@ -21,6 +21,10 @@ int dens=2;
 void mousePressed() {
   addPoint(new PVector(mouseX, mouseY));
 }
+void mouseDragged(){
+  if(frameCount%5==0)
+  addPoint(new PVector(mouseX, mouseY));
+}
 void keyPressed() {
   if (key=='1')drawDelaunay=!drawDelaunay;
   if (key=='2')drawCircum=!drawCircum;
@@ -46,7 +50,7 @@ void keyPressed() {
   if (key=='q') {
     n=50;
   }
-  float m=0;
+  float m=100;
   for (int i=0; i<n; i++)addPoint(new PVector(random(m, width-m), random(m, height-m)));
 }
 boolean calculated=false;
@@ -111,7 +115,11 @@ void draw() {
   }
   for (Triangle t : triangulation) {
     ArrayList<PVector>p=t.getPoints();
-    if (p.contains(rem1)||p.contains(rem2)||p.contains(rem3))continue;
+    if(p.contains(rem1))p.remove(rem1);
+    if(p.contains(rem2))p.remove(rem2);
+    if(p.contains(rem3))p.remove(rem3);
+    if(p.size()<=2)continue;
+    //if (p.contains(rem1)||p.contains(rem2)||p.contains(rem3))continue;
     strokeWeight(5);
     if (drawDelaunay)t.display(color(0,0),true,false);
     strokeWeight(2);
