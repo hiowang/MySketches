@@ -1,52 +1,46 @@
-float colSpeed=0.0025;
+float colSpeed=0.0125;
 
 //1000x1000,10000,0.01
 void setup() {
-  size(1024, 1024);
+  size(1024,1024);
   //size(500,500);
   //size(1000, 1000);
   //fullScreen();
   seed=new Thing(width/2, height/2);
   seed.done=true;
-  seed.r=50;
   seed.col=color(255, 200, 200);
   for (int i=0; i<10000; i++) {
-    things.add(new Thing(random(width), random(height)));
+    things.add(new Thing(random(width),random(height)));
   }
-  things.add(seed);
+  //things.add(seed);
 }
 int numDone=0;
 void draw() {
   background(0);
-  surface.setTitle("DLA, frameRate="+nf(frameRate, 2, 3)+", numNotDone="+numNotDone());
+  println(numDone);
+  surface.setTitle("DLALine, frameRate="+nf(frameRate,2,3));
   //for (int i=0; i<5; i++) {
   //if(numDone<600)
   //for(int i=0;i<30;i++)things.add(new Thing(random(width), random(height)));
   //}
-  //for (int k=0; k<10; k++) {
-  ArrayList<Thing>toRem=new ArrayList<Thing>();
-  for (Thing t : things) {
-    t.update(frameCount);
-    if (t.dead)toRem.add(t);
-  }
-  things.removeAll(toRem);
-  for (int i=0; i<toRem.size(); i++) {
-    things.add(new Thing(random(width), random(height)));
-    //}
-  }
-  for (Thing t : things) {
-    if(!t.done)continue;
+  //for (int i=0; i<10; i++) {
+    for (Thing t : things) {
+      t.update(frameCount);
+    }
+  //}
+  for(Thing t:things){
+    if(!t.done)continue;  
     t.display();
   }
-  seed.display();
-  if (numNotDone()>0) {
+  //seed.display();
+  if(numNotDone()>0){
     saveFrame("data/frame-#####.png");
   }
 }
-int numNotDone() {
+int numNotDone(){
   int i=0;
-  for (Thing t : things) {
-    if (!t.done)i++;
+  for(Thing t:things){
+    if(!t.done)i++;
   }
   return i;
 }
@@ -61,7 +55,7 @@ class Thing {
   Thing(float x, float y) {
     this.x=x;
     this.y=y;
-    this.r=5;
+    this.r=7.5;
     this.col=color(255);
   }
   void display() {
@@ -71,15 +65,14 @@ class Thing {
     ellipseMode(CENTER);
     ellipse(x, y, r, r);
   }
-  boolean dead=false;
   void update(int frames) {
     if (done)return;
-    float a=10;
-    if (x<a)dead=true;
-    if (y<a)dead=true;
-    if (x>width-a)dead=true;
-    if (y>height-a)dead=true;
-    if (collides()) {
+    float a=0;
+    if (x<a)x=width-a;
+    if (y<a)y=height-a;
+    if (x>width-a)x=a;
+    //if (y>height-a)y=a;
+    if (collides()||y>=height) {
       //if(collidesOther()){
       done=true;
       numDone++;
@@ -89,8 +82,10 @@ class Thing {
       colorMode(RGB, 255);
     } else {
 
-      x+=random(-2, 2);
-      y+=random(-2, 2);
+      float b=30;
+      x+=random(-b, b);
+      y+=random(-b, b);
+      //y+=2;
     }
     //r+=1;
   }
