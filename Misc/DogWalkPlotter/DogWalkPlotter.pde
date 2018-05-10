@@ -6,7 +6,8 @@ Day[] days;
 float max;
 String[]strs;
 void setup(){
-  size(600,255);
+  size(1600,500);
+  textFont(loadFont("Monospaced-20.vlw"));
   strs=loadStrings("../../../../MyLogs/DogWalking.txt");
   //String[]strs=loadStrings("~/Documents/MyLogs/DogWalking.txt");
   pixelDensity(2);
@@ -27,7 +28,8 @@ void setup(){
   //rect(width-50,0,50,height);
 }
 void draw(){
-  float w=500;
+  float w=width-100;
+  float h=220;
   pushMatrix();
   background(0);
   noFill();
@@ -37,7 +39,7 @@ void draw(){
   float heightScale=10;
   float factor=w/(strs.length-1);
   for(int i=0;i<strs.length;i++){
-    line(i*factor,-10,i*factor,height+10);
+    line(i*factor,-10,i*factor,h+10);
   }
   int selectedI=-1;
   beginShape();
@@ -111,4 +113,12 @@ void draw(){
     text("Day:"+d.daystr,mouseX-50,mouseY+30);
     popMatrix();
   }
+  
+  fill(255);
+  noStroke();
+  textAlign(LEFT,BOTTOM);
+  translate(2,302);
+  text("Number of days: "+days.length,0,0);
+  text("Number of months: "+(days.length/30),0,10);
+  text("Number of years: "+(days.length/365),0,20);
 }
