@@ -13,7 +13,8 @@ void setup() {
       float y=map(ty, height, 0, -rangeY, rangeY);
       Complex complex=xy(x, y);
 
-      complex=julia(complex, 2, 10, 0, -0.8);
+      complex=complex.c_power(xy(1,0));
+      //complex=julia(complex, 2, 10, 0, -0.8);
       //complex=mandelbrot(complex, 2, 30, 1, 1);
       //complex=complex.c_cos().c_sin();
       //complex=complex.c_sin().c_cos();

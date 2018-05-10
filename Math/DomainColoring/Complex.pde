@@ -20,6 +20,9 @@ class Complex{
   Complex c_power(float f){
     return new Complex(theta*f,pow(r,f));
   }
+  Complex c_power(Complex other){
+    return new Complex(theta*other.x(),exp(-theta*other.y()));
+  }
   Complex c_add(float a,float b){
     return xy(x()+a,y()+b);
   }
