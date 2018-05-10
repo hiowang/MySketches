@@ -1,7 +1,7 @@
 float dens=1;
 int pixelDens=2;
 void setup() {
-  float range=2;
+  float range=4;
   float rangeX=range, rangeY=range;
   size(1024, 1024);
   pixelDensity(pixelDens);
@@ -13,7 +13,6 @@ void setup() {
       float y=map(ty, height, 0, -rangeY, rangeY);
       Complex complex=xy(x, y);
 
-      complex=complex.c_power(xy(1,0));
       //complex=julia(complex, 2, 10, 0, -0.8);
       //complex=mandelbrot(complex, 2, 30, 1, 1);
       //complex=complex.c_cos().c_sin();
@@ -23,7 +22,7 @@ void setup() {
       //complex=complex.c_add(-1,0).c_div(complex.c_add(1,0)).c_power(3);
       //complex=complex.c_power(-1).c_sin();
       //complex=complex.c_power(-1).c_cos();
-      //complex=unityRoot(complex,4);
+      complex=unityRoot(complex,4);
 
       color col=makeColor(complex);
       //if (dens>1) {
@@ -45,7 +44,7 @@ void setup() {
 
 color makeColor(Complex c) {
   colorMode(HSB, 100);
-  color col=color(map(c.theta, -PI, PI, 0, 100), 100, map(1-pow(2, -pow(c.r, 1)), 0, 1, 0, 100));
+  color col=color(map(c.theta, -PI, PI, 0, 100), map(1-pow(2, -pow(c.r, 1)), 0, 1, 0, 100),100);
   colorMode(RGB, 255);
   return col;
 }
