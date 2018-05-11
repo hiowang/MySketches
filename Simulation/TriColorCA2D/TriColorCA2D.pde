@@ -20,13 +20,17 @@ void settings() {
   cellSize=8;
   size(cellSize*gridSize, cellSize*gridSize);
 }
-void setup() {
+void doCols(){
   cols=new color[numTypes];
   for(int i=0;i<numTypes;i++){
     colorMode(HSB,100);
-    cols[i]=color(map(i,0,numTypes-1,0,90),50,100);
+    //cols[i]=color(map(i,0,numTypes-1,0,90),50,100);
+    cols[i]=color(random(100),40,100);
     colorMode(RGB,255);
   }
+}
+void setup() {
+  doCols();
   grid=new Cell[gridSize][gridSize];
   for (int x=0; x<gridSize; x++) {
     for (int y=0; y<gridSize; y++) {
@@ -34,10 +38,10 @@ void setup() {
       grid[x][y].health=10;
       grid[x][y].type=0;
       //if(random(100)<10)
-      //grid[x][y].type=randType();
+      grid[x][y].type=randType();
     }
   }
-  for (int i=0; i<10; i++) {
+  for (int i=0; i<0; i++) {
     setRandType(1);
     setRandType(2);
     setRandType(3);
@@ -48,10 +52,9 @@ void keyPressed(){
   if(key=='1')mouseType=1;
   if(key=='2')mouseType=2;
   if(key=='3')mouseType=3;
-  if(key=='4')mouseType=4;
-  if(key=='5')mouseType=5;
-  if(key=='6')mouseType=6;
-  if(key=='7')mouseType=0;
+  if(key=='4')mouseType=0;
+  if(key=='h')showHealth=!showHealth;
+  if(key=='c')doCols();
 }
 void mouseDragged(){
   int mx=int(mouseX/cellSize);
@@ -67,8 +70,8 @@ void draw() {
   for (int x=0; x<gridSize; x++) {
     for (int y=0; y<gridSize; y++) {
       int t=grid[x][y].type;
-      //fill(colForType(t, grid[x][y].health/10));
-      fill(colForType(t, 1));
+      if(showHealth)fill(colForType(t, grid[x][y].health/10));
+      else fill(colForType(t, 1));
       noStroke();
       rect(x*cellSize, y*cellSize, cellSize, cellSize);
     }
@@ -80,6 +83,7 @@ void remakeCell(int x, int y, int t) {
   grid[x][y].type=t;
   grid[x][y].health=10;
 }
+boolean showHealth=false;
 boolean canAbeatB(int a, int b) {
   if(b==0)return true;
   //if(random(100)<1)println(a);
@@ -97,6 +101,7 @@ boolean canAbeatB(int a, int b) {
   //println(a+" "+(a==numTypes?1:b));
   if(a==numTypes)return b==1;
   return a+1==b;
+  //return a>b+1;
   //return false;
 }
 void iterate() {
