@@ -8,7 +8,7 @@ class Complex{
     theta=modAngle(t);
     this.r=r;
   }
-  Complex makeNew(){
+  Complex c_copy(){
     return new Complex(theta,r);
   }
   Complex c_mult(Complex other){
@@ -59,7 +59,7 @@ Complex xy(float x,float y){
   return new Complex(atan2(y,x),sqrt(sq(x)+sq(y)));
 }
 float modAngle(float t){
-  //while(t<-PI)t+=TWO_PI;
-  //while(t>PI)t-=TWO_PI;
+  while(t<-PI)t+=TWO_PI;
+  while(t>PI)t-=TWO_PI;
   return t;
 }
