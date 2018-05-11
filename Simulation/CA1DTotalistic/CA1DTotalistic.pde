@@ -1,3 +1,8 @@
+import arb.soundcipher.*;
+SoundCipher sc;
+float[] pitches;
+
+
 int[] rules;
 int[][]data;
 color[]cols;
@@ -6,14 +11,17 @@ void setup() {
   rules=new int[num];
   data=new int[width][height];
   cols=new color[num];
-  for(int i=0;i<num;i++){
-    colorMode(HSB,100);
-    cols[i]=color(random(100),50,100);
-    colorMode(RGB,255);
+  pitches=new float[num];
+  for (int i=0; i<num; i++)pitches[i]=random(50, 100);
+  sc=new SoundCipher(this);
+  for (int i=0; i<num; i++) {
+    colorMode(HSB, 100);
+    cols[i]=color(random(100), 50, 100);
+    colorMode(RGB, 255);
   }
   initRules(false);
 }
-int num=10;
+int num=7;
 void initRules(boolean wait) {
   genNum=0;
   for (int i=0; i<num; i++) {
@@ -35,7 +43,7 @@ void initRules(boolean wait) {
   for (int x=0; x<width; x++) {
     for (int y=0; y<height; y++) {
       data[x][y]=0;
-      if(y==0)data[x][y]=int(random(num));
+      if (y==0)data[x][y]=int(random(num));
     }
   }
 }
@@ -44,28 +52,39 @@ void mousePressed() {
 }
 int genNum=0;
 void draw() {
-  for (int i=0; i<5; i++) {
-    genNum++;
-    if (genNum>=height-1) {
-      initRules(true);
-      genNum=1;
+  //for (int i=0; i<5; i++) {
+  genNum++;
+  if (genNum>=height-1) {
+    //initRules(true);
+    //genNum=1;
+    for (int y=1; y<height; y++) {
+      for (int x=0; x<width; x++) {
+        set(x, y-1, get(x, y));
+      }
     }
-    for (int x=1; x<width-1; x++) {
-      int b=round((data[x-1][genNum-1]+data[x][genNum-1]+data[x+1][genNum-1])/3.0);
-      b=rules[b];
-      data[x][genNum]=b;
-      set(x,genNum,cols[b]);
-      //int b1=int(red(get(x-1, genNum-1))/color(255/num));
-      //int b2=int(red(get(x, genNum-1))/(255/num));
-      //int b3=int(red(get(x+1, genNum-1))/(255/num));
-      //int b=(b1+b2+b3)/num;
-      //int b=
-      //set(x, genNum, color(rules[b]*255/num));
-      //boolean b1=get(x-1,genNum-1)==color(255);
-      //boolean b2=get(x,genNum-1)==color(255);
-      //boolean b3=get(x+1,genNum-1)==color(255);
-      //int n=(b1?1:0)*4+(b2?1:0)*2+(b3?1:0);
-      //set(x,genNum,rules[n]?color(255):color(0));
-    }
+    genNum--;
   }
+  int marg=2;
+  float[]list=new float[marg];
+  for (int x=1; x<width-1; x++) {
+    int b=round((data[x-1][genNum-1]+data[x][genNum-1]+data[x+1][genNum-1])/3.0);
+    b=rules[b];
+    data[x][genNum]=b;
+    color col=cols[b];
+    if (x>=width/2&&x<width/2+marg) {
+      colorMode(HSB, 100);
+      col=color(hue(col), 50, 100);
+      colorMode(RGB, 255);
+      list[x-width/2]=b;
+    }
+    set(x, genNum, col);
+  }
+
+  //double dynamic=100;
+  //double duration=0.1;
+  //sc.playNote(pitches[b], dynamic, duration);
+  //if(frameCount%10==0)
+  //sc.playChord(pitches,dynamic,duration);
+  //}
+  surface.setTitle("CA1DTotalistic, frameRate="+nf(frameRate, 2, 3));
 }
