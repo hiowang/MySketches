@@ -1,10 +1,11 @@
 float dens=1;
 int pixelDens=2;
 void setup() {
-  float range=2;
+  float range=4;
   float rangeX=range, rangeY=range;
-  size(6000, 6000);
-  //size(512,512);
+  //size(6000, 6000);
+  size(512,512);
+  //size(1024,1024);
   pixelDensity(pixelDens);
   //width*=2;
   //height*=2;
@@ -18,17 +19,27 @@ void setup() {
       Complex complex=xy(x, y);
 
       //complex=julia(complex, 2, 15, 0, -0.8);
-      complex=mandelbrot(complex, 2, 10, 1, 1);
+      //complex=mandelbrot(complex, 2, 10, 1, 1);
+      //complex=complex.c_exp();
+      //complex=complex.c_power(-1).c_exp();
       //complex=complex.c_cos().c_sin();
       //complex=complex.c_sin().c_cos();
       //complex=complex.c_cos();
       //complex=complex.c_sin();
+      //complex=complex.c_tan();
       //complex=complex.c_cos().c_power(5);
       //complex=complex.c_sin().c_power(5);
-      //complex=complex.c_add(-1,0).c_div(complex.c_add(1,0)).c_power(3);
+      //complex=complex.c_power(-0.5).c_exp();
       //complex=complex.c_power(-1).c_sin();
+      //complex=complex.c_tan().c_sin();
+      complex=complex.c_power(-1).c_tan().c_sin();
+      //complex=complex.c_add(-1,0).c_div(complex.c_add(1,0)).c_power(2).c_sin();
       //complex=complex.c_power(-1).c_cos();
-      //complex=unityRoot(complex,4);
+      //complex=complex.c_cos().c_div(complex.c_power(4).c_add(-1,0).c_sin());
+      //complex=complex.c_power(-1).c_exp().c_sin();
+      //complex=complex.c_ln();
+      //complex=complex.c_add(-1,0).c_div(complex.c_add(1,0)).c_power(3);
+      //complex=unityRoot(complex,2);
       //complex=complex.c_power(4);
       
       //Complex a=complex.c_power(2).c_add(-1,0);
@@ -53,7 +64,7 @@ void setup() {
   }
   noLoop();
   println("DONE");
-  save("mandelbrot-"+(pixelDens*width)+"x"+(pixelDens*height)+".png");
+  //save("mandelbrot-"+(pixelDens*width)+"x"+(pixelDens*height)+".png");
   println("DONE");
 }
 
@@ -63,7 +74,7 @@ color makeColor(Complex c) {
   float rad=abs(c.r);
   //float theta=sin(degrees(modAngle(c.theta)+PI)*TWO_PI/360)*0.5+0.5;//0 to 1
   //float theta=sin(degrees(modAngle(c.theta)+PI)*TWO_PI/360)*0.5+0.5;//0 to 1
-  float theta=((modAngle(c.theta)+PI)/PI) * 180;
+  float theta=((modAngle(c.theta))/PI) * 180;
   float r=pow((rad-floor(rad)),p);
   float bright=1;
   //if(abs(theta-round(theta/30)*30)<1)bright=0;

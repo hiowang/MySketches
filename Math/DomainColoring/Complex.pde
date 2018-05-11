@@ -20,11 +20,25 @@ class Complex{
   Complex c_power(float f){
     return new Complex(theta*f,pow(r,f));
   }
+  Complex c_tan(){
+    return c_sin().c_div(c_cos());
+  }
+  Complex c_ln(){
+    return xy(log(r),theta);
+  }
   Complex c_power(Complex other){
     return new Complex(theta*other.x(),exp(-theta*other.y()));
   }
   Complex c_add(float a,float b){
     return xy(x()+a,y()+b);
+  }
+  Complex c_exp(){
+    //return
+    float x=x();
+    float y=y();
+    return new Complex(y,exp(x));
+    //float ea=exp(x);
+    //return xy(ea*cosh(y),ea*sinh(y));
   }
   float x(){
     return r*cos(theta);
