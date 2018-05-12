@@ -17,7 +17,7 @@ int cellSize;
 int gridSize;
 void settings() {
   gridSize=128;
-  cellSize=8;
+  cellSize=1024/gridSize;
   size(cellSize*gridSize, cellSize*gridSize);
 }
 void doCols(){
@@ -25,7 +25,7 @@ void doCols(){
   for(int i=0;i<numTypes;i++){
     colorMode(HSB,100);
     //cols[i]=color(map(i,0,numTypes-1,0,90),50,100);
-    cols[i]=color(random(100),40,100);
+    cols[i]=color(random(100),10,random(25)+75);
     colorMode(RGB,255);
   }
 }

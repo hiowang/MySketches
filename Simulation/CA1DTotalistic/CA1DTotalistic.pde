@@ -78,13 +78,14 @@ void draw() {
       list[x-width/2]=b;
     }
     set(x, genNum, col);
+    double dynamic=100;
+    double duration=0.1;
+    //if (frameCount%10==0)
+    frameRate(10);
+    sc.playNote(pitches[b], dynamic, duration);
+      //sc.playChord(pitches, dynamic, duration);
   }
 
-  //double dynamic=100;
-  //double duration=0.1;
-  //sc.playNote(pitches[b], dynamic, duration);
-  //if(frameCount%10==0)
-  //sc.playChord(pitches,dynamic,duration);
   //}
   surface.setTitle("CA1DTotalistic, frameRate="+nf(frameRate, 2, 3));
 }
