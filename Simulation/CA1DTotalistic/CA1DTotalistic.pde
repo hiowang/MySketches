@@ -7,7 +7,7 @@ int[] rules;
 int[][]data;
 color[]cols;
 void setup() {
-  size(1024, 1024);
+  size(200, 1024);
   rules=new int[num];
   data=new int[width][height];
   cols=new color[num];
@@ -73,7 +73,7 @@ void draw() {
     color col=cols[b];
     if (x>=width/2&&x<width/2+marg) {
       colorMode(HSB, 100);
-      col=color(hue(col), 50, 100);
+      col=color(hue(col)/2+25, 50, 100);
       colorMode(RGB, 255);
       list[x-width/2]=b;
     }
@@ -81,7 +81,7 @@ void draw() {
     double dynamic=100;
     double duration=0.1;
     //if (frameCount%10==0)
-    frameRate(10);
+    //frameRate(10);
     sc.playNote(pitches[b], dynamic, duration);
       //sc.playChord(pitches, dynamic, duration);
   }

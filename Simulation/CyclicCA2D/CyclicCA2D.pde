@@ -1,7 +1,7 @@
 int[][]grid;
 int gridSize, cellSize;
 void settings() {
-  gridSize=256;
+  gridSize=200;
   cellSize=1024/gridSize;
   size(gridSize*cellSize, gridSize*cellSize);
 }
@@ -21,12 +21,14 @@ void draw() {
     for (int y=0; y<gridSize; y++) {
       colorMode(HSB, 100);
       fill(color(grid[x][y]*(100/numTypes), 50, 100));
+      //fill(color(grid[x][y]*100/numTypes));
       noStroke();
       colorMode(RGB, 255);
       rect(x*cellSize, y*cellSize, cellSize, cellSize);
     }
   }
-  iterate();
+  //for (int i=0; i<100; i++)
+    iterate();
   surface.setTitle("CyclicCA2D, frameRate="+nf(frameRate, 2, 3));
 }
 void iterate() {
@@ -34,10 +36,10 @@ void iterate() {
   for (int x=0; x<gridSize; x++) {
     for (int y=0; y<gridSize; y++) {
       ArrayList<Integer>ints=new ArrayList<Integer>();
-      if(x>0)ints.add(grid[x-1][y]);
-      if(y>0)ints.add(grid[x][y-1]);
-      if(x<gridSize-1)ints.add(grid[x+1][y]);
-      if(y<gridSize-1)ints.add(grid[x][y+1]);
+      if (x>0)ints.add(grid[x-1][y]);
+      if (y>0)ints.add(grid[x][y-1]);
+      if (x<gridSize-1)ints.add(grid[x+1][y]);
+      if (y<gridSize-1)ints.add(grid[x][y+1]);
       int cur=grid[x][y];
       for (Integer i : ints) {
         if (replaces(cur, i)) {
@@ -48,8 +50,8 @@ void iterate() {
       newGrid[x][y]=cur;
     }
   }
-  for (int x=1; x<gridSize-1; x++) {
-    for (int y=1; y<gridSize-1; y++) {
+  for (int x=0; x<gridSize; x++) {
+    for (int y=0; y<gridSize; y++) {
       grid[x][y]=newGrid[x][y];
     }
   }
