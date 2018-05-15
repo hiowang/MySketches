@@ -118,7 +118,11 @@ void draw(){
   noStroke();
   textAlign(LEFT,BOTTOM);
   translate(2,302);
+  int numWalks=0;
+  for(Day d:days)numWalks+=d.numwalks;
   text("Number of days: "+days.length,0,0);
   text("Number of months: "+(days.length/30),0,10);
   text("Number of years: "+(days.length/365),0,20);
+  text("Number of walks: "+numWalks,0,40);
+  text("Average walks per day: "+nf(1.0*numWalks/days.length,1,2),0,60);
 }
