@@ -31,7 +31,7 @@ class Follower {
     }
   }
   void update() {
-    if (pos.mag()>200)return;
+    if (pos.mag()>500)return;
     //while (past.size()>20)past.remove(0);
     Follower f=followers.get(targetInd);
     //stroke(0);
