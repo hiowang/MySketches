@@ -1,11 +1,15 @@
 ArrayList<Planet>planets;
-
+ArrayList<Dust>dusts;
 void setup() {
   //fullScreen(P3D);
   size(1000,1000,P3D);
   planets=new ArrayList<Planet>();
+  dusts=new ArrayList<Dust>();
   for (int i=0; i<2000; i++) {
-    planets.add(new Planet(1000,100));
+    planets.add(new Planet(10000,100));
+  }
+  for(int i=0;i<2000;i++){
+    dusts.add(new Dust(10000,100));
   }
 }
 ArrayList<Planet>toAdd;
@@ -29,6 +33,10 @@ void draw() {
   for (Planet p : planets) {
     p.display(s);
     p.update();
+  }
+  for(Dust d:dusts){
+    d.display(s);
+    d.update();
   }
   stroke(0);
   line(-1000,0,0,1000,0,0);

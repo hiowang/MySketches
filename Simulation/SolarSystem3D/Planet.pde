@@ -13,10 +13,10 @@ class Planet {
     x=cos(ang)*cur_r;
     z=sin(ang)*cur_r;
     y=random(-h,h);
-    if(totalID<1){
-      stuck=true;
-      x=y=z=0;
-    }
+    //if(totalID<1){
+      //stuck=true;
+      //x=y=z=0;
+    //}
     if(stuck){
       mass=5;
       r=10;

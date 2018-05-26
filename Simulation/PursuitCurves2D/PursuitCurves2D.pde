@@ -7,9 +7,9 @@ class Follower {
     y=random(height);
     pos=new PVector(x, y);
     colorMode(HSB, 100);
-    col=color(random(100), 75, 100, 10);
+    col=color(random(100), 75, 100, 2);
     colorMode(RGB, 255);
-    col=color(100,10);
+    //col=color(100,2);
   }
   void update(PVector target, float speed) {
     if (PVector.dist(pos, target)<1)return;
@@ -34,7 +34,7 @@ void setup() {
   fullScreen();
   followers=new ArrayList<Follower>();
   a=new Follower(width/2, height/2, 499);
-  for (int i=0; i<150; i++) {
+  for (int i=0; i<300; i++) {
     //followers.add(new Follower(0, 0, (i+1)%500));
     followers.add(new Follower(0,0,int(random(150))));
   }

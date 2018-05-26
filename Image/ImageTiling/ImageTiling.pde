@@ -154,9 +154,9 @@ void draw(){
   }
   for(int i=0;i<10;i++){
     //if(random(100)<0.1)
-    //addThing(new ThingRect());
+    addThing(new ThingRect());
     //else
-      addThing(new ThingCircle());
+      //addThing(new ThingCircle());
   }
 }
 ArrayList<Thing>things;

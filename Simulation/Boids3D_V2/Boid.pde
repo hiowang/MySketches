@@ -5,8 +5,8 @@ class Boid {
   int id=0;
   Boid() {
     pos=getRandom().mult(size);
-    vel=new PVector(0,0);
-    acc=new PVector(0,0);
+    vel=new PVector(0, 0);
+    acc=new PVector(0, 0);
     id=totalID;
     totalID++;
   }
@@ -17,7 +17,7 @@ class Boid {
     this.vel=new PVector(0, 0, 0);
     this.acc=new PVector(0, 0, 0);
   }
-  PVector normVel(float f){
+  PVector normVel(float f) {
     PVector p=vel.copy();
     p.normalize();
     p.setMag(f);
@@ -37,7 +37,7 @@ class Boid {
     for (Boid b : boids) {
       if (b.id==id)continue;
       if (PVector.dist(pos, b.pos)>=boidAttractDist)continue;
-      com.add(PVector.sub(b.pos,pos));
+      com.add(PVector.sub(b.pos, pos));
       //rotateY(rot);
       //stroke(255,10);
       //line(pos.x,pos.y,pos.z,b.pos.x,b.pos.y,b.pos.z);
@@ -111,9 +111,9 @@ class Boid {
     //translate(xoff,yoff,zoff);
     //rotateY(rot);
     translate(pos.x, pos.y, pos.z);
-    if(followBoid&&boidToFollow==this)fill(0,255,0);
+    if (followBoid&&boidToFollow==this)fill(0, 255, 0);
     box(5);
-    translate(-pos.x,-pos.y,-pos.z);
+    translate(-pos.x, -pos.y, -pos.z);
     //popMatrix();
   }
 }
