@@ -1,11 +1,12 @@
 ArrayList<PVector>stuck;
 void setup(){
   size(500,500);
+  pixelDensity(2);
   stuck=new ArrayList<PVector>();
   stuck.add(new PVector(width/2,height/2));
   //stuck.add(new PVector(width/2,0));
 }
-float rad=5;
+float rad=2;
 float fract(float f){
   float fract= f-floor(f);
   return cos(TWO_PI*fract)/2+0.5;
@@ -17,7 +18,7 @@ void draw(){
   for(PVector p:stuck){
     //fill(255,0,0);
     colorMode(HSB,100);
-    fill(color(fract(p.z*0.00025)*100,100,100));
+    fill(color(fract(p.z*0.0001)*100,100,100));
     noStroke();
     ellipse(p.x,p.y,rad,rad);
   }

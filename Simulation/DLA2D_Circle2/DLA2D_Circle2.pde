@@ -1,10 +1,11 @@
 ArrayList<PVector>stuck;
 void setup(){
-  size(500,500);
+  size(1000,1000);
+  pixelDensity(2);
   stuck=new ArrayList<PVector>();
   //stuck.add(new PVector(width/2,0));
 }
-float rad=2;
+float rad=5;
 float fract(float f){
   float fract= f-floor(f);
   return cos(TWO_PI*fract)/2+0.5;
@@ -12,7 +13,9 @@ float fract(float f){
 int iters=0;
 void draw(){
   background(0);
-  for(int i=0;i<10;i++)doPoint();
+  //println(frameRate);
+  //for(int i=0;i<10;i++)
+  doPoint();
   for(PVector p:stuck){
     //fill(255,0,0);
     colorMode(HSB,100);
@@ -35,8 +38,8 @@ void doPoint(){
   iters++;
   PVector p=createNewVector();
   while(notTouching(p)&&dist(p.x,p.y,width/2,height/2)<width/4+height/4){
-    p.x+=random(-5,5);
-    p.y+=random(-5,5);
+    p.x+=random(-10,10);
+    p.y+=random(-10,10);
   }
   p.z=iters;
   stuck.add(p);

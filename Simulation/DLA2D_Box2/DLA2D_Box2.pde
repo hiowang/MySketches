@@ -1,10 +1,11 @@
 ArrayList<PVector>stuck;
 void setup(){
   size(500,500);
+  pixelDensity(2);
   stuck=new ArrayList<PVector>();
   //stuck.add(new PVector(width/2,0));
 }
-float rad=4;
+float rad=2;
 float fract(float f){
   float fract= f-floor(f);
   return cos(TWO_PI*fract)/2+0.5;

@@ -1,10 +1,11 @@
 ArrayList<PVector>stuck;
 void setup(){
-  size(500,500);
+  size(500,1000);
+  pixelDensity(2);
   stuck=new ArrayList<PVector>();
   //stuck.add(new PVector(width/2,0));
 }
-float rad=3;
+float rad=2;
 float fract(float f){
   float fract= f-floor(f);
   return cos(TWO_PI*fract)/2+0.5;
@@ -19,7 +20,7 @@ void draw(){
   for(PVector p:stuck){
     //fill(255,0,0);
     colorMode(HSB,100);
-    fill(color(fract(p.z*0.00005)*100,100,100));
+    fill(color(fract(p.z*0.00001)*100,100,100));
     noStroke();
     ellipse(p.x,p.y,rad,rad);
   }
@@ -41,6 +42,9 @@ void doPoint(){
     p.y+=1;
     if(p.x<0)p.x=width;
     if(p.x>width)p.x=0;
+    //if(p.y<0)p.y=height;
+    //if(p.y>height+10)p.y=0;
   }
-  if(p.y>highestY)stuck.add(p);
+  //if(p.y>=highestY)
+    stuck.add(p);
 }
