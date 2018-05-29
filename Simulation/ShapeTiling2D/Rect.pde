@@ -24,10 +24,14 @@ class Rect extends Shape {
       //||other.containsPoint(x+size/2, y-size/2)
       //||other.containsPoint(x-size/2, y+size/2)
       //||other.containsPoint(x-size/2, y-size/2);
-      return containsPoint(other.x-other.size/2,other.y+other.size/2)
+      if(other instanceof Rect)return containsPoint(other.x-other.size/2,other.y+other.size/2)
       ||containsPoint(other.x-other.size/2,other.y-other.size/2)
       ||containsPoint(other.x+other.size/2,other.y+other.size/2)
       ||containsPoint(other.x+other.size/2,other.y-other.size/2);
+      return other.containsPoint(x+size/2, y+size/2);
+      //||other.containsPoint(x+size/2, y-size/2)
+      //||other.containsPoint(x-size/2, y+size/2)
+      //||other.containsPoint(x-size/2, y-size/2);
   }
   boolean containsPoint(float a, float b) {
     return inRange(a, x-size/2, x+size/2)&&inRange(b, y-size/2, y+size/2);

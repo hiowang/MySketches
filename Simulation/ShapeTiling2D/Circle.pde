@@ -1,6 +1,7 @@
 class Circle extends Shape {
   boolean intersects(Shape other) {
-    return dist(other.x, other.y, x, y)<size/2+other.size/2;
+    if(other instanceof Circle)return dist(other.x, other.y, x, y)<size/2+other.size/2;
+    return other.intersects(this);
     //return false;
   }
   boolean allOnScreen(){
