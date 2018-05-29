@@ -6,7 +6,7 @@ Day[] days;
 float max;
 String[]strs;
 void setup(){
-  size(1600,500);
+  size(600,500);
   textFont(loadFont("Monospaced-20.vlw"));
   strs=loadStrings("../../../../MyLogs/DogWalking.txt");
   //String[]strs=loadStrings("~/Documents/MyLogs/DogWalking.txt");
@@ -75,7 +75,7 @@ void draw(){
     stroke(255-val);
     textAlign(CENTER,CENTER);
     textSize(10);
-    text(""+days[i].numwalks,i*factor,3.5*heightScale*max);
+    //text(""+days[i].numwalks,i*factor,3.5*heightScale*max);
   }
   for(int i=0;i<w;i++){
     //colorMode(HSB,100);
