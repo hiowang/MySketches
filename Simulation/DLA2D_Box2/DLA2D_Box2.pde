@@ -17,7 +17,7 @@ void draw(){
   for(PVector p:stuck){
     //fill(255,0,0);
     colorMode(HSB,100);
-    fill(color(fract(p.z*0.00005)*100,100,100));
+    fill(color(fract(p.z*0.000025)*100,100,100));
     noStroke();
     ellipse(p.x,p.y,rad,rad);
   }
