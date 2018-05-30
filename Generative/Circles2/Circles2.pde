@@ -1,107 +1,93 @@
-class Circle{
-  PVector center;
-  float rad;
-  float alpha=0;
-  float lineAlpha=0;
-  ArrayList<Circle>children=new ArrayList<Circle>();
-  boolean collides(Circle other){
-    return center.dist(other.center)<=rad/3+other.rad/3;
+class Circle {
+  float r, x, y;
+  void display() {
+    noFill();
+    stroke(0, 0.00001);
+    if (!screenBuffer.contains(this))fill(#009FFF, 5);
+    //noStroke();
+    //fill(100,100,255,10);
+    ellipseMode(CENTER);
+    ellipse(x, y, r, r);
   }
-  float seed=0;
-  Circle(){
-    seed=random(1000);
+  Circle singleNew() {
+    Circle c=new Circle();
+    c.x=random(-r, r)+x;
+    c.y=random(-r, r)+y;
+    c.r=r/2;
+    return c;
   }
-  float z=0.01;
-  float s=50;
-  void update(){
-    center.x+=noise(seed+frameCount*z)*s-s/2;
-    center.y+=noise(seed+frameCount*z+10)*s-s/2;
-    if(center.x<0)center.x=width;
-    if(center.y<0)center.y=height;
-    if(center.x>width)center.x=0;
-    if(center.y>height)center.y=0;
-  }
-  void draw(float r){
-    if(r<5){
-      alpha=1;
-      lineAlpha=255;
-    }else{
-      alpha=r/10;
-      lineAlpha=alpha-5;
-    }
-    alpha=20;
-    lineAlpha=1;
-    fill(100,100,255,alpha);
-    noStroke();
-    //rect(center.x,center.y,rad,rad);
-    ellipse(center.x,center.y,rad,rad);
+  ArrayList<Circle>makeNew() {
+    ArrayList<Circle>list=new ArrayList<Circle>();
+    //if(r<10)return list;
+    for (int i=0; i<20; i++)list.add(singleNew());
+    return list;
   }
 }
-ArrayList<Circle> circs=new ArrayList<Circle>();
-void setup(){
-  //size(1000,1000);
-  fullScreen();
-  doInit();
+ArrayList<Circle>finished=new ArrayList<Circle>();
+ArrayList<Circle>work=new ArrayList<Circle>();
+ArrayList<Circle>screenBuffer=new ArrayList<Circle>();
+void settings(){
+  size(int(displayWidth*1.25), int(displayWidth*1.25));
 }
-int numIter=4;
-int newMi=3;
-int newMa=4;
-float total;
-float estimateLength(){
-  //return pow(newMi+newMa-1,numIter);
-  float avg=0.5*newMi+0.5*newMa;
-  return pow(avg,numIter+2)-1;
+void setup() {
+  //fullScreen();
+  //size(500,500);
+  Circle c=new Circle();
+  c.x=width/2;
+  c.y=height/2;
+  c.r=500;
+  work.add(c);
 }
-int num=0;
-void doInit(){
-  num=0;
-  total=estimateLength();
-  //background(255);
-  circs.clear();
-  drawCirc(new PVector(width/2,height/2),500,numIter);
-  println("Estimate: "+total);
-  println("Actual: "+num);
-  
+void connect(Circle a, Circle b, float alpha) {
+  stroke(0, alpha);
+  line(a.x, a.y, b.x, b.y);
 }
-PVector offset(PVector p,float r){
-  return new PVector(p.x+random(-r/3,r/3),p.y+random(-r/3,r/3));
-}
-Circle drawCirc(PVector p,float r,int numLeft){
-  Circle circ=new Circle();
-  circ.center=p;
-  circ.rad=r;
-  circs.add(circ);
-  //circ.draw(r);
-  num++;
-  println(100*num/total+"%");
-  if(numLeft<0)return null;
-  for(int i=0;i<random(newMi,newMa);i++)circ.children.add(drawCirc(offset(p,r*2),r/1.5,numLeft-1));
-  return circ;
-}
-void keyPressed(){ 
-  if(key==' ')doInit();
-}
-void draw(){
-  background(0);
-  for(Circle c:circs){
-    //c.update();
+void draw() {
+  background(255);
+  float alpha=1;
+  iterate();
+  iterate();
+  iterate();
+  iterate();
+  for (Circle c : finished) {    
+    c.display();
   }
-  for(Circle c:circs){
-    c.draw(c.rad);
-    }
-    for(Circle c:circs){
-      
-    for(Circle c1:circs){
-      if(c.collides(c1)){
-        stroke(255,30);
-        strokeWeight(0);
-        line(c.center.x,c.center.y,c1.center.x,c1.center.y);
+  for (Circle c : finished) {
+    for (Circle c1 : finished) {
+      if (c1.x!=c.x&&c1.y!=c.y) {
+        if (sq(c1.x-c.x)+sq(c1.y-c.y)<sq(c1.r/2+c.r/2)) {
+          connect(c, c1, alpha);
+        }
       }
     }
-    //for(Circle c1:c.children){
-      //if(c1==null)continue;
-      //stroke(0,c.lineAlpha*10);
-      //line(c.center.x,c.center.y,c1.center.x,c1.center.y);
-    //}
   }
+  saveFrame("frame.png");
+  exit();
+}
+void keyPressed() {
+  if (key=='s') {
+    saveFrame("frame.png");
+    exit();
+  }
+
+  //Circle c=new Circle();
+  //c.x=mouseX;
+  //c.y=mouseY;
+  //c.r=100;
+  //work.add(c);
+}
+void mousePressed() {
+  iterate();
+}
+void iterate() {
+  ArrayList<Circle>storage=new ArrayList<Circle>();
+  for (Circle c : work) {
+    storage.addAll(c.makeNew());
+  }
+  println(storage.size());
+  finished.addAll(work);
+  screenBuffer.clear();
+  screenBuffer.addAll(work);
+  work.clear();
+  work.addAll(storage);
 }

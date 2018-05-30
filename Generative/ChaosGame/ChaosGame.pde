@@ -34,8 +34,8 @@ int[]list=new int[]{0,1,2,3};
 boolean isValidVertexSwap(PVector a,PVector b){
   int ia=verts.indexOf(a);
   int ib=verts.indexOf(b);
-  println(ia);//TODO: Why is ia==-1?
-  return true;
+  //println(ia);//TODO: Why is ia==-1?
+  return ia!=ib;
   //return list[ia]!=ib;
   //int offset=0;
   //return (ib%4)!=((ia+offset)%4);

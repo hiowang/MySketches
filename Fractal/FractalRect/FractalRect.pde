@@ -10,8 +10,9 @@ class Line {
   }
   ArrayList<Line>makeNew() {
     ArrayList<Line>list=new ArrayList<Line>();
-    float offx=random(-f, f);
-    float offy=random(-f, f);
+    float d=dist(a.x,a.y,b.x,b.y);
+    float offx=random(-f*d, f*d);
+    float offy=random(-f*d, f*d);
     float cx=a.x/2+b.x/2;
     float cy=a.y/2+b.y/2;
     list.add(new Line(a.x,a.y,cx+offx,cy+offy));
@@ -19,14 +20,15 @@ class Line {
     return list;
   }
 }
-float f=100;
+float f=0.5;
 ArrayList<Line>lines=new ArrayList<Line>();
 void setup() {
   size(500, 500);
-  lines.add(new Line(100, 100, 400, 100));
-  lines.add(new Line(100, 100, 100, 400));
-  lines.add(new Line(100, 400, 400, 400));
-  lines.add(new Line(400, 100, 400, 400));
+  float m=150;
+  lines.add(new Line(m, m, width-m, m));
+  lines.add(new Line(m, m, m, height-m));
+  lines.add(new Line(m, height-m, width-m, height-m));
+  lines.add(new Line(width-m, m, width-m, height-m));
 }
 void draw() {
   background(255);
@@ -39,7 +41,7 @@ void iterate() {
   for (Line l : lines)newLines.addAll(l.makeNew());
   lines.clear();
   lines.addAll(newLines);
-  f*=0.4;
+  f*=0.9;
 }
 void keyPressed() {
   if(key==' ')iterate();
