@@ -28,10 +28,10 @@ class Rect extends Shape {
       ||containsPoint(other.x-other.size/2,other.y-other.size/2)
       ||containsPoint(other.x+other.size/2,other.y+other.size/2)
       ||containsPoint(other.x+other.size/2,other.y-other.size/2);
-      return other.containsPoint(x+size/2, y+size/2);
-      //||other.containsPoint(x+size/2, y-size/2)
-      //||other.containsPoint(x-size/2, y+size/2)
-      //||other.containsPoint(x-size/2, y-size/2);
+      //return false;
+      float clampX=clamp(other.x,x-size/2,x+size/2);
+      float clampY=clamp(other.y,y-size/2,y+size/2);
+      return dist(other.x,other.y,clampX,clampY)<other.size/2;
   }
   boolean containsPoint(float a, float b) {
     return inRange(a, x-size/2, x+size/2)&&inRange(b, y-size/2, y+size/2);

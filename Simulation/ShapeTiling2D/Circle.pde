@@ -8,7 +8,7 @@ class Circle extends Shape {
     return inRange(x-size/2,0,width)&&inRange(x+size/2,0,width)&&inRange(y-size/2,0,height)&&inRange(y+size/2,0,height);
   }
   boolean containsPoint(float a, float b) {
-    return true;//dummy method
+    return dist(x,y,a,b)<size/2;
   }
   Circle(float a, float b, float c) {
     super(a, b, c);
