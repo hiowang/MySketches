@@ -6,7 +6,11 @@ class Line {
   }
   void display() {
     stroke(0);
+    strokeWeight(10);
     line(a.x, a.y, b.x, b.y);
+    //fill(0);
+    //rect(a.x,a.y,5,5);
+    //rect(b.x,b.y,5,5);
   }
   ArrayList<Line>makeNew() {
     ArrayList<Line>list=new ArrayList<Line>();
@@ -20,11 +24,17 @@ class Line {
     return list;
   }
 }
-float f=0.5;
+float f;
 ArrayList<Line>lines=new ArrayList<Line>();
 void setup() {
-  size(500, 500);
-  float m=150;
+  //size(500, 500);
+  fullScreen();
+  initLines();
+}
+void initLines(){
+  float m=400;
+  f=0.5;
+  lines.clear();
   lines.add(new Line(m, m, width-m, m));
   lines.add(new Line(m, m, m, height-m));
   lines.add(new Line(m, height-m, width-m, height-m));
@@ -37,12 +47,17 @@ void draw() {
   }
 }
 void iterate() {
+  f=0.2;
   ArrayList<Line>newLines=new ArrayList<Line>();
-  for (Line l : lines)newLines.addAll(l.makeNew());
+  for (Line l : lines){
+    if(random(100)<101)newLines.addAll(l.makeNew());
+    else newLines.add(l);
+  }
   lines.clear();
   lines.addAll(newLines);
-  f*=0.9;
+  //f*=0.9;
 }
 void keyPressed() {
   if(key==' ')iterate();
+  if(key=='f')initLines();
 }
