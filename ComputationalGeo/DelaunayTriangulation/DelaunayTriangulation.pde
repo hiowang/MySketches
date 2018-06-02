@@ -65,9 +65,9 @@ void addPoint(PVector p) {
   calculated=false;
 }
 boolean drawDelaunay=false;
-boolean drawCircum=false;
+boolean drawCircum=true;
 boolean drawColoredCells=true;
-boolean drawVoronoi=true;
+boolean drawVoronoi=false;
 boolean drawPoints=true;
 color[][]vorCols;
 color invCol(color c) {
