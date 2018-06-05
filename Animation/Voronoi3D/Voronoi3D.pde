@@ -9,10 +9,11 @@ void setup() {
 
 float z=0;
 float shortestDist,d;
-float s=4;
+float s=3;
+//PShaders
 void draw() {
   background(0);
-  z+=10;
+  z+=2;
   for(int x=0;x<width/s;x++){
     for(int y=0;y<height/s;y++){
       PVector cur = new PVector(x*s,y*s,z);
