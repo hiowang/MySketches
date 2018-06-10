@@ -19,7 +19,7 @@ void setup(){
   population.addRandPopulation();
   obstCenter=new PVector(width/2,height/2);
   obstRad=50;
-  finalCenter=new PVector(width/2-150,100);
+  finalCenter=new PVector(width/2-50,100);
   finalRad=50;
 }
 void draw(){
