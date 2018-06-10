@@ -77,7 +77,7 @@ class Rect {
 }
 PImage img;
 void settings() {
-  imgName="3-Cosmos/Cosmos09";
+  imgName="apple2";
   extension="jpg";
   img=loadImage(imgName+"."+extension);
   size(1024, 1024);
