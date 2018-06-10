@@ -3,7 +3,7 @@ ArrayList<Integer>cols;
 PImage img;
 void settings() {
   float f=1;
-  size(int(1008*f), int(756*f));
+  size(int(1008*f), int(756*f),P3D);
 }
 boolean saveImgs=false;
 void setup() {
@@ -16,10 +16,10 @@ void setup() {
   img=loadImage("Zoe2.jpg");
   println("Loaded image");
   float m=150;
-  //addPoint(-m,-m);
-  //addPoint(-m,height+m);
-  //addPoint(width+m,-m);
-  //addPoint(width+m,height+m);
+  addPoint(-m,-m);
+  addPoint(-m,height+m);
+  addPoint(width+m,-m);
+  addPoint(width+m,height+m);
   //for(int i=0;i<2000;i++)addPoint(random(width),random(height));
   println("Added points");
   tris=triangulate(points);
@@ -36,6 +36,7 @@ void mousePressed() {
   //if(frameCount%5!=0)return;
   //points.add(new PVector(mouseX, mouseY));
   addPoint(mouseX, mouseY);
+  //for(int i=0;i<100;i++)addPoint(random(width),random(height));
   tris=triangulate(points);
   drawn=false;
   //delaunayPoint(points.get(points.size()-1));
