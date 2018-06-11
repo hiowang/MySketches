@@ -23,15 +23,30 @@ class Population{
   }
   void display(){
     for(Thing t:things)t.display();
-    best().displayAsBest();
+    Thing best=best();
+    best.displayAsBest();
     fill(255);
     stroke(255);
-    String str="Time: "+time+"\nPercentage hit:"+nf(percHit(),3,2)+"%\nPercentage loss: "+nf(percLoss(),3,2)+"%\nGen #: "+genNum;
-    rect(0,0,textWidth(str)+2,40+2);
+    String str="Time: "+time+"\nPercentage hit:"+nf(percHit(),3,2)+"%\nPercentage loss: "+nf(percLoss(),3,2)+"%\nGen #: "+genNum+"\nFramerate: "+nf(frameRate,2,3);
+    rect(0,0,textWidth(str)+2,50+2);
     fill(0);
     noStroke();
     textAlign(LEFT,TOP);
     text(str,2,2);
+    
+    for(int x=0;x<width;x+=30){
+      for(int y=0;y<height;y+=30){
+        Thing t=best.makeNew();
+        t.x=x;
+        t.y=y;
+        int i=0;
+        while(!t.good&&!t.dead&&i<200){
+          i++;
+          t.update();
+        }
+        t.drawPath();
+      }
+    }
   }
   Thing best(){
     Thing min=things.get(0);

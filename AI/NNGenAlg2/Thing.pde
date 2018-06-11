@@ -13,9 +13,9 @@ class Thing {
     vx=random(-velOff, velOff);
     vy=random(-velOff, velOff);
     int numInputs=5;
-    int numLayers=1;
-    int numHidden=20;
-    int numOutput=2;
+    int numLayers=5;
+    int numHidden=5;
+    int numOutput=2;//neural network art
     net=new Network(numInputs, numLayers, numHidden, numOutput);
   }
   float hitGoodTime=-1;
@@ -40,7 +40,7 @@ class Thing {
     for (PVector p : points) {
       vertex(p.x,p.y);
     }
-    endShape(CLOSE);
+    endShape();
   }
   void displayAsBest() {
     fill(255, 0, 0);

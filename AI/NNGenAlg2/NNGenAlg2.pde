@@ -4,11 +4,11 @@ PVector finalCenter;
 float finalRad;
 int genNum=0;
 
-int THINGS_PER_GEN=100;
+int THINGS_PER_GEN=500;
 int TIME_PER_GEN=5000;
 int UPDATES_PER_FRAME=1;
-float NEURON_WEIGHTS_VARY=0.1;
-float NEURON_OFFSET_VARY=0.1;
+float NEURON_WEIGHTS_VARY=0.05;
+float NEURON_OFFSET_VARY=0.05;
 float POPULATION_PASS_MARGIN=10.0;
 //take best thing and draw flow field of options for all positions on grid
 //ArrayList of obstacles
@@ -22,10 +22,10 @@ void setup(){
   //obstCenter=new PVector(width/2,height/2);
   //obstRad=50;
   obstacles=new ArrayList<Obstacle>();
-  obstacles.add(new Obstacle(width/2,height/2,20));
-  obstacles.add(new Obstacle(width/2-75,height/2-10,20));
-  finalCenter=new PVector(width/2-50,100);
-  finalRad=50;
+  obstacles.add(new Obstacle(width/2+30,height/2,30));
+  obstacles.add(new Obstacle(width/2-50,height/2,30));
+  finalCenter=new PVector(width/2,50);
+  finalRad=100;
 }
 void draw(){
   background(255);
