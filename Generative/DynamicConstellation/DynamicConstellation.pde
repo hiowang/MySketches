@@ -98,10 +98,12 @@ float the_dist(float a1, float a2, float b1, float b2) {
 }
 
 void draw() {
-  //background(0);
+  background(0,20);
   //if (frameCount%60==0) {
   //blend(
   //}
+  mode=1;
+  extras=true;
   surface.setTitle("DynamicConstellation: frameRate="+nf(frameRate, 2, 3));
   for (Thing t : things) {
     if (mode==0)t.update(true);

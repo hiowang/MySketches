@@ -1,3 +1,7 @@
+float VIEW_FORWARD=200;
+float VIEW_LEFT=200;
+float VIEW_RIGHT=200;
+
 class Thing {
   Network net;
   float x, y, vx, vy;
@@ -25,20 +29,23 @@ class Thing {
     fill(255);
     stroke(0);
     if (good)fill(200, 255, 200);
+    if (obstacleForward()!=0.0)fill(0, 0, 255);
     ellipse(x, y, size*2, size*2);
+    stroke(0,20);
+    line(x, y, x+vx*20, y+vy*20);
   }
-  void displayAsOK(){
+  void displayAsOK() {
     fill(255, 200, 200);
     stroke(0);
     ellipse(x, y, size*2, size*2);
     drawPath();
   }
-  void drawPath(){
+  void drawPath() {
     noFill();
-    stroke(0,20);
+    stroke(0, 20);
     beginShape();
     for (PVector p : points) {
-      vertex(p.x,p.y);
+      vertex(p.x, p.y);
     }
     endShape();
   }
@@ -61,15 +68,53 @@ class Thing {
     //t.size=size;
     return t;
   }
-  PVector getVel(float theX,float theY,float theVX,float theVY){
-    float[]ins=new float[]{map(theX, 0, width, -1, 1), map(theY, 0, height, -1, 1), theVX, theVY, 
-      //map(finalCenter.x,0,width,-1,1),map(finalCenter.y,0,height,-1,1),
-      1.0};
+  PVector getVel() {
+    float[]ins=new float[]{ finishLeft(), finishRight(), obstacleForward(), finishForward(), 1.0};
     net.calc(ins);
     float[]outs=net.getOutputs();
     return new PVector(outs[0], outs[1]);
   }
   float dist;
+
+  float obstacleForward() {
+    PVector pos=new PVector(x, y);
+    for (int i=0; i<VIEW_FORWARD; i++) {
+      pos.x+=vx;
+      pos.y+=vy;
+      for (Obstacle o : obstacles)if (dist(pos.x, pos.y, o.x, o.y)<o.r+size)return 1.0;
+    }
+    return 0.0;
+  }
+  float finishLeft(){
+    PVector pos=new PVector(x,y);
+    PVector dir=new PVector(vx,vy).rotate(radians(90));
+    for(int i=0;i<VIEW_LEFT;i++){
+      pos.x+=dir.x;
+      pos.y+=dir.y;
+      if(dist(pos.x,pos.y,finalCenter.x,finalCenter.y)<finalRad+size)return 1.0;
+    }
+    return 0.0;
+  }
+  float finishRight(){
+    PVector pos=new PVector(x,y);
+    PVector dir=new PVector(vx,vy).rotate(radians(-90));
+    for(int i=0;i<VIEW_RIGHT;i++){
+      pos.x+=dir.x;
+      pos.y+=dir.y;
+      if(dist(pos.x,pos.y,finalCenter.x,finalCenter.y)<finalRad+size)return 1.0;
+    }
+    return 0.0;
+  }
+  float finishForward() {
+    PVector pos=new PVector(x, y);
+    for (int i=0; i<VIEW_FORWARD; i++) {
+      pos.x+=vx;
+      pos.y+=vy;
+      if (dist(pos.x, pos.y, finalCenter.x, finalCenter.y)<finalRad+size)return 1.0;
+    }
+    return 0.0;
+  }
+
   void update() {
     if (dead)return;
     if (good)return;
@@ -78,7 +123,7 @@ class Thing {
       hitGoodTime=population.time;
       good=true;
     }
-    PVector acc=getVel(x,y,vx,vy);
+    PVector acc=getVel();
     acc.setMag(3);
     vx=acc.x;
     vy=acc.y;
@@ -90,6 +135,6 @@ class Thing {
     y+=vy;
     if (x<0||y<0||x>width||y>height)dead=true;
     //if (dist(x, y, obstCenter.x, obstCenter.y)<obstRad+size)dead=true;
-    for(Obstacle o:obstacles)if(dist(x,y,o.x,o.y)<o.r+size)dead=true;
+    for (Obstacle o : obstacles)if (dist(x, y, o.x, o.y)<o.r+size)dead=true;
   }
 }

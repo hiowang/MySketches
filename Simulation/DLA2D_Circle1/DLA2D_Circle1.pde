@@ -6,7 +6,7 @@ void setup(){
   stuck.add(new PVector(width/2,height/2));
   //stuck.add(new PVector(width/2,0));
 }
-float rad=2;
+float rad=5;
 float fract(float f){
   float fract= f-floor(f);
   return cos(TWO_PI*fract)/2+0.5;

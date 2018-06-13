@@ -33,22 +33,6 @@ class Population {
     noStroke();
     textAlign(LEFT, TOP);
     text(str, 2, 2);
-    if (true) {
-    //if(false){
-      for (int x=0; x<width; x+=30) {
-        for (int y=0; y<height; y+=30) {
-          Thing t=best.makeNew();
-          t.x=x;
-          t.y=y;
-          int i=0;
-          while (!t.good&&!t.dead&&i<200) {
-            i++;
-            t.update();
-          }
-          t.drawPath();
-        }
-      }
-    }
   }
   Thing best() {
     Thing min=things.get(0);
@@ -61,7 +45,7 @@ class Population {
     }
     return min;
   }
-  Population makeNew() {
+  Population makeNew() {//probability of reproduction, not guaranteed reproduction
     genNum++;
     Population p=new Population();
     p.init();
