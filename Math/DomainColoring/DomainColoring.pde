@@ -1,4 +1,4 @@
-float dens=1;
+float dens=4;
 int pixelDens=2;
 void setup() {
   float range=4;
