@@ -86,7 +86,7 @@ void mousePressed() {
 }
 void draw() {
   if(doIt){
-    addLines(10);
+    addLines(1);
     reevalLines();
     //normalizeValues();
   }

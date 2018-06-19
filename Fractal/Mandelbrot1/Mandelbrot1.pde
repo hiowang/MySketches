@@ -3,7 +3,7 @@ void setup() {
   pixelDensity(2);
   textFont(loadFont("Monospaced-20.vlw"));
 }
-float density=5;
+float density=1;
 float offx=0;
 float offy=0;
 float scale=1;
@@ -53,7 +53,7 @@ void draw() {
 
       int numIters=0;
 
-      while (numIters<30&&a*a+b*b<4) {
+      while (numIters<30&&calcMag((float)a,(float)b)<4) {
         double na=a*a-b*b;
         double nb=2*a*b;
         a=na;
@@ -87,4 +87,8 @@ void draw() {
 boolean doHSB=true;
 void keyPressed() {
   if (key=='h')doHSB=!doHSB;
+}
+float calcMag(float a,float b){
+  //return abs(a)+abs(b);
+  return sqrt(a*a+b*b);
 }
