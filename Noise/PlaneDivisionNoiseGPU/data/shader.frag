@@ -16,10 +16,6 @@ uniform float cy;
 uniform float diff;
 uniform float maxDist;
 
-vec4 live = vec4(0.5,1.0,0.7,1.);
-vec4 dead = vec4(0.,0.,0.,1.);
-vec4 blue = vec4(0.,0.,1.,1.);
-
 void main( void ) {
     vec2 position = ( gl_FragCoord.xy / resolution.xy );
     vec2 pixel = 1./resolution;

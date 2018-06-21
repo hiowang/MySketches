@@ -1,5 +1,6 @@
 void setup() {
   size(500, 500);
+  pixelDensity(2);
 }
 void draw() {
   background(100);

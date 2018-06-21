@@ -15,10 +15,10 @@ void initParams(float _1, float _2, float _3, float _4, float _5) {
 void setup() {
   //size(100, 100);
   //size(200, 200);
-  //size(300, 300);
+  size(300, 300);
   //size(400,400);
   //size(500,500);
-  size(1000,1000);
+  //size(1000,1000);
   //pixelDensity(2);
   initParams(1.0, 0.5, 0.055, 0.062, 1.0);
   //initParams(1.0,0.5,0.0367,0.0649,1.0);

@@ -38,23 +38,26 @@ float rand(float min, float max, float times) {
 ArrayList<Sphere>spheres;
 void setup() {
   size(1000, 1000, P3D);
+  initSpheres();
+}
+void initSpheres(){
+  int n=3;
   spheres=new ArrayList<Sphere>();
-  for (int i=0; i<15; i++) {
-    spheres.add(new Sphere(30, rand(0.05, 0.07, 20)));
+  for (int i=0; i<n; i++) {
+    spheres.add(new Sphere(400/n, rand(0.001, 0.1, 100)));
   }
-  //spheres.add(new Sphere(150,0.01,0.07));
-  //spheres.add(new Sphere(150,0.01,0.03));
-  //spheres.add(new Sphere(150,0.01,0.02));
-  //spheres.add(new Sphere(150,0.01,0.01));
   points=new ArrayList<PVector>();
+}
+void mousePressed(){
+  initSpheres();
 }
 ArrayList<PVector>points;
 void draw() {
-  background(255);
-  camera(500, -500, 500, 0, 0, 0, 0, 1, 0);
+  background(0);
+  camera(500, -300, 500, 0, 0, 0, 0, 1, 0);
   rotateY(frameCount*0.01);
-  pointLight(255, 255, 255, 500, -500, 500);
-  for (int i=0; i<50; i++) {
+  //pointLight(255, 255, 255, 500, -500, 500);
+  for (int i=0; i<250; i++) {
     float x=0;
     float y=0;
     float z=0;
@@ -67,9 +70,10 @@ void draw() {
       z=p.z;
     }
     points.add(new PVector(x, y, z));
-  }
-  stroke(0,30);
-  strokeWeight(1);
+  }//color HSB by distance between previous point
+  pointLight(255,255,255,500,-300,500);
+  stroke(255,50);
+  //strokeWeight(1);
   noFill();
   beginShape();
   for (PVector p : points) {

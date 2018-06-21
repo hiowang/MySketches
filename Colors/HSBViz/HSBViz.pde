@@ -2,7 +2,7 @@ void setup() {
   size(1000, 720);
 }
 float theX=0;
-float dx=4;
+float dx=5;
 float diff=5;
 float angDiff=radians(360/200);
 void draw() {
