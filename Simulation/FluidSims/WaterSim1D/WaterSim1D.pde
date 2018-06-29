@@ -38,9 +38,9 @@ void update(){
     newV[x]=v[x];
   }
   for(int x=0;x<width;x+=1){
-    newV[x]+=((getU(x-1)+getU(x+1))/2-getU(x));
-    newV[x]*=0.99;
-    newU[x]+=newV[x];
+    newV[x]+=(getU(x-1)+getU(x)+getU(x+1))/3-getU(x);
+    newV[x]*=0.98;
+    newU[x]+=newV[x]*2.1;
   }
   for(int x=0;x<width;x++){
     u[x]=newU[x];
