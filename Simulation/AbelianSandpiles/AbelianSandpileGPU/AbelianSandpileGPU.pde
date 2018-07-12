@@ -3,31 +3,28 @@ PShader shader;
 PGraphics pg;
 
 void setup() {
-  size(500, 500, P3D);    
+  size(400, 400, P3D);    
   pg = createGraphics(width, height, P2D);
   pg.noSmooth();
+  noSmooth();
   shader = loadShader("shader.frag");
-  background(255,0,0);
 }
 
 void draw() {
-  shader.set("resolution", width, height);
+  shader.set("resolution", pg.width, pg.height);
   shader.set("mouse", 1.0*mouseX/width, 1-1.0*mouseY/height);
-  shader.set("frameCount",frameCount);
-  for (int i=0; i<1; i++) {
+  shader.set("center", 0.5, 0.5);
+  shader.set("frameCount", frameCount);
+  for (int i=0; i<(frameCount%1==0?10:0); i++) {
     pg.beginDraw();
     pg.background(0);
     pg.shader(shader);
     pg.rect(0, 0, pg.width, pg.height);
     pg.resetShader();
-    
-    if(mousePressed){
-      pg.fill(0,255,0);
-      pg.noStroke();
-      pg.ellipse(mouseX-5,mouseY-5,10,10);
-    }
 
-    pg.endDraw();  
+    pg.set(pg.width/2,pg.height/2,color(255));
+
+    pg.endDraw();
     image(pg, 0, 0, width, height);
   }
 }

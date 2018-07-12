@@ -124,5 +124,5 @@ void draw(){
   text("Number of months: "+(days.length/30),0,10);
   text("Number of years: "+(days.length/365),0,20);
   text("Number of walks: "+numWalks,0,40);
-  text("Average walks per day: "+nf(1.0*numWalks/days.length,1,2),0,60);
+  text("Average walks per day: "+nf(1.0*numWalks/days.length,1,5),0,60);
 }

@@ -15,9 +15,9 @@ float[][]angs;
 void draw() {
   background(0);
   image(img, 0, 0, width, height);
-  float sampleRad=10;
   for (int x=0; x<width; x++) {
     for (int y=0; y<height; y++) {
+      float sampleRad=random(10,20);
       float ang=random(TWO_PI);
       float dx=cos(ang)*sampleRad;
       float dy=sin(ang)*sampleRad;

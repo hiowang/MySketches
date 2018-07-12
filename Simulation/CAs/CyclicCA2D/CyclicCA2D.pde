@@ -14,7 +14,7 @@ void setup() {
     }
   }
 }
-int numTypes=18;
+int numTypes=15;
 void draw() {
   background(255);
   for (int x=0; x<gridSize; x++) {

@@ -1,11 +1,11 @@
 final PVector G=new PVector(0.f, 12000*9.8f); // external (gravitational) forces
 final float REST_DENS = 1000.f; // rest density
 final float GAS_CONST = 2000.f; // const for equation of state
-final float H = 16.f; // kernel radius
+final float H = 20.f; // kernel radius
 final float HSQ = H*H; // radius^2 for optimization
 final float MASS = 65.f; // assume all particles have the same mass
 final float VISC = 250.f; // viscosity constant
-final float DT = 0.0001f; // integration timestep
+final float DT = 0.0005f; // integration timestep
 
 // smoothing kernels defined in Müller and their gradients
 final float POLY6 = 315.f/(65.f*PI*pow(H, 9.f));

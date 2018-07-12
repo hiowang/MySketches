@@ -15,7 +15,7 @@ void draw(){
   for(Particle p:particles){
     //fill(p.p*100);
     noStroke();
-    ellipse(p.x.x,p.x.y,5,5);
+    ellipse(p.x.x,p.x.y,H,H);
   }
   for(int i=0;i<300;i++)stepSim();
 }

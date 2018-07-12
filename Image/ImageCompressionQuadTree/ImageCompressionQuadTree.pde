@@ -77,10 +77,12 @@ class Rect {
 }
 PImage img;
 void settings() {
-  imgName="apple2";
-  extension="jpg";
+  //apple
+  imgName="circle/normal";
+  extension="png";
   img=loadImage(imgName+"."+extension);
   size(1024, 1024);
+  //size(300,300);
 }
 String imgName, extension;
 
@@ -90,7 +92,7 @@ void setup() {
   rects.add(new Rect(0, 0, width, height));
 }
 float errThreshold=10;
-float areaThreshold=8*8;
+float areaThreshold=sq(8);
 void keyPressed() {
   if (key=='s')doStroke=!doStroke;
   if (key=='r')doRect=!doRect;
@@ -118,7 +120,7 @@ void mousePressed() {
   //errThreshold-=1000;
   //start=System.currentTimeMillis();
   //int n=20;
-  for (int i=0; i<10; i++)iterate();
+  for (int i=0; i<100; i++)iterate();
   //end=System.currentTimeMillis();
 }
 float iterate() {
@@ -157,19 +159,19 @@ float bdiff(color a, color b) {
 ArrayList<Rect>rects=new ArrayList<Rect>();
 int num=0;
 void draw() {
-  if (doIterate)iterate();
+  if (doIterate)for(int i=0;i<10;i++)iterate();
   //if (iterate()>errThreshold)for (int i=0; i<2; i++)iterate();
   background(255);
   for (Rect r : rects)r.display();
-  for (Rect r : rects) {
-    if (r.x<mouseX&&r.x+r.w>mouseX) {
-      if (r.y<mouseY&&r.y+r.h>mouseY) {
-        println(r.error());
-        stroke(0);
-        noFill();
-        rect(r.x, r.y, r.w, r.h);
-      }
-    }
-  }
+  //for (Rect r : rects) {
+  //  if (r.x<mouseX&&r.x+r.w>mouseX) {
+  //    if (r.y<mouseY&&r.y+r.h>mouseY) {
+  //      println(r.error());
+  //      stroke(0);
+  //      noFill();
+  //      rect(r.x, r.y, r.w, r.h);
+  //    }
+  //  }
+  //}
   surface.setTitle("ImageCompressionQuadTree, frame rate="+nf(frameRate, 2, 3)+", frame count="+frameCount+", number rects="+rects.size()+", err left: "+nf(lastErrDiff, 13, 0));
 }
