@@ -11,7 +11,7 @@ int randType() {
   return int(random(numTypes))+1;
 }
 color[]cols;
-int numTypes=8;
+int numTypes=5;
 Cell[][]grid;
 int cellSize;
 int gridSize;
