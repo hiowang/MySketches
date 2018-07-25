@@ -6,7 +6,7 @@ Day[] days;
 float max;
 String[]strs;
 void setup(){
-  size(600,500);
+  size(1000,500);
   textFont(loadFont("Monospaced-20.vlw"));
   strs=loadStrings("../../../../MyLogs/DogWalking.txt");
   //String[]strs=loadStrings("~/Documents/MyLogs/DogWalking.txt");

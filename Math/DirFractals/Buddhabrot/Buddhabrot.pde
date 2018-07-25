@@ -57,7 +57,7 @@ void keyPressed() {
 boolean d=false;
 
 void setup() {
-  size(1000, 1000);
+  size(400, 400);
   rr=new Renderer(width, height, 800);
   rg=new Renderer(width, height, 200);
   rb=new Renderer(width, height, 50);
@@ -66,9 +66,9 @@ float rmul=0.0;
 float gmul=0.0;
 float bmul=0.0;
 void draw() {
-  surface.setTitle("Buddhabrot, FPS="+nf(frameRate, 2, 3));
+  surface.setTitle("Buddhabrot, SPF="+nf(1.0/frameRate, 1, 5)+", FPS="+nf(frameRate,2,3));
 
-  for (int num=0; num<50000&&doIt; num++) {
+  for (int num=0; num<100000&&doIt; num++) {
     rr.placePoint();
     rg.placePoint();
     rb.placePoint();
@@ -97,6 +97,11 @@ void draw() {
     rmul=0.1/20;
     gmul=0.15/20;
     bmul=0.15/20;
+  }
+  if(key=='6'){
+    rmul=0.1;
+    gmul=0.15;
+    bmul=0.15;
   }
   if (d) {
     for (int x=0; x<width; x++) {
