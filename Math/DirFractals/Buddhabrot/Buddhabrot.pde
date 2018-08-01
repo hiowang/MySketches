@@ -57,7 +57,7 @@ void keyPressed() {
 boolean d=false;
 
 void setup() {
-  size(400, 400);
+  size(1000, 1000);
   rr=new Renderer(width, height, 800);
   rg=new Renderer(width, height, 200);
   rb=new Renderer(width, height, 50);
@@ -94,9 +94,9 @@ void draw() {
     rmul=gmul=bmul=0.1;
   }
   if(key=='5'){
-    rmul=0.1/20;
-    gmul=0.15/20;
-    bmul=0.15/20;
+    rmul=0.1/50;
+    gmul=0.15/50;
+    bmul=0.15/50;
   }
   if(key=='6'){
     rmul=0.1;
@@ -110,6 +110,6 @@ void draw() {
       }
     }
   }else{
-    background(255);
+    background(0);
   }
 }

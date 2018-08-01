@@ -23,7 +23,7 @@ color getCol(int x, int y) {
   float a=1.0;
   Complex c=xy(map(x, 0, width, -2, 2), map(y, 0, height, -2, 2));
   int iters=0;
-  int maxIters=20;
+  int maxIters=50;
   while (iters<maxIters) {
     iters++;
     c=c.c_add( (func(c).c_div(deriv(c))).c_mult(-a));
@@ -33,7 +33,7 @@ color getCol(int x, int y) {
       if (diff.r<tolerance) {
         color col=cols[i];
         colorMode(HSB, 100);
-        col=color(hue(col), saturation(col), map(iters, 0, maxIters, 0, 100));
+        col=color(hue(col), saturation(col), map(iters, 0, maxIters/3, 0, 100));
         colorMode(RGB, 255);
         return col;
       }
