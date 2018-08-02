@@ -13,9 +13,10 @@ void setup() {
     for (int y=0; y<gridH; y++) {
       grid[x][y]=0;
       //float ang=map(cos(x*0.05)+sin(y*0.05), -2, 2, 0, TWO_PI);
-      float ang=TWO_PI*noise(x*0.03,y*0.03);
+      float ang=TWO_PI*noise(x*0.03, y*0.03);
       vx[x][y]=cos(ang);
       vy[x][y]=sin(ang);
+
       //float m=sqrt(vx[x][y]*vx[x][y]+vy[x][y]*vy[x][y]);
       //vx[x][y]/=m;
       //vy[x][y]/=m;
@@ -91,7 +92,7 @@ void advect() {
       float t1=y-j0;
       float t0=1-t1;
       newgrid[i][j]=s0*(t0*grid[i0][j0]+t1*grid[i0][j1])+
-                    s1*(t0*grid[i1][j0]+t1*grid[i1][j1]);
+        s1*(t0*grid[i1][j0]+t1*grid[i1][j1]);
     }
   }
   for (int x=0; x<grid.length; x++)for (int y=0; y<grid[x].length; y++)grid[x][y]=newgrid[x][y];

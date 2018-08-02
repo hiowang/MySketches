@@ -1,8 +1,8 @@
 boolean[][]collMap;
 int gridW=28;
 int gridH=31;
-boolean[][]junctions;
 boolean[][]dots;
+boolean[][]powerPellets;
 boolean getCollision(int x, int y) {
   if (x<0||y<0||x>=gridW||y>=gridH)return true;
   return collMap[x][y];
@@ -15,15 +15,21 @@ void settings() {
 void setup() {
   collMap=new boolean[gridW][gridH];
   dots=new boolean[gridW][gridH];
-  junctions=new boolean[gridW][gridH];
+  powerPellets=new boolean[gridW][gridH];
   for (int x=0; x<gridW; x++) {
     for (int y=0; y<gridH; y++) {
       collMap[x][y]=false;
       if (x==0||y==0||x==gridW-1||y==gridH-1)collMap[x][y]=true;
-      junctions[x][y]=false;
       dots[x][y]=false;
+      powerPellets[x][y]=false;
     }
   }
+  load(lvlName);
+}
+void load(String lvl){
+  lvlName=lvl;
+  loadCollDotsMap();
+  loadEntityMap();
 }
 void draw() {
   background(0);
@@ -34,8 +40,8 @@ void draw() {
   rect(pX*cellSize, pY*cellSize, cellSize, cellSize);
   debugCollision();
   debugGrid();
-  debugJunctions();
   displayDots();
+  displayPowerPellets();
 }
 void displayDots() {
   noStroke();
@@ -48,20 +54,20 @@ void displayDots() {
     }
   }
 }
-void debugJunctions() {
+void displayPowerPellets() {
+  noStroke();
+  ellipseMode(CORNER);
+  fill(255);
   for (int x=0; x<gridW; x++) {
     for (int y=0; y<gridH; y++) {
-      if (!junctions[x][y])continue;
-      fill(255, 50);
-      noStroke();
-      rect(x*cellSize, y*cellSize, cellSize, cellSize);
+      int dotSize=15;
+      if (powerPellets[x][y])ellipse(x*cellSize+cellSize/2-dotSize/2, y*cellSize+cellSize/2-dotSize/2, dotSize, dotSize);
     }
   }
 }
-String lvlName="3";
+String lvlName="7";
 void saveFiles() {
   PrintWriter mapEntity=createWriter(lvlName+"-map-entity.txt");
-  PrintWriter mapJunctions=createWriter(lvlName+"-map-junctions.txt");
   PrintWriter mapCollisionDots=createWriter(lvlName+"-map-collision-dots.txt");
 
   for (int y=0; y<gridH; y++) {
@@ -70,23 +76,18 @@ void saveFiles() {
       else if(gX==x&&gY==y)mapEntity.print("G");
       else mapEntity.print(" ");
       
-      if(junctions[x][y])mapJunctions.print("J");
-      else mapJunctions.print(" ");
-      
       if(collMap[x][y])mapCollisionDots.print("#");
+      else if(powerPellets[x][y])mapCollisionDots.print("P");
       else if(dots[x][y])mapCollisionDots.print(".");
       else mapCollisionDots.print(" ");
     }
     mapEntity.println();
-    mapJunctions.println();
     mapCollisionDots.println();
   }
 
   mapEntity.flush();
-  mapJunctions.flush();
   mapCollisionDots.flush();
   mapEntity.close();
-  mapJunctions.close();
   mapCollisionDots.close();
 }
 int pressX, pressY;
@@ -105,7 +106,6 @@ void mousePressed() {
   if (mx<0||my<0||mx>=gridW||my>=gridH)return;
   if (key=='c')collMap[mx][my]=true;
   if (key=='e')collMap[mx][my]=false;
-  if (key=='j')junctions[mx][my]=!junctions[mx][my];
 }
 void keyReleased() {
   println("keyReleased "+key);
@@ -119,6 +119,9 @@ void keyReleased() {
   if (key=='1') {
     pX=mx;
     pY=my;
+  }
+  if(key=='2'){
+    powerPellets[mx][my]=!powerPellets[mx][my];
   }
   if (key=='s') {
     saveFiles();
