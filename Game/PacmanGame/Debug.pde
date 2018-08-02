@@ -49,16 +49,6 @@ void debugGrid() {
     }
   }
 }
-void debugJunctions() {
-  for (int x=0; x<gridW; x++) {
-    for (int y=0; y<gridH; y++) {
-      if (!junctions[x][y])continue;
-      fill(255, 50);
-      noStroke();
-      rect(x*cellSize, y*cellSize, cellSize, cellSize);
-    }
-  }
-}
 void debugPath(color col, ArrayList<Node>path) {
   //if (path.size()==0)exit();
   stroke(col);

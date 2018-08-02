@@ -19,7 +19,4 @@ class Pinky extends Ghost {
   color getColor() {
     return #FF74F8;
   }
-  int getSpeed() {
-    return 2;
-  }
 }

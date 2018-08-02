@@ -2,19 +2,12 @@ void loadCollDotsMap(){
   String[] strs=loadStrings(levelName+"-map-collision-dots.txt");
   collMap=new boolean[gridW][gridH];
   dots=new boolean[gridW][gridH];
+  powerPellets=new boolean[gridW][gridH];
   for(int x=0;x<gridW;x++){
     for(int y=0;y<gridH;y++){
+      powerPellets[x][y]=(strs[y].charAt(x)=='P');
       collMap[x][y]=(strs[y].charAt(x)=='#');
       dots[x][y]=(strs[y].charAt(x)=='.');
-    }
-  }
-}
-void loadJunctionMap(){
-  String[] strs=loadStrings(levelName+"-map-junctions.txt");
-  junctions=new boolean[gridW][gridH];
-  for(int x=0;x<gridW;x++){
-    for(int y=0;y<gridH;y++){
-      junctions[x][y]=(strs[y].charAt(x)=='J');
     }
   }
 }
@@ -23,7 +16,18 @@ void loadEntityMap(){
   for(int x=0;x<gridW;x++){
     for(int y=0;y<gridH;y++){
       char c=strs[y].charAt(x);
-      if(c=='G'){pinky.gridX=blinky.gridX=inky.gridX=clyde.gridX=x;pinky.gridY=blinky.gridY=inky.gridY=clyde.gridY=y;}
+      if(c=='G'){
+        blinky.gridX=x;
+        blinky.gridY=y;
+        inky.gridX=x;
+        inky.gridY=y;
+        pinky.gridX=x;
+        pinky.gridY=y;
+        clyde.gridX=x;
+        clyde.gridY=y;
+        ghostX=x;
+        ghostY=y;
+      }
       if(c=='P'){player.gridX=x;player.gridY=y;}
     }
   }

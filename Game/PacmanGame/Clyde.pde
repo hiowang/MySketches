@@ -15,7 +15,4 @@ class Clyde extends Ghost {
   color getColor() {
     return #FFB700;
   }
-  int getSpeed() {
-    return 2;
-  }
 }

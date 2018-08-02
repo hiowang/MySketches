@@ -10,7 +10,4 @@ class Blinky extends Ghost {
   color getColor() {
     return color(255, 0, 0);
   }
-  int getSpeed() {
-    return 2;
-  }
 }

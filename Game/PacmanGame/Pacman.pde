@@ -34,6 +34,18 @@ class Pacman extends Entity{
     if(dots[gridX][gridY]){
       dots[gridX][gridY]=false;
     }
+    if(powerPellets[gridX][gridY]){
+      powerPellets[gridX][gridY]=false;
+      println("pacman ate a power pellet");
+      blinky.scare();
+      pinky.scare();
+      inky.scare();
+      clyde.scare();
+      blinky.flip();
+      inky.flip();
+      pinky.flip();
+      clyde.flip();
+    }
   }
   
 }

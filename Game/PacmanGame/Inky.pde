@@ -15,7 +15,4 @@ class Inky extends Ghost {
   color getColor() {
     return #36BAFF;
   }
-  int getSpeed() {
-    return 2;
-  }
 }

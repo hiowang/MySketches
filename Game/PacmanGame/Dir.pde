@@ -36,3 +36,10 @@ Dir rotateDir(Dir d){
   if(d==Dir.D)return Dir.L;
   return Dir.NONE;
 }
+Dir cycleDir(Dir d){
+  if(d==Dir.U)return Dir.L;
+  if(d==Dir.L)return Dir.D;
+  if(d==Dir.D)return Dir.R;
+  if(d==Dir.R)return Dir.U;
+  return Dir.NONE;
+}
